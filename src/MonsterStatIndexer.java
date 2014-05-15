@@ -88,7 +88,7 @@ public class MonsterStatIndexer {
 		{"stealthy40", "100"},
 		{"coldres15", "130"},
 		{"fireres15", "129"},
-//		{"poisonres15", ""},
+		{"poisonres15", "131"},
 //		{"misc2", ""},
 		};
 	
@@ -747,6 +747,13 @@ public class MonsterStatIndexer {
 								heat = true;
 							}
 							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional) + (heat?10:0));
+						} else if (pair[0].equals("poisonres15")) {
+							String additional = getAttr("C800", rowNumber-1);
+							boolean poisoncloud = false;
+							if (largeBitmap("undead")[rowNumber-2] || largeBitmap("inanimate")[rowNumber-2] || getAttr("6A00", rowNumber-1).length() > 0) {
+								poisoncloud = true;
+							}
+							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0));
 						} else {
 							cell.setCellValue(1);
 						}
@@ -773,6 +780,14 @@ public class MonsterStatIndexer {
 							String additional = getAttr("C600", rowNumber-1);
 							int coldres = Integer.parseInt(additional.equals("")?"0":additional) + (heat?10:0);
 							cell.setCellValue(coldres==0?"":Integer.toString(coldres));
+						} else if (pair[0].equals("poisonres15")) {
+							boolean poisoncloud = false;
+							if (largeBitmap("undead")[rowNumber-2] || largeBitmap("inanimate")[rowNumber-2] || getAttr("6A00", rowNumber-1).length() > 0) {
+								poisoncloud = true;
+							}
+							String additional = getAttr("C800", rowNumber-1);
+							int poisonres = Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0);
+							cell.setCellValue(poisonres==0?"":Integer.toString(poisonres));
 						} else if (pair[0].equals("stealthy40")
 								|| pair[0].equals("immobile")
 								|| pair[0].equals("teleport")

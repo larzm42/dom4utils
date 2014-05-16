@@ -18,19 +18,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class SiteStatIndexer {
-	interface Callback {
-		public String found(String value);
-		public String notFound();
-	}
-	
-	static class CallbackAdapter implements Callback {
-		public String found(String value) {
-			return value;
-		}
-		public String notFound() {
-			return "";
-		}
-	}
 	
 	private static XSSFWorkbook readFile(String filename) throws IOException {
 		return new XSSFWorkbook(new FileInputStream(filename));

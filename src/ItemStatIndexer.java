@@ -19,6 +19,82 @@ public class ItemStatIndexer {
 		return new XSSFWorkbook(new FileInputStream(filename));
 	}
 	
+	private static void doit(XSSFSheet sheet, String attr, int column) throws IOException {
+		doit(sheet, attr, column, null);
+	}
+	
+	private static void doit(XSSFSheet sheet, String attr, int column, Callback callback) throws IOException {
+		FileInputStream stream = new FileInputStream("Dominions4.exe");			
+		stream.skip(Starts.ITEM);
+		int rowNumber = 1;
+		int i = 0;
+		int k = 0;
+		int pos = -1;
+		long numFound = 0;
+		byte[] c = new byte[2];
+		stream.skip(120);
+		while ((stream.read(c, 0, 2)) != -1) {
+			String high = String.format("%02X", c[1]);
+			String low = String.format("%02X", c[0]);
+			int weapon = Integer.decode("0X" + high + low);
+			if (weapon == 0) {
+				boolean found = false;
+				int value = 0;
+				stream.skip(18l - numFound*2l);
+				// Values
+				for (int x = 0; x < numFound; x++) {
+					byte[] d = new byte[4];
+					stream.read(d, 0, 4);
+					String high1 = String.format("%02X", d[3]);
+					String low1 = String.format("%02X", d[2]);
+					high = String.format("%02X", d[1]);
+					low = String.format("%02X", d[0]);
+					if (x == pos) {
+						value = new BigInteger(high1 + low1 + high + low, 16).intValue();
+						//System.out.print(value);
+						found = true;
+					}
+					//stream.skip(2);
+				}
+				
+				//System.out.println("");
+				XSSFRow row = sheet.getRow(rowNumber);
+				rowNumber++;
+				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				if (found) {
+					if (callback == null) {
+						cell.setCellValue(value);
+					} else {
+						cell.setCellValue(callback.found(Integer.toString(value)));
+					}
+				} else {
+					if (callback == null) {
+						cell.setCellValue("");
+					} else {
+						cell.setCellValue(callback.notFound());
+					}
+				}
+				stream.skip(206l - 18l - numFound*4l);
+				numFound = 0;
+				pos = -1;
+				k = 0;
+				i++;
+			} else {
+				//System.out.print(low + high + " ");
+				if ((low + high).equals(attr)) {
+					pos = k;
+				}
+				k++;
+				numFound++;
+			}				
+			if (i > 380) {
+				break;
+			}
+		}
+		stream.close();
+
+	}
+	
 	public static void main(String[] args) {
 
 		FileInputStream stream = null;
@@ -328,508 +404,29 @@ public class ItemStatIndexer {
 //			in.close();
 //			stream.close();
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// Fireres
-			i = 0;
-			int k = 0;
-			int pos = -1;
-			long numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();
-							//System.out.print(value);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(11, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("C600")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "C600", 11);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// Coldres
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(12, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("C900")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "C900", 12);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// Poisonres
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(13, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("C800")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "C800", 13);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// Shockres
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(10, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("C700")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "C700", 10);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// Leadership
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(61, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("9D00")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "9D00", 61);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// str
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(28, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("9700")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "9700", 28);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// fixforge
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(18, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("C501")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "C501", 18);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// undead leadership
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(62, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("9F00")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "9F00", 62);
 
 //			stream = new FileInputStream("Dominions4.exe");			
 //			stream.skip(Starts.ITEM);
@@ -894,257 +491,17 @@ public class ItemStatIndexer {
 //			}
 //			stream.close();
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// morale
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(27, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("3401")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "3401", 27);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// penetration
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(36, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("A100")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "A100", 36);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// pillage
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(113, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("8300")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "8300", 113);
 
-			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.ITEM);
-			rowNumber = 1;
 			// fear
-			i = 0;
-			k = 0;
-			pos = -1;
-			numFound = 0;
-			c = new byte[2];
-			stream.skip(120);
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int weapon = Integer.decode("0X" + high + low);
-				if (weapon == 0) {
-					boolean found = false;
-					int value = 0;
-					stream.skip(18l - numFound*2l);
-					// Values
-					for (int x = 0; x < numFound; x++) {
-						byte[] d = new byte[4];
-						stream.read(d, 0, 4);
-						String high1 = String.format("%02X", d[3]);
-						String low1 = String.format("%02X", d[2]);
-						high = String.format("%02X", d[1]);
-						low = String.format("%02X", d[0]);
-						//System.out.print(low + high + " ");
-						if (x == pos) {
-							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-							//System.out.print(fire);
-							found = true;
-						}
-						//stream.skip(2);
-					}
-					
-					//System.out.println("");
-					XSSFRow row = sheet.getRow(rowNumber);
-					rowNumber++;
-					XSSFCell cell = row.getCell(66, Row.CREATE_NULL_AS_BLANK);
-					if (found) {
-						cell.setCellValue(value);
-					} else {
-						cell.setCellValue("");
-					}
-					stream.skip(206l - 18l - numFound*4l);
-					numFound = 0;
-					pos = -1;
-					k = 0;
-					i++;
-				} else {
-					//System.out.print(low + high + " ");
-					if ((low + high).equals("B700")) {
-						pos = k;
-					}
-					k++;
-					numFound++;
-				}				
-				if (i > 380) {
-					break;
-				}
-			}
-			stream.close();
+			doit(sheet, "B700", 66);
 
 			wb.write(fos);
 			fos.close();

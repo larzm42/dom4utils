@@ -40,18 +40,17 @@ public class MonsterStatIndexer {
 	private static int MASK[] = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080,
 			0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000, 0x8000};
 	
-	//private static String DOTHIS = "coldres15";
 	private static String value1[] = {"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" };
 	private static String value2[] = {"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "sacred", "mountainsurvival", "illusion", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" };
 	private static String value3[] = {"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "", "teleport", "", "", "", "", "", "", "", "", "" };
-	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	//private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value5[] = {"magicbeing", "", "mindless1?", "mindless2?", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value6[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	//private static String value6[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	//private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	//private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	
 	
-	private static String DOTHIS[][] = {
+	private static String DOTHESE[][] = {
 		{"heal", "108"}, 
 		{"mounted", "33"},
 		{"animal", "81"},
@@ -92,21 +91,7 @@ public class MonsterStatIndexer {
 //		{"misc2", ""},
 		};
 	
-	interface Callback {
-		public String found(String value);
-		public String notFound();
-	}
-	
-	static class CallbackAdapter implements Callback {
-		public String found(String value) {
-			return value;
-		}
-		public String notFound() {
-			return "";
-		}
-	}
-	
-	public static class Magic {
+	private static class Magic {
 		public int F;
 		public int A;
 		public int W;
@@ -119,14 +104,14 @@ public class MonsterStatIndexer {
 		public List<RandomMagic> rand;
 	}
 	
-	public static class RandomMagic {
+	private static class RandomMagic {
 		public int rand;
 		public int nbr;
 		public int link;
 		public int mask;
 	}
 	
-	public static Map<Integer, Magic> monsterMagic = new HashMap<Integer, Magic>();
+	private static Map<Integer, Magic> monsterMagic = new HashMap<Integer, Magic>();
 	
 //	private static String magout(int mag) {
 //		return (mag > 0 ? mag : "") + "\t";
@@ -139,6 +124,7 @@ public class MonsterStatIndexer {
 	private static void doit1(int skip, int column, XSSFSheet sheet) throws IOException {
 		doit1(skip, column, sheet, null);
 	}
+	
 	private static void doit1(int skip, int column, XSSFSheet sheet, Callback callback) throws IOException {
         FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
@@ -167,7 +153,7 @@ public class MonsterStatIndexer {
 		stream.close();
 	}
 	
-	public static boolean[] largeBitmap(String fieldName) throws IOException {
+	private static boolean[] largeBitmap(String fieldName) throws IOException {
 		boolean[] boolArray = largeBitmapCache.get(fieldName);
 		if (boolArray != null) {
 			return boolArray;
@@ -331,7 +317,7 @@ public class MonsterStatIndexer {
 		return boolArray;
 	}
 	
-	public static String getAttr(String key, int id) throws IOException {
+	private static String getAttr(String key, int id) throws IOException {
 		String attributeString = attrCache.get(new CacheKey(key, id));
 		if (attributeString != null) {
 			return attributeString;
@@ -339,8 +325,6 @@ public class MonsterStatIndexer {
 
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
-		//int rowNumber = 1;
-		// patience
 		int i = 0;
 		int k = 0;
 		int pos = -1;
@@ -373,25 +357,14 @@ public class MonsterStatIndexer {
 					//stream.skip(2);
 				}
 				
-				//System.out.println("");
-//				XSSFRow row = sheet.getRow(rowNumber);
-//				rowNumber++;
-//				XSSFCell cell = row.getCell(104, Row.CREATE_NULL_AS_BLANK);
 				stream.close();
 				if (found) {
-					//cell.setCellValue(value);
 					attrCache.put(new CacheKey(key, id), Integer.toString(value));
 					return Integer.toString(value);
 				} else {
-					//cell.setCellValue("");
 					attrCache.put(new CacheKey(key, id), "");
 					return "";
 				}
-//				stream.skip(254l - 46l - numFound*4l);
-//				numFound = 0;
-//				pos = -1;
-//				k = 0;
-//				i++;
 			} else {
 				//System.out.print(low + high + " ");
 				if ((low + high).equals(key)) {
@@ -408,14 +381,14 @@ public class MonsterStatIndexer {
 		return null;
 	}
 	
-	public static void doit2(XSSFSheet sheet, String attr, int column) throws IOException {
+	private static void doit2(XSSFSheet sheet, String attr, int column) throws IOException {
 		doit2(sheet, attr, column, null);
 	}
-	public static void doit2(XSSFSheet sheet, String attr, int column, Callback callback) throws IOException {
+	
+	private static void doit2(XSSFSheet sheet, String attr, int column, Callback callback) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
 		int rowNumber = 1;
-		// patience
 		int i = 0;
 		int k = 0;
 		int pos = -1;
@@ -485,7 +458,6 @@ public class MonsterStatIndexer {
 	}
 	
 	public static void main(String[] args) {
-
 		FileInputStream stream = null;
 		try {
 	        long startIndex = Starts.MONSTER;
@@ -689,8 +661,6 @@ public class MonsterStatIndexer {
 			byte[] c = new byte[2];
 			stream.skip(236);
 			while ((stream.read(c, 0, 2)) != -1) {
-				//String high1 = String.format("%02X", c[3]);
-				//String low1 = String.format("%02X", c[2]);
 				String high = String.format("%02X", c[1]);
 				String low = String.format("%02X", c[0]);
 				//System.out.println(Integer.decode("0X" + high + low));
@@ -712,7 +682,7 @@ public class MonsterStatIndexer {
 			stream.close();
 			
 			// Large bitmap
-			for (String[] pair : DOTHIS) {
+			for (String[] pair : DOTHESE) {
 				rowNumber = 1;
 				boolean[] boolArray = largeBitmap(pair[0]);
 				for (boolean found : boolArray) {
@@ -804,9 +774,8 @@ public class MonsterStatIndexer {
 				}
 			}
 			
-			stream = new FileInputStream("Dominions4.exe");			
+			/*stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.MONSTER);
-			// test
 			i = 0;
 			c = new byte[16];
 			stream.skip(240);
@@ -822,10 +791,7 @@ public class MonsterStatIndexer {
 					for (int j=0; j < 16; j++) {
 						if ((val & MASK[j]) != 0) {
 							System.out.print((found?",":"") + (value1[j].equals("")?("*****"+(j+1)+"*****"):value1[j]));
-							//if (value1[j].equals(DOTHIS)) {
-							//	System.out.println("1");
-								found = true;
-						//	}
+							found = true;
 						}
 					}
 					System.out.print("}");
@@ -840,10 +806,7 @@ public class MonsterStatIndexer {
 					for (int j=0; j < 16; j++) {
 						if ((val & MASK[j]) != 0) {
 							System.out.print((found?",":"") + (value2[j].equals("")?("*****"+(j+1)+"*****"):value2[j]));
-							//if (value2[j].equals(DOTHIS)) {
-								//System.out.println("1");
-								found = true;
-							//}
+							found = true;
 						}
 					}
 					System.out.print("}");
@@ -858,10 +821,7 @@ public class MonsterStatIndexer {
 					for (int j=0; j < 16; j++) {
 						if ((val & MASK[j]) != 0) {
 							System.out.print((found?",":"") + (value3[j].equals("")?("*****"+(j+1)+"*****"):value3[j]));
-							//if (value3[j].equals(DOTHIS)) {
-								//System.out.println("1");
-								found = true;
-							//}
+							found = true;
 						}
 					}
 					System.out.print("}");
@@ -893,10 +853,7 @@ public class MonsterStatIndexer {
 					for (int j=0; j < 16; j++) {
 						if ((val & MASK[j]) != 0) {
 							System.out.print((found?",":"") + (value5[j].equals("")?("*****"+(j+1)+"*****"):value5[j]));
-							//if (value5[j].equals(DOTHIS)) {
-							//	System.out.println("1");
-								found = true;
-							//}
+							found = true;
 						}
 					}
 					System.out.print("}");
@@ -957,7 +914,7 @@ public class MonsterStatIndexer {
 					break;
 				}
 			}
-			stream.close();
+			stream.close();*/
 
 			// realm
 //			int i = 0;

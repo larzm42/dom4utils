@@ -8,8 +8,10 @@ import java.io.Reader;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -325,7 +327,6 @@ public class MonsterStatIndexer {
 
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
-		int i = 0;
 		int k = 0;
 		int pos = -1;
 		long numFound = 0;
@@ -373,9 +374,6 @@ public class MonsterStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 2559) {
-				break;
-			}
 		}
 		stream.close();
 		return null;
@@ -428,13 +426,17 @@ public class MonsterStatIndexer {
 					if (callback == null) {
 						cell.setCellValue(value);
 					} else {
-						cell.setCellValue(callback.found(Integer.toString(value)));
+						if (callback.found(Integer.toString(value)) != null) {
+							cell.setCellValue(callback.found(Integer.toString(value)));
+						}
 					}
 				} else {
 					if (callback == null) {
 						cell.setCellValue("");
 					} else {
-						cell.setCellValue(callback.notFound());
+						if (callback.notFound() != null) {
+							cell.setCellValue(callback.notFound());
+						}
 					}
 				}
 				stream.skip(254l - 46l - numFound*4l);
@@ -444,7 +446,7 @@ public class MonsterStatIndexer {
 				i++;
 			} else {
 				//System.out.print(low + high + " ");
-				if ((low + high).equals(attr)) {
+				if (attr.indexOf(low + high) != -1) {
 					pos = k;
 				}
 				k++;
@@ -917,53 +919,61 @@ public class MonsterStatIndexer {
 			stream.close();*/
 
 			// realm
-//			int i = 0;
-//			int k = 0;
-//			int pos = -1;
-//			long numFound = 0;
-//			byte[] c = new byte[2];
-//			stream.skip(64);
-//			while ((stream.read(c, 0, 2)) != -1) {
-//				String high = String.format("%02X", c[1]);
-//				String low = String.format("%02X", c[0]);
-//				int weapon = Integer.decode("0X" + high + low);
-//				if (weapon == 0) {
-//					stream.skip(46l - numFound*2l);
-//					// Values
-//					for (int x = 0; x < numFound; x++) {
-//						byte[] d = new byte[4];
-//						stream.read(d, 0, 4);
-//						String high1 = String.format("%02X", d[3]);
-//						String low1 = String.format("%02X", d[2]);
-//						high = String.format("%02X", d[1]);
-//						low = String.format("%02X", d[0]);
-//						//System.out.print(low + high + " ");
-//						if (x == pos) {
-//							int fire = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-//							System.out.print(i+1 + "\t" + fire);
-//							System.out.println("");
-//						}
-//						//stream.skip(2);
-//					}
-//					
-////					System.out.println("");
-//					stream.skip(254l - 46l - numFound*4l);
-//					numFound = 0;
-//					pos = -1;
-//					k = 0;
-//					i++;
-//				} else {
-//					//System.out.print(low + high + " ");
-//					if ((low + high).equals("AA01")) {
-//						pos = k;
-//					}
-//					k++;
-//					numFound++;
-//				}				
-//				if (i > 2559) {
-//					break;
-//				}
-//			}
+			stream = new FileInputStream("Dominions4.exe");			
+			stream.skip(Starts.MONSTER);
+			i = 0;
+			int k = 0;
+			Set<Integer> posSet = new HashSet<Integer>();
+			long numFound = 0;
+			c = new byte[2];
+			stream.skip(64);
+			while ((stream.read(c, 0, 2)) != -1) {
+				String high = String.format("%02X", c[1]);
+				String low = String.format("%02X", c[0]);
+				int weapon = Integer.decode("0X" + high + low);
+				if (weapon == 0) {
+					stream.skip(46l - numFound*2l);
+					int numRealms = 0;
+					// Values
+					for (int x = 0; x < numFound; x++) {
+						byte[] d = new byte[4];
+						stream.read(d, 0, 4);
+						String high1 = String.format("%02X", d[3]);
+						String low1 = String.format("%02X", d[2]);
+						high = String.format("%02X", d[1]);
+						low = String.format("%02X", d[0]);
+						//System.out.print(low + high + " ");
+						if (posSet.contains(x)) {
+							int fire = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
+							//System.out.print(i+1 + "\t" + fire);
+							//System.out.println("");
+							XSSFRow row = sheet.getRow(i+1);
+							XSSFCell cell = row.getCell(233+numRealms, Row.CREATE_NULL_AS_BLANK);							
+							cell.setCellValue(fire);
+							numRealms++;
+						}
+						//stream.skip(2);
+					}
+					
+//					System.out.println("");
+					stream.skip(254l - 46l - numFound*4l);
+					numFound = 0;
+					posSet.clear();
+					k = 0;
+					i++;
+				} else {
+					//System.out.print(low + high + " ");
+					if ((low + high).equals("AA01")) {
+						posSet.add(k);
+					}
+					k++;
+					numFound++;
+				}				
+				if (i > 2559) {
+					break;
+				}
+			}
+			stream.close();
 			
 			// patience
 			doit2(sheet, "CD01", 104);
@@ -990,7 +1000,159 @@ public class MonsterStatIndexer {
 
 			// secondtmpshape
 			doit2(sheet, "C400", 211);
+			
+			// damagerev
+			doit2(sheet, "CA00", 144, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return Integer.toString(Integer.parseInt(value)-1);
+				}
+			});
 
+			// bloodvengeance
+			doit2(sheet, "9E01", 231);
+			
+			// nobadevents
+			doit2(sheet, "EB00", 178);
+			
+			// bringeroffortune
+			doit2(sheet, "E400", 232);
+			
+			// darkvision
+			doit2(sheet, "1901", 133);
+			
+			// fear
+			doit2(sheet, "B700", 138);
+			
+			// voidsanity
+			doit2(sheet, "1501", 132);
+			
+			// standard
+			doit2(sheet, "6700", 117);
+			
+			// formationfighter
+			doit2(sheet, "6E01", 115);
+			
+			// undisciplined
+			doit2(sheet, "6F01", 114);
+			
+			// bodyguard
+			doit2(sheet, "9801", 121);
+			
+			// summon
+			doit2(sheet, "A400,A500,A600", 223);
+			doit2(sheet, "A400", 224, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "A500", 224, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "2";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "A600", 224, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "3";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "A400,A500,A600", 224, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return null;
+				}
+			});
+
+			// inspirational
+			doit2(sheet, "7001", 118);
+			
+			// pillagebonus
+			doit2(sheet, "8300", 187);
+			
+			// berserk
+			doit2(sheet, "BE00", 139);
+			
+			// startdom
+			doit2(sheet, "F200", 46);
+			
+			// pathcost
+			doit2(sheet, "F300", 45);
+			
+			// waterbreathing
+			doit2(sheet, "6F00", 122);
+
+			// batstartsum1
+			doit2(sheet, "B401", 227);
+			// batstartsum2
+			doit2(sheet, "B501", 228);
+			// batstartsum3
+			doit2(sheet, "B601", 236);
+			// batstartsum4
+			doit2(sheet, "B701", 237);
+			// batstartsum5
+			doit2(sheet, "B801", 238);
+
+			// batstartsum1d6
+			doit2(sheet, "B901", 239);
+			// batstartsum2d6
+			doit2(sheet, "BA01", 240);
+			// batstartsum3d6
+			doit2(sheet, "BB01", 241);
+			// batstartsum4d6
+			doit2(sheet, "BC01", 242);
+			// batstartsum5d6
+			doit2(sheet, "BD01", 243);
+			// batstartsum6d6
+			doit2(sheet, "BE01", 244);
+
+			// summon 1
+//			doit2(sheet, "F100", 122);
+			
+			// stormpower
+			doit2(sheet, "AE00", 161);
+			
+			// firepower
+			doit2(sheet, "B100", 162);
+
+			// coldpower
+			doit2(sheet, "B000", 163);
+
+			// darkpower
+			doit2(sheet, "2501", 164);
+			
+			// chaospower
+			doit2(sheet, "A001", 165);
+			
+			// magicpower
+			doit2(sheet, "4401", 166);
+			
+			// winterpower
+			doit2(sheet, "EA00", 167);
+			
+			// springpower
+			doit2(sheet, "E700", 168);
+			
+			// summerpower
+			doit2(sheet, "E800", 169);
+			
+			// fallpower
+			doit2(sheet, "E900", 170);
+			
 //			stream = new FileInputStream("Dominions4.exe");			
 //			stream.skip(start);
 //			rowNumber = 1;

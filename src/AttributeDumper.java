@@ -3,7 +3,13 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 
 public class AttributeDumper {
@@ -22,7 +28,7 @@ public class AttributeDumper {
 		"C300", // firstshape
 		"C100", // shapechange
 		"C400", // secondtmpshape
-		"1C01", // maxage
+		//"1C01", // maxage
 		"CA00", // damagerev
 		"9E01", // bloodvengeance
 		"EB00", // nobadevents
@@ -66,9 +72,23 @@ public class AttributeDumper {
 		"E700", // springpower
 		"E800", // summerpower
 		"E900",	// fallpower
-	};
+		"FB00", // nametype
+		"B600",	// itemslots
+		"0901", // ressize
+		//"1D01", // startage
+		"AB00", // blind
+		"B200", // eyes
+		"7A00", // supplybonus
+		"7C01", // slave
+		"7900", // researchbonus
+		"CA01", // chaosrec
+		"7D00", // siegebonus
+		"D900", // ambidextrous
+};
 
 	private static List<String> attrList = new ArrayList<String>();
+	
+	private static Map<String, Integer> Summaries = new HashMap<String, Integer>();
 	
 	public static void main(String[] args) {
 		try {
@@ -103,6 +123,15 @@ public class AttributeDumper {
 					stream.skip(254l - 46l - numFound*4l);
 					numFound = 0;
 					i++;
+					
+					for (String ids : attrList) {
+						Integer count = Summaries.get(ids);
+						if (count == null) {
+							Summaries.put(ids, Integer.valueOf(1));
+						} else {
+							Summaries.put(ids, Integer.valueOf(count.intValue()+1));
+						}
+					}
 					attrList = new ArrayList<String>();
 				} else {
 					attrList.add(low + high);
@@ -110,6 +139,23 @@ public class AttributeDumper {
 				}				
 				if (i > 2559) {
 					break;
+				}
+			}
+			
+			Set<Entry<String, Integer>> set = Summaries.entrySet();
+	        List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
+	        Collections.sort( list, new Comparator<Map.Entry<String, Integer>>()
+	        {
+	            public int compare( Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2 )
+	            {
+	                return (o2.getValue()).compareTo( o1.getValue() );
+	            }
+	        } );
+
+			System.out.println("Summary:");
+			for (Entry<String, Integer> entry : list) {
+				if (!Arrays.asList(KNOWN_MONSTER_ATTRS).contains(entry.getKey())) {
+					System.out.println("id: " + entry.getKey() + " " + entry.getValue());
 				}
 			}
 			stream.close();

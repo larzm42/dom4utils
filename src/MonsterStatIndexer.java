@@ -45,11 +45,11 @@ public class MonsterStatIndexer {
 	private static String value1[] = {"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" };
 	private static String value2[] = {"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "sacred", "mountainsurvival", "illusion", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" };
 	private static String value3[] = {"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "", "teleport", "", "", "", "", "", "", "", "", "" };
-	//private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value5[] = {"magicbeing", "", "mindless1?", "mindless2?", "", "", "", "", "", "", "", "", "", "", "", "" };
-	//private static String value6[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	//private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	//private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value5[] = {"magicbeing", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value6[] = {"", "", "", "", "", "", "", "", "", "oldage", "", "", "", "", "", "" };
+	private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	
 	
 	private static String DOTHESE[][] = {
@@ -90,6 +90,7 @@ public class MonsterStatIndexer {
 		{"coldres15", "130"},
 		{"fireres15", "129"},
 		{"poisonres15", "131"},
+//		{"oldage", "245"},
 //		{"misc2", ""},
 		};
 	
@@ -168,145 +169,102 @@ public class MonsterStatIndexer {
 		stream.skip(240);
 		while ((stream.read(c, 0, 16)) != -1) {
 			boolean found = false;
-//			System.out.print("(" + (i+1) + ") ");
 			String high = String.format("%02X", c[1]);
 			String low = String.format("%02X", c[0]);
-			//System.out.print(high + low + " ");
 			int val = Integer.decode("0X" + high + low);
 			if (val > 0) {
-//				System.out.print("1:{");
 				for (int j=0; j < 16; j++) {
 					if ((val & MASK[j]) != 0) {
-//						System.out.print((found?",":"") + (value1[j].equals("")?("*****"+(j+1)+"*****"):value1[j]));
 						if (value1[j].equals(fieldName)) {
-							//System.out.println("1");
 							found = true;
 						}
 					}
 				}
-//				System.out.print("}");
 			}
 			high = String.format("%02X", c[3]);
 			low = String.format("%02X", c[2]);
-			//System.out.print(high + low + " ");
 			val = Integer.decode("0X" + high + low);
 			if (val > 0) {
-//				System.out.print(" 2:{");
-//				boolean found = false;
 				for (int j=0; j < 16; j++) {
 					if ((val & MASK[j]) != 0) {
-//						System.out.print((found?",":"") + (value2[j].equals("")?("*****"+(j+1)+"*****"):value2[j]));
 						if (value2[j].equals(fieldName)) {
-							//System.out.println("1");
 							found = true;
 						}
 					}
 				}
-//				System.out.print("}");
 			}
 			high = String.format("%02X", c[5]);
 			low = String.format("%02X", c[4]);
-			//System.out.print(high + low + " ");
 			val = Integer.decode("0X" + high + low);
 			if (val > 0) {
-//				System.out.print(" 3:{");
-//				boolean found = false;
 				for (int j=0; j < 16; j++) {
 					if ((val & MASK[j]) != 0) {
-//						System.out.print((found?",":"") + (value3[j].equals("")?("*****"+(j+1)+"*****"):value3[j]));
 						if (value3[j].equals(fieldName)) {
-							//System.out.println("1");
 							found = true;
 						}
 					}
 				}
-//				System.out.print("}");
 			}
-
-//			high = String.format("%02X", c[7]);
-//			low = String.format("%02X", c[6]);
-//			//System.out.print(high + low + " ");
-//			val = Integer.decode("0X" + high + low);
-//			if (val > 0) {
-//				System.out.print(" 4:{");
-//				boolean found = false;
-//				for (int j=0; j < 16; j++) {
-//					if ((val & mask[j]) != 0) {
-//						System.out.print((found?",":"") + (value4[j].equals("")?("*****"+(j+1)+"*****"):value4[j]));
-//						found = true;
-//					}
-//				}
-//				System.out.print("}");
-//			}
-
+			high = String.format("%02X", c[7]);
+			low = String.format("%02X", c[6]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value4[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
 			high = String.format("%02X", c[9]);
 			low = String.format("%02X", c[8]);
-			//System.out.print(high + low + " ");
 			val = Integer.decode("0X" + high + low);
 			if (val > 0) {
-//				System.out.print(" 5:{");
-//				boolean found = false;
 				for (int j=0; j < 16; j++) {
 					if ((val & MASK[j]) != 0) {
-//						System.out.print((found?",":"") + (value5[j].equals("")?("*****"+(j+1)+"*****"):value5[j]));
 						if (value5[j].equals(fieldName)) {
-							//System.out.println("1");
 							found = true;
 						}
 					}
 				}
-//				System.out.print("}");
 			}
-//			high = String.format("%02X", c[11]);
-//			low = String.format("%02X", c[10]);
-//			//System.out.print(high + low + " ");
-//			val = Integer.decode("0X" + high + low);
-//			if (val > 0) {
-//				System.out.print(" 6:{");
-//				boolean found = false;
-//				for (int j=0; j < 16; j++) {
-//					if ((val & mask[j]) != 0) {
-//						System.out.print((found?",":"") + (value6[j].equals("")?(j+1):value6[j]));
-//						found = true;
-//					}
-//				}
-//				System.out.print("}");
-//			}
-//			high = String.format("%02X", c[13]);
-//			low = String.format("%02X", c[12]);
-//			//System.out.print(high + low + " ");
-//			val = Integer.decode("0X" + high + low);
-//			if (val > 0) {
-//				System.out.print(" 7:{");
-//				boolean found = false;
-//				for (int j=0; j < 16; j++) {
-//					if ((val & mask[j]) != 0) {
-//						System.out.print((found?",":"") + (value7[j].equals("")?(j+1):value7[j]));
-//						found = true;
-//					}
-//				}
-//				System.out.print("}");
-//			}
-//			high = String.format("%02X", c[15]);
-//			low = String.format("%02X", c[14]);
-//			//System.out.print(high + low + " ");
-//			val = Integer.decode("0X" + high + low);
-//			if (val > 0) {
-//				System.out.print(" 8:{");
-//				boolean found = false;
-//				for (int j=0; j < 16; j++) {
-//					if ((val & mask[j]) != 0) {
-//						System.out.print((found?",":"") + (value8[j].equals("")?(j+1):value8[j]));
-//						found = true;
-//					}
-//				}
-//				System.out.print("}");
-//			}
-			
-			if (!found) {
-				//System.out.println("");
+			high = String.format("%02X", c[11]);
+			low = String.format("%02X", c[10]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value6[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
 			}
-//			System.out.println(" ");
+			high = String.format("%02X", c[13]);
+			low = String.format("%02X", c[12]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value7[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[15]);
+			low = String.format("%02X", c[14]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value8[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
 			boolArray[i] = found;
 			stream.skip(240l);
 			i++;
@@ -514,7 +472,16 @@ public class MonsterStatIndexer {
 
 			// Size
 			doit1(44, 19, sheet);
-
+			
+			// ressize
+			doit1(44, 20, sheet);
+			doit2(sheet, "0901", 20, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			
 			// HP
 			doit1(46, 21, sheet);
 
@@ -829,21 +796,21 @@ public class MonsterStatIndexer {
 					System.out.print("}");
 				}
 
-//				high = String.format("%02X", c[7]);
-//				low = String.format("%02X", c[6]);
-//				//System.out.print(high + low + " ");
-//				val = Integer.decode("0X" + high + low);
-//				if (val > 0) {
-//					System.out.print(" 4:{");
-//					boolean found = false;
-//					for (int j=0; j < 16; j++) {
-//						if ((val & mask[j]) != 0) {
-//							System.out.print((found?",":"") + (value4[j].equals("")?("*****"+(j+1)+"*****"):value4[j]));
-//							found = true;
-//						}
-//					}
-//					System.out.print("}");
-//				}
+				high = String.format("%02X", c[7]);
+				low = String.format("%02X", c[6]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 4:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value4[j].equals("")?("*****"+(j+1)+"*****"):value4[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
 
 				high = String.format("%02X", c[9]);
 				low = String.format("%02X", c[8]);
@@ -860,51 +827,51 @@ public class MonsterStatIndexer {
 					}
 					System.out.print("}");
 				}
-//				high = String.format("%02X", c[11]);
-//				low = String.format("%02X", c[10]);
-//				//System.out.print(high + low + " ");
-//				val = Integer.decode("0X" + high + low);
-//				if (val > 0) {
-//					System.out.print(" 6:{");
-//					boolean found = false;
-//					for (int j=0; j < 16; j++) {
-//						if ((val & mask[j]) != 0) {
-//							System.out.print((found?",":"") + (value6[j].equals("")?(j+1):value6[j]));
-//							found = true;
-//						}
-//					}
-//					System.out.print("}");
-//				}
-//				high = String.format("%02X", c[13]);
-//				low = String.format("%02X", c[12]);
-//				//System.out.print(high + low + " ");
-//				val = Integer.decode("0X" + high + low);
-//				if (val > 0) {
-//					System.out.print(" 7:{");
-//					boolean found = false;
-//					for (int j=0; j < 16; j++) {
-//						if ((val & mask[j]) != 0) {
-//							System.out.print((found?",":"") + (value7[j].equals("")?(j+1):value7[j]));
-//							found = true;
-//						}
-//					}
-//					System.out.print("}");
-//				}
-//				high = String.format("%02X", c[15]);
-//				low = String.format("%02X", c[14]);
-//				//System.out.print(high + low + " ");
-//				val = Integer.decode("0X" + high + low);
-//				if (val > 0) {
-//					System.out.print(" 8:{");
-//					boolean found = false;
-//					for (int j=0; j < 16; j++) {
-//						if ((val & mask[j]) != 0) {
-//							System.out.print((found?",":"") + (value8[j].equals("")?(j+1):value8[j]));
-//							found = true;
-//						}
-//					}
-//					System.out.print("}");
-//				}
+				high = String.format("%02X", c[11]);
+				low = String.format("%02X", c[10]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 6:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value6[j].equals("")?(j+1):value6[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[13]);
+				low = String.format("%02X", c[12]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 7:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value7[j].equals("")?(j+1):value7[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[15]);
+				low = String.format("%02X", c[14]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 8:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value8[j].equals("")?(j+1):value8[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
 				
 				if (!found) {
 					//System.out.println("");
@@ -1153,67 +1120,72 @@ public class MonsterStatIndexer {
 			// fallpower
 			doit2(sheet, "E900", 170);
 			
-//			stream = new FileInputStream("Dominions4.exe");			
-//			stream.skip(start);
-//			rowNumber = 1;
-//			// maxage
-//			i = 0;
-//			k = 0;
-//			pos = -1;
-//			numFound = 0;
-//			c = new byte[2];
-//			stream.skip(64);
-//			while ((stream.read(c, 0, 2)) != -1) {
-//				String high = String.format("%02X", c[1]);
-//				String low = String.format("%02X", c[0]);
-//				int weapon = Integer.decode("0X" + high + low);
-//				if (weapon == 0) {
-//					boolean found = false;
-//					stream.skip(46l - numFound*2l);
-//					// Values
-//					for (int x = 0; x < numFound; x++) {
-//						byte[] d = new byte[4];
-//						stream.read(d, 0, 4);
-//						String high1 = String.format("%02X", d[3]);
-//						String low1 = String.format("%02X", d[2]);
-//						high = String.format("%02X", d[1]);
-//						low = String.format("%02X", d[0]);
-//						//System.out.print(low + high + " ");
-//						if (x == pos) {
-//							int fire = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-//							//System.out.print(fire);
-//							found = true;
-//							XSSFRow row = sheet.getRow(rowNumber);
-//							rowNumber++;
-//							XSSFCell cell = row.getCell(39, Row.CREATE_NULL_AS_BLANK);
-//							cell.setCellValue(fire);
-//						}
-//						//stream.skip(2);
+			// nametype
+			doit2(sheet, "FB00", 219);
+			
+			// blind
+			doit2(sheet, "AB00", 134, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// eyes
+			//doit2(sheet, "B200", 20);
+			
+			// supplybonus
+			doit2(sheet, "7A00", 192);
+			
+			// slave
+			doit2(sheet, "7C01", 116);
+			
+			// awe
+			doit2(sheet, "6900", 136);
+			
+			// siegebonus
+			doit2(sheet, "7D00", 190);
+			
+			// researchbonus
+			doit2(sheet, "7900", 195);
+			
+			// chaosrec
+			doit2(sheet, "CA01", 186);
+			
+			// ambidextrous
+			doit2(sheet, "D900", 32, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// itemslots
+			//doit2(sheet, "B600", 219);
+			
+			// startage
+//			doit2(sheet, "1D01", 38, new CallbackAdapter(){
+//				@Override
+//				public String found(String value) {
+//					int age = Integer.parseInt(value);
+//					if (age == -1) {
+//						age = 0;
 //					}
-//					
-//					if (!found) {
-//						//System.out.print("");
-//						rowNumber++;
-//					}
-//					//System.out.println("");
-//					stream.skip(254l - 46l - numFound*4l);
-//					numFound = 0;
-//					pos = -1;
-//					k = 0;
-//					i++;
-//				} else {
-//					//System.out.print(low + high + " ");
-//					if ((low + high).equals("1C01")) {
-//						pos = k;
-//					}
-//					k++;
-//					numFound++;
-//				}				
-//				if (i > 2559) {
-//					break;
+//					return Integer.toString((int)(age+age*.1));
 //				}
-//			}
-//			stream.close();
+//				@Override
+//				public String notFound() {
+//					return null;
+//				}
+//			});
+			
+			// maxage
+//			doit2(sheet, "1C01", 39, new CallbackAdapter(){
+//				@Override
+//				public String notFound() {
+//					return null;
+//				}
+//			});
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.MONSTER_MAGIC);

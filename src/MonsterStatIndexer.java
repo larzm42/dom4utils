@@ -1087,8 +1087,79 @@ public class MonsterStatIndexer {
 			// batstartsum6d6
 			doit2(sheet, "BE01", 244);
 
-			// summon 1
-//			doit2(sheet, "F100", 122);
+			// autosummon (#summon1-5)
+			doit2(sheet, "F100,6B00,8F00", 225);
+			doit2(sheet, "F100", 226, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "6B00", 226, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "8F00", 226, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "F100,6B00,8F00", 226, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return null;
+				}
+			});
+			
+			// domsummon
+			doit2(sheet, "A101,DB00", 229);
+			doit2(sheet, "A101", 230, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "DB00", 230, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "A101,DB00", 230, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return null;
+				}
+			});
+			
+			// turmoil summon
+			doit2(sheet, "AD00", 245);
+			
+			// cold summon
+			doit2(sheet, "9200", 246);
 			
 			// stormpower
 			doit2(sheet, "AE00", 161);

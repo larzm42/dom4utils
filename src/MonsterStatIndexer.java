@@ -342,6 +342,9 @@ public class MonsterStatIndexer {
 	}
 	
 	private static void doit2(XSSFSheet sheet, String attr, int column, Callback callback) throws IOException {
+		doit2(sheet, attr, column, callback, false);
+	}
+	private static void doit2(XSSFSheet sheet, String attr, int column, Callback callback, boolean append) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
 		int rowNumber = 1;
@@ -382,10 +385,22 @@ public class MonsterStatIndexer {
 				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
 				if (found) {
 					if (callback == null) {
-						cell.setCellValue(value);
+						if (append) {
+							String origVal = cell.getStringCellValue();
+							cell.setCellValue(origVal + value);
+						} else {
+							cell.setCellValue(value);
+						}
 					} else {
-						if (callback.found(Integer.toString(value)) != null) {
-							cell.setCellValue(callback.found(Integer.toString(value)));
+						if (append) {
+							String origVal = cell.getStringCellValue();
+							if (callback.found(Integer.toString(value)) != null) {
+								cell.setCellValue(origVal + callback.found(Integer.toString(value)));
+							}
+						} else {
+							if (callback.found(Integer.toString(value)) != null) {
+								cell.setCellValue(callback.found(Integer.toString(value)));
+							}
 						}
 					}
 				} else {
@@ -1230,6 +1245,98 @@ public class MonsterStatIndexer {
 					return "0";
 				}
 			});
+			
+			// gemprod fire
+			doit2(sheet, "1E00", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "F";
+				}
+			});
+			
+			// gemprod air
+			doit2(sheet, "1F00", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "A";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod water
+			doit2(sheet, "2000", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "W";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod earth
+			doit2(sheet, "2100", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "E";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod astral
+			doit2(sheet, "2200", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "S";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod death
+			doit2(sheet, "2300", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "D";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod nature
+			doit2(sheet, "2400", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "N";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
+			
+			// gemprod blood
+			doit2(sheet, "2500", 185, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return value + "B";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			}, true);
 			
 			// itemslots
 			//doit2(sheet, "B600", 219);

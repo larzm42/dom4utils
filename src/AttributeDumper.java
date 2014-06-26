@@ -137,7 +137,7 @@ public class AttributeDumper {
 					attrList.add(low + high);
 					numFound++;
 				}				
-				if (i > 2559) {
+				if (i > 2641) {
 					break;
 				}
 			}

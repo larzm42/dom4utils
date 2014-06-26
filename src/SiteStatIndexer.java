@@ -95,7 +95,7 @@ public class SiteStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 1039) {
+			if (i > 1043) {
 				break;
 			}
 		}
@@ -142,6 +142,8 @@ public class SiteStatIndexer {
 
 				//System.out.println(name);
 				XSSFRow row = sheet.getRow(rowNumber);
+				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				cell1.setCellValue(rowNumber);
 				rowNumber++;
 				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
@@ -169,7 +171,7 @@ public class SiteStatIndexer {
 				}
 				stream.skip(143l);
 				i++;
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -192,7 +194,7 @@ public class SiteStatIndexer {
 				cell.setCellValue(Integer.decode("0X" + high + low));
 				stream.skip(142l);
 				i++;
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -214,7 +216,7 @@ public class SiteStatIndexer {
 				cell.setCellValue(Integer.decode("0X" + high));
 				stream.skip(143l);
 				i++;
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -241,7 +243,7 @@ public class SiteStatIndexer {
 				}
 				stream.skip(143l);
 				i++;
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -383,7 +385,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -484,7 +486,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -559,7 +561,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}
@@ -771,7 +773,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1039) {
+				if (i > 1043) {
 					break;
 				}
 			}

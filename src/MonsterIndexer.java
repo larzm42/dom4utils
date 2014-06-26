@@ -21,7 +21,7 @@ public class MonsterIndexer {
 	
 	public static void main(String[] args) {
 //		indexToInt.put("00", 0);
-		indexToInt.put("01", 256);
+//		indexToInt.put("01", 256);
 //		indexToInt.put("02", 2072);
 //		indexToInt.put("03", 161);
 //		indexToInt.put("04", 417);
@@ -72,18 +72,18 @@ public class MonsterIndexer {
 //		indexToInt.put("52", 1935);
 //		indexToInt.put("55", 1762);
 //		indexToInt.put("56", 2018);
-//		indexToInt.put("57", 5655);
+		indexToInt.put("57", 5778);
 //		indexToInt.put("59", 1841);
 //		indexToInt.put("5A", 2097);
 		
-		indexToInt.put("5B", 6020);
-		indexToInt.put("5D", 2169);
+//		indexToInt.put("5B", 6020);
+//		indexToInt.put("5D", 2169);
 		
 //		indexToInt.put("5F", 5817);
 //		indexToInt.put("61", 2001);
 //		indexToInt.put("63", 5906);
 //		indexToInt.put("65", 2078);
-//		indexToInt.put("67", 5971);
+		indexToInt.put("67", 6094);
 //		indexToInt.put("69", 2173);
 //		indexToInt.put("6B", 6102);
 //		indexToInt.put("6C", 6358);
@@ -96,13 +96,16 @@ public class MonsterIndexer {
 //		indexToInt.put("79", 2537);
 //		indexToInt.put("7D", 2662);
 		
-		indexToInt.put("7E", 6741);
+//		indexToInt.put("7E", 6741);
 		
 //		indexToInt.put("80", 2485);
 //		indexToInt.put("81", 2741);
 		
-		indexToInt.put("84", 2815);
+//		indexToInt.put("84", 2815);
 		
+		indexToInt.put("86", 6650);
+		indexToInt.put("87", 6906);
+
 //		indexToInt.put("88", 2629);
 //		indexToInt.put("8C", 2684);
 //		indexToInt.put("90", 2777);
@@ -116,25 +119,25 @@ public class MonsterIndexer {
 //		indexToInt.put("AF", 3160);
 //		indexToInt.put("B0", 3416);
 //		indexToInt.put("B3", 3249);
-//		indexToInt.put("B7", 3316);
+		indexToInt.put("B7", 3355);
 //		indexToInt.put("BB", 3387);
 //		indexToInt.put("BF", 3486);
 //		indexToInt.put("C3", 3551);
 //		indexToInt.put("C7", 3640);
 //		indexToInt.put("CB", 3737);
 //		indexToInt.put("CF", 3800);
-//		indexToInt.put("D2", 3609);
-//		indexToInt.put("D3", 3865);
-		
-		indexToInt.put("D6", 3982);
-		indexToInt.put("DA", 4055);
-		
+		indexToInt.put("D2", 3648);
+		indexToInt.put("D3", 3904);		
+		indexToInt.put("D6", 3779);
+		indexToInt.put("D7", 4084);
+		indexToInt.put("DA", 3860);
+
 //		indexToInt.put("DE", 3846);
 //		indexToInt.put("DF", 4102);
 //		indexToInt.put("E2", 3971);
 //		indexToInt.put("E6", 4054);
 		
-		indexToInt.put("EA", 4452);
+//		indexToInt.put("EA", 4452);
 		
 //		indexToInt.put("EE", 4291);
 //		indexToInt.put("F2", 4430);
@@ -200,20 +203,20 @@ public class MonsterIndexer {
 						System.out.println(oldFileName1 + "->" + newFileName1);
 						System.out.println(oldFileName2 + "->" + newFileName2);
 
-//						Path old1 = Paths.get("monsters", oldFileName1);
-//						Path new1 = Paths.get("monsters\\output4\\", newFileName1);
-//						Path old2 = Paths.get("monsters", oldFileName2);
-//						Path new2 = Paths.get("monsters\\output4\\", newFileName2);
-//						try {
-//							Files.copy(old1, new1);
-//						} catch (NoSuchFileException e) {
-//							
-//						}
-//						try {
-//							Files.copy(old2, new2);
-//						} catch (NoSuchFileException e) {
-//							
-//						}
+						Path old1 = Paths.get("monsters", oldFileName1);
+						Path new1 = Paths.get("monsters\\output\\", newFileName1);
+						Path old2 = Paths.get("monsters", oldFileName2);
+						Path new2 = Paths.get("monsters\\output\\", newFileName2);
+						try {
+							Files.copy(old1, new1);
+						} catch (NoSuchFileException e) {
+							
+						}
+						try {
+							Files.copy(old2, new2);
+						} catch (NoSuchFileException e) {
+							
+						}
 					} else {
 						System.err.println("FAILED");
 					}
@@ -222,117 +225,120 @@ public class MonsterIndexer {
 				id++;
 				stream.skip(218);
 			}
-//			indexes.remove("00");
-//			indexes.remove("01");
-//			indexes.remove("02");
-//			indexes.remove("03");
-//			indexes.remove("04");
-//			indexes.remove("05");
-//			indexes.remove("06");
-//			indexes.remove("07");
-//			indexes.remove("08");
-//			indexes.remove("09");
-//			indexes.remove("0A");
-//			indexes.remove("0B");
-//			indexes.remove("0C");
-//			indexes.remove("0F");
-//			indexes.remove("11");
-//			indexes.remove("13");
-//			indexes.remove("15");
-//			indexes.remove("17");
-//			indexes.remove("1B");
-//			indexes.remove("1D");
-//			indexes.remove("1F");
-//			indexes.remove("23");
-//			indexes.remove("27");
-//			indexes.remove("28");
-//			indexes.remove("29");
-//			indexes.remove("2A");
-//			indexes.remove("2B");
-//			indexes.remove("2C");
-//			indexes.remove("2D");
-//			indexes.remove("2E");
-//			indexes.remove("2F");
-//			indexes.remove("30");
-//			indexes.remove("32");
-//			indexes.remove("33");
-//			indexes.remove("34");
-//			indexes.remove("36");
-//			indexes.remove("38");
-//			indexes.remove("3A");
-//			indexes.remove("3C");
-//			indexes.remove("3E");
-//			indexes.remove("40");
-//			indexes.remove("42");
-//			indexes.remove("44");
-//			indexes.remove("46");
-//			indexes.remove("4A");
-//			indexes.remove("4C");
-//			indexes.remove("4F");
-//			indexes.remove("50");
-//			indexes.remove("52");
-//			indexes.remove("55");
-//			indexes.remove("56");
-//			indexes.remove("57");
-//			indexes.remove("59");
-//			indexes.remove("5A");
-//			indexes.remove("5B");
-//			indexes.remove("5D");
-//			indexes.remove("5F");
-//			indexes.remove("61");
-//			indexes.remove("63");
-//			indexes.remove("65");
-//			indexes.remove("67");
-//			indexes.remove("69");
-//			indexes.remove("6B");
-//			indexes.remove("6C");
-//			indexes.remove("6D");
-//			indexes.remove("6F");
-//			indexes.remove("71");
-//			indexes.remove("73");
-//			indexes.remove("75");
-//			indexes.remove("77");
-//			indexes.remove("79");
-//			indexes.remove("7D");
-//			indexes.remove("7E");
-//			indexes.remove("80");
-//			indexes.remove("81");
-//			indexes.remove("84");
-//			indexes.remove("88");
-//			indexes.remove("8C");
-//			indexes.remove("90");
-//			indexes.remove("94");
-//			indexes.remove("9C");
-//			indexes.remove("A0");
-//			indexes.remove("A4");
-//			indexes.remove("A7");
-//			indexes.remove("A8");
-//			indexes.remove("AB");
-//			indexes.remove("AF");
-//			indexes.remove("B0");
-//			indexes.remove("B3");
-//			indexes.remove("B7");
-//			indexes.remove("BB");
-//			indexes.remove("BF");
-//			indexes.remove("C3");
-//			indexes.remove("C7");
-//			indexes.remove("CB");
-//			indexes.remove("CF");
-//			indexes.remove("D2");
-//			indexes.remove("D3");
-//			indexes.remove("D6");
-//			indexes.remove("DA");
-//			indexes.remove("DE");
-//			indexes.remove("DF");
-//			indexes.remove("E2");
-//			indexes.remove("E6");
-//			indexes.remove("EA");
-//			indexes.remove("EE");
-//			indexes.remove("F2");
-//			indexes.remove("F6");
-//			indexes.remove("FA");
-//			indexes.remove("FD");
-//			indexes.remove("FE");
+			indexes.remove("00");
+			indexes.remove("01");
+			indexes.remove("02");
+			indexes.remove("03");
+			indexes.remove("04");
+			indexes.remove("05");
+			indexes.remove("06");
+			indexes.remove("07");
+			indexes.remove("08");
+			indexes.remove("09");
+			indexes.remove("0A");
+			indexes.remove("0B");
+			indexes.remove("0C");
+			indexes.remove("0F");
+			indexes.remove("11");
+			indexes.remove("13");
+			indexes.remove("15");
+			indexes.remove("17");
+			indexes.remove("1B");
+			indexes.remove("1D");
+			indexes.remove("1F");
+			indexes.remove("23");
+			indexes.remove("27");
+			indexes.remove("28");
+			indexes.remove("29");
+			indexes.remove("2A");
+			indexes.remove("2B");
+			indexes.remove("2C");
+			indexes.remove("2D");
+			indexes.remove("2E");
+			indexes.remove("2F");
+			indexes.remove("30");
+			indexes.remove("32");
+			indexes.remove("33");
+			indexes.remove("34");
+			indexes.remove("36");
+			indexes.remove("38");
+			indexes.remove("3A");
+			indexes.remove("3C");
+			indexes.remove("3E");
+			indexes.remove("40");
+			indexes.remove("42");
+			indexes.remove("44");
+			indexes.remove("46");
+			indexes.remove("4A");
+			indexes.remove("4C");
+			indexes.remove("4F");
+			indexes.remove("50");
+			indexes.remove("52");
+			indexes.remove("55");
+			indexes.remove("56");
+			indexes.remove("57");
+			indexes.remove("59");
+			indexes.remove("5A");
+			indexes.remove("5B");
+			indexes.remove("5D");
+			indexes.remove("5F");
+			indexes.remove("61");
+			indexes.remove("63");
+			indexes.remove("65");
+			indexes.remove("67");
+			indexes.remove("69");
+			indexes.remove("6B");
+			indexes.remove("6C");
+			indexes.remove("6D");
+			indexes.remove("6F");
+			indexes.remove("71");
+			indexes.remove("73");
+			indexes.remove("75");
+			indexes.remove("77");
+			indexes.remove("79");
+			indexes.remove("7D");
+			indexes.remove("7E");
+			indexes.remove("80");
+			indexes.remove("81");
+			indexes.remove("84");
+			indexes.remove("86");
+			indexes.remove("87");
+			indexes.remove("88");
+			indexes.remove("8C");
+			indexes.remove("90");
+			indexes.remove("94");
+			indexes.remove("9C");
+			indexes.remove("A0");
+			indexes.remove("A4");
+			indexes.remove("A7");
+			indexes.remove("A8");
+			indexes.remove("AB");
+			indexes.remove("AF");
+			indexes.remove("B0");
+			indexes.remove("B3");
+			indexes.remove("B7");
+			indexes.remove("BB");
+			indexes.remove("BF");
+			indexes.remove("C3");
+			indexes.remove("C7");
+			indexes.remove("CB");
+			indexes.remove("CF");
+			indexes.remove("D2");
+			indexes.remove("D3");
+			indexes.remove("D6");
+			indexes.remove("D7");
+			indexes.remove("DA");
+			indexes.remove("DE");
+			indexes.remove("DF");
+			indexes.remove("E2");
+			indexes.remove("E6");
+			indexes.remove("EA");
+			indexes.remove("EE");
+			indexes.remove("F2");
+			indexes.remove("F6");
+			indexes.remove("FA");
+			indexes.remove("FD");
+			indexes.remove("FE");
 			TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
 				@Override
 				public int compare(String o1, String o2) {

@@ -87,7 +87,7 @@ public class ItemStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 380) {
+			if (i > 381) {
 				break;
 			}
 		}
@@ -136,6 +136,8 @@ public class ItemStatIndexer {
 				//System.out.println(name);
 				
 				XSSFRow row = sheet.getRow(rowNumber);
+				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				cell1.setCellValue(rowNumber);
 				rowNumber++;
 				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
@@ -163,7 +165,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -190,7 +192,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -216,7 +218,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -242,7 +244,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -268,7 +270,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -297,7 +299,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -326,7 +328,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 380) {
+				if (i > 381) {
 					break;
 				}
 			}
@@ -361,7 +363,7 @@ public class ItemStatIndexer {
 //				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
 //				cell.setCellValue(name.toString());
 //				i++;
-//				if (i > 380) {
+//				if (i > 381) {
 //					break;
 //				}
 //			}
@@ -397,7 +399,7 @@ public class ItemStatIndexer {
 //				XSSFCell cell = row.getCell(129, Row.CREATE_NULL_AS_BLANK);
 //				cell.setCellValue(name.toString());
 //				i++;
-//				if (i > 380) {
+//				if (i > 381) {
 //					break;
 //				}
 //			}
@@ -485,7 +487,7 @@ public class ItemStatIndexer {
 //					k++;
 //					numFound++;
 //				}				
-//				if (i > 380) {
+//				if (i > 381) {
 //					break;
 //				}
 //			}

@@ -1497,7 +1497,7 @@ public class MonsterStatIndexer {
 					}
 				}
 			}
-			for (int j = 1; j < 2561; j++) {
+			for (int j = 1; j < 2642; j++) {
 				Magic monMagic = monsterMagic.get(j);
 				if (monMagic != null) {
 					XSSFRow row = sheet.getRow(j);

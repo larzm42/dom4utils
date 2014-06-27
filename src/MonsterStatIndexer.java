@@ -149,7 +149,7 @@ public class MonsterStatIndexer {
 			}
 			stream.skip(254l);
 			i++;
-			if (i > 2642) {
+			if (i > 2641) {
 				break;
 			}
 		}
@@ -165,7 +165,7 @@ public class MonsterStatIndexer {
 		stream.skip(Starts.MONSTER);
 		int i = 0;
 		byte[] c = new byte[16];
-		boolArray = new boolean[2643];
+		boolArray = new boolean[2642];
 		stream.skip(240);
 		while ((stream.read(c, 0, 16)) != -1) {
 			boolean found = false;
@@ -268,7 +268,7 @@ public class MonsterStatIndexer {
 			boolArray[i] = found;
 			stream.skip(240l);
 			i++;
-			if (i > 2642) {
+			if (i > 2641) {
 				break;
 			}
 		}
@@ -425,7 +425,7 @@ public class MonsterStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 2642) {
+			if (i > 2641) {
 				break;
 			}
 		}
@@ -661,7 +661,7 @@ public class MonsterStatIndexer {
 				}
 				stream.skip(254l);
 				i++;
-				if (i > 2642) {
+				if (i > 2641) {
 					break;
 				}
 			}
@@ -896,7 +896,7 @@ public class MonsterStatIndexer {
 				System.out.println(" ");
 				stream.skip(240l);
 				i++;
-				if (i > 2642) {
+				if (i > 2641) {
 					break;
 				}
 			}
@@ -953,7 +953,7 @@ public class MonsterStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 2642) {
+				if (i > 2641) {
 					break;
 				}
 			}

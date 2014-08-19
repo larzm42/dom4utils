@@ -430,6 +430,9 @@ public class ItemStatIndexer {
 			// undead leadership
 			doit(sheet, "9F00", 62);
 
+			// inspirational leadership
+			doit(sheet, "7001", 64);
+
 //			stream = new FileInputStream("Dominions4.exe");			
 //			stream.skip(Starts.ITEM);
 //			rowNumber = 1;

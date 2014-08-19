@@ -95,7 +95,7 @@ public class SiteStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 1043) {
+			if (i > 1045) {
 				break;
 			}
 		}
@@ -171,7 +171,7 @@ public class SiteStatIndexer {
 				}
 				stream.skip(143l);
 				i++;
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -194,7 +194,7 @@ public class SiteStatIndexer {
 				cell.setCellValue(Integer.decode("0X" + high + low));
 				stream.skip(142l);
 				i++;
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -216,7 +216,7 @@ public class SiteStatIndexer {
 				cell.setCellValue(Integer.decode("0X" + high));
 				stream.skip(143l);
 				i++;
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -243,7 +243,7 @@ public class SiteStatIndexer {
 				}
 				stream.skip(143l);
 				i++;
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -385,7 +385,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -486,7 +486,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -561,7 +561,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}
@@ -773,7 +773,7 @@ public class SiteStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 1043) {
+				if (i > 1045) {
 					break;
 				}
 			}

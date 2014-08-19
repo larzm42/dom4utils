@@ -87,7 +87,7 @@ public class ItemStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 381) {
+			if (i > 384) {
 				break;
 			}
 		}
@@ -165,7 +165,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -192,7 +192,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -218,7 +218,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -244,7 +244,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -270,7 +270,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -299,7 +299,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -328,7 +328,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 381) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -363,7 +363,7 @@ public class ItemStatIndexer {
 //				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
 //				cell.setCellValue(name.toString());
 //				i++;
-//				if (i > 381) {
+//				if (i > 384) {
 //					break;
 //				}
 //			}
@@ -399,7 +399,7 @@ public class ItemStatIndexer {
 //				XSSFCell cell = row.getCell(129, Row.CREATE_NULL_AS_BLANK);
 //				cell.setCellValue(name.toString());
 //				i++;
-//				if (i > 381) {
+//				if (i > 384) {
 //					break;
 //				}
 //			}
@@ -487,7 +487,7 @@ public class ItemStatIndexer {
 //					k++;
 //					numFound++;
 //				}				
-//				if (i > 381) {
+//				if (i > 384) {
 //					break;
 //				}
 //			}

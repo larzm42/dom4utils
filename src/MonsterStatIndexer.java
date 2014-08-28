@@ -1240,6 +1240,9 @@ public class MonsterStatIndexer {
 			// chaosrec
 			doit2(sheet, "CA01", 186);
 			
+			// invulnerability
+			doit2(sheet, "7E01", 124);
+			
 			// ambidextrous
 			doit2(sheet, "D900", 32, new CallbackAdapter(){
 				@Override

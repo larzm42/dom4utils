@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -14,7 +19,20 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ItemStatIndexer {
-	
+	private static Map<Integer, String> columnsUsed = new HashMap<Integer, String>();
+	private static String SkipColumns[] = {
+		"id",
+		"name",
+		"type",
+		"constlevel",
+		"mainpath",
+		"mainlevel",
+		"secondarypath",
+		"secondarylevel",
+		"weapon",
+		"armor"
+	};
+
 	private static XSSFWorkbook readFile(String filename) throws IOException {
 		return new XSSFWorkbook(new FileInputStream(filename));
 	}
@@ -24,7 +42,9 @@ public class ItemStatIndexer {
 	}
 	
 	private static void doit(XSSFSheet sheet, String attr, int column, Callback callback) throws IOException {
-		FileInputStream stream = new FileInputStream("Dominions4.exe");			
+        columnsUsed.remove(column);
+
+        FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.ITEM);
 		int rowNumber = 1;
 		int i = 0;
@@ -109,6 +129,19 @@ public class ItemStatIndexer {
 			FileOutputStream fos = new FileOutputStream("NewBaseI.xlsx");
 			XSSFSheet sheet = wb.getSheetAt(0);
 
+			XSSFRow titleRow = sheet.getRow(0);
+			int cellNum = 0;
+			XSSFCell titleCell = titleRow.getCell(cellNum);
+			Set<String> skip = new HashSet<String>(Arrays.asList(SkipColumns));
+			while (titleCell != null) {
+				String stringCellValue = titleCell.getStringCellValue();
+				if (!skip.contains(stringCellValue)) {
+					columnsUsed.put(cellNum, stringCellValue);
+				}
+				cellNum++;
+				titleCell = titleRow.getCell(cellNum);
+			}
+			
 			// Name
 			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
 	        Reader in = new BufferedReader(isr);
@@ -511,6 +544,9 @@ public class ItemStatIndexer {
 			wb.write(fos);
 			fos.close();
 
+			for (String col :columnsUsed.values()) {
+				System.out.println(col);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

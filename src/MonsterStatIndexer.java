@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,8 @@ public class MonsterStatIndexer {
 		
 	}
 	private static Map<CacheKey, String> attrCache = new HashMap<CacheKey, String>();
+	
+	private static Map<Integer, String> columnsUsed = new HashMap<Integer, String>();
 
 	private static XSSFWorkbook readFile(String filename) throws IOException {
 		return new XSSFWorkbook(new FileInputStream(filename));
@@ -94,6 +97,50 @@ public class MonsterStatIndexer {
 //		{"misc2", ""},
 		};
 	
+	private static String SkipColumns[] = {
+		"id",
+		"name",
+		"armor4",
+		"gcom",
+		"gmon",
+		"rcost",
+		"F",
+		"A",
+		"W",
+		"E",
+		"S",
+		"D",
+		"N",
+		"B",
+		"H",
+		"link1",
+		"nbr1",
+		"rand1",
+		"mask1",
+		"link2",
+		"nbr2",
+		"rand2",
+		"mask2",
+		"link3",
+		"nbr3",
+		"rand3",
+		"mask3",
+		"link4",
+		"nbr4",
+		"rand4",
+		"mask4",
+		"type",
+		"typeclass",
+		"from",
+		"unique",
+		"fixedname",
+		"special",
+		"realm3",
+		"realm2",
+		"realm1",
+		"test"
+	};
+	
 	private static class Magic {
 		public int F;
 		public int A;
@@ -129,7 +176,9 @@ public class MonsterStatIndexer {
 	}
 	
 	private static void doit1(int skip, int column, XSSFSheet sheet, Callback callback) throws IOException {
-        FileInputStream stream = new FileInputStream("Dominions4.exe");			
+        columnsUsed.remove(column);
+        
+		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
 		int rowNumber = 1;
 		int i = 0;
@@ -345,7 +394,9 @@ public class MonsterStatIndexer {
 		doit2(sheet, attr, column, callback, false);
 	}
 	private static void doit2(XSSFSheet sheet, String attr, int column, Callback callback, boolean append) throws IOException {
-		FileInputStream stream = new FileInputStream("Dominions4.exe");			
+        columnsUsed.remove(column);
+
+        FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.MONSTER);
 		int rowNumber = 1;
 		int i = 0;
@@ -445,6 +496,19 @@ public class MonsterStatIndexer {
 			FileOutputStream fos = new FileOutputStream("NewBaseU.xlsx");
 			XSSFSheet sheet = wb.getSheetAt(0);
 
+			XSSFRow titleRow = sheet.getRow(0);
+			int cellNum = 0;
+			XSSFCell titleCell = titleRow.getCell(cellNum);
+			Set<String> skip = new HashSet<String>(Arrays.asList(SkipColumns));
+			while (titleCell != null) {
+				String stringCellValue = titleCell.getStringCellValue();
+				if (!skip.contains(stringCellValue)) {
+					columnsUsed.put(cellNum, stringCellValue);
+				}
+				cellNum++;
+				titleCell = titleRow.getCell(cellNum);
+			}
+			
 			// Name
 			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
 	        Reader in = new BufferedReader(isr);
@@ -669,6 +733,7 @@ public class MonsterStatIndexer {
 			
 			// Large bitmap
 			for (String[] pair : DOTHESE) {
+				columnsUsed.remove(Integer.parseInt(pair[1]));
 				rowNumber = 1;
 				boolean[] boolArray = largeBitmap(pair[0]);
 				for (boolean found : boolArray) {
@@ -985,6 +1050,18 @@ public class MonsterStatIndexer {
 			// secondtmpshape
 			doit2(sheet, "C400", 211);
 			
+			// landshape
+			doit2(sheet, "F500", 212);
+			
+			// watershape
+			doit2(sheet, "F600", 213);
+			
+			// forestshape
+			doit2(sheet, "4201", 214);
+			
+			// plainshape
+			doit2(sheet, "4301", 215);
+			
 			// damagerev
 			doit2(sheet, "CA00", 144, new CallbackAdapter() {
 				@Override
@@ -1242,6 +1319,17 @@ public class MonsterStatIndexer {
 			
 			// invulnerability
 			doit2(sheet, "7E01", 124);
+			
+			// iceprot
+			doit2(sheet, "BF00", 123);
+			
+			// reinvigoration
+			doit2(sheet, "7500", 34, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
 			
 			// ambidextrous
 			doit2(sheet, "D900", 32, new CallbackAdapter(){
@@ -1546,6 +1634,10 @@ public class MonsterStatIndexer {
 
 			wb.write(fos);
 			fos.close();
+			
+			for (String col :columnsUsed.values()) {
+				System.out.println(col);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

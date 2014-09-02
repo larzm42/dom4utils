@@ -1358,6 +1358,14 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// assassin
+			doit2(sheet, "D500", 103, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

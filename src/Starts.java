@@ -12,4 +12,7 @@ public class Starts {
 	public static final long NAMES = 0x04fc87cl;
 	
 	public static final long SPELL_DESC = 0x028864cl;
+
+	public static final long EVENT_DESC = 0x02c9998l;
+	public static final long EVENT = 0x0319718l;
 }

@@ -1339,6 +1339,25 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// spy
+			doit2(sheet, "D600", 102, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// scale walls
+			doit2(sheet, "E301", 247);
+			
+			// dream seducer
+			doit2(sheet, "D200", 105, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

@@ -31,6 +31,88 @@ public class EventStatIndexer {
 		String value;
 	}
 	
+	static String[][] requirementMapping = {
+		{"1300", "mydominion"}, 
+		{"1200", "nation"}, 
+		{"1000", "maxdominion"}, 
+		{"0200", "pop"}, 
+		{"0400", "temple"}, 
+		{"0700", "maxunrest"}, 
+		{"0600", "minunrest"}, 
+		{"0C00", "dominion"}, 
+		{"1F00", "era"}, 
+		{"6400", "chaos"}, 
+		{"0500", "land"}, 
+		{"4000", "pop0ok"}, 
+		{"6600", "cold"}, 
+		{"7300", "magic"}, 
+		{"7100", "growth"}, 
+		{"7200", "luck"}, 
+		{"6E00", "order"}, 
+		{"6400", "chaos"}, 
+		{"6500", "lazy"}, 
+		{"6700", "death"}, 
+		{"6800", "unluck"}, 
+		{"6900", "unmagic"}, 
+		{"6F00", "prod"}, 
+		{"1400", "turn"}, 
+		{"4500", "maxturn"}, 
+		{"1C00", "noseason"}, 
+		{"1B00", "season"}, 
+		{"2000", "noera"}, 
+		{"7000", "heat"}, 
+		{"1900", "waste"}, 
+		{"1800", "swamp"}, 
+		{"0300", "coast"}, 
+		{"0100", "lab"}, 
+		{"0D00", "mountain"}, 
+		{"0E00", "forest"}, 
+		{"1D00", "freesites"}, 
+		{"3A00", "unique"}, 
+		{"3D00", "monster"}, 
+		{"3900", "fort"}, 
+		{"1500", "fullowner"}, 
+		{"1700", "notnation"}, 
+		{"2100", "r33"}, 
+		{"1600", "r22"}, 
+		{"4100", "r65"}, 
+		{"0A00", "gem"}, 
+		{"3500", "rare"}, 
+		{"0900", "maxtroops"}, 
+		{"3600", "mindef"}, 
+		{"0B00", "commander"}, 
+		{"3B00", "code"}, 
+		{"2300", "reseacher"}, 
+		{"1E00", "freshwater"}, 
+		{"2500", "capital"}, 
+		{"2400", "capital"}, 
+		{"2C00", "pathdeath"}, 
+		{"2D00", "pathnature"}, 
+		{"2900", "pathwater"}, 
+		{"2A00", "pathearth"}, 
+		{"2E00", "pathblood"}, 
+		{"2200", "humanoidres"}, 
+		{"3100", "foundsite"}, 
+		{"3200", "hiddensite"}, 
+		{"3300", "site"}, 
+		{"3400", "nearbysite"}, 
+		{"3700", "maxdef"}, 
+		{"3800", "poptype"}, 
+		{"1100", "nativesoil"}, 
+
+	};
+	static String[][] effectMapping = {
+		{"4000", "incdom"}, 
+		{"3900", "decscale Turmoil"}, 
+		{"2A00", "gold"}, 
+		{"3200", "defence"}, 
+		{"0800", "landgold"}, 
+		{"0100", "nation"}, 
+		{"2100", "10d6units"}, 
+		{"2700", "16d6units"}, 
+		 
+	};
+	
 	public static void doit(List<Event> events) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.EVENT);
@@ -73,7 +155,7 @@ public class EventStatIndexer {
 			} else {
 //				if (numFound == 0) System.out.print("Requirements: ");
 				Pair pair = new Pair();
-				pair.name = low + high;
+				pair.name = translateRequirements(low + high);
 				events.get(i).requirements.add(pair);
 //				System.out.print(low + high + " ");
 				k++;
@@ -125,7 +207,7 @@ public class EventStatIndexer {
 			} else {
 				//if (numFound == 0) System.out.print("Effects: ");
 				Pair pair = new Pair();
-				pair.name = low + high;
+				pair.name = translateEffects(low + high);
 				events.get(i).effects.add(pair);
 //				System.out.print(low + high + " ");
 				numFound++;
@@ -169,6 +251,24 @@ public class EventStatIndexer {
 			
 
 		}
+	}
+	
+	private static String translateRequirements(String value) {
+		for (String[]pair : requirementMapping) {
+			if (pair[0].equals(value)) {
+				return pair[1];
+			}
+		}
+		return "???"+value+"???";
+	}
+	
+	private static String translateEffects(String value) {
+		for (String[]pair : effectMapping) {
+			if (pair[0].equals(value)) {
+				return pair[1];
+			}
+		}
+		return value;
 	}
 	
 	public static void main(String[] args) {

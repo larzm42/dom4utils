@@ -28,7 +28,7 @@ public class AttributeDumper {
 		"C300", // firstshape
 		"C100", // shapechange
 		"C400", // secondtmpshape
-		//"1C01", // maxage
+		"1C01", // maxage
 		"CA00", // damagerev
 		"9E01", // bloodvengeance
 		"EB00", // nobadevents
@@ -75,7 +75,7 @@ public class AttributeDumper {
 		"FB00", // nametype
 		"B600",	// itemslots
 		"0901", // ressize
-		//"1D01", // startage
+		"1D01", // startage
 		"AB00", // blind
 		"B200", // eyes
 		"7A00", // supplybonus
@@ -84,6 +84,12 @@ public class AttributeDumper {
 		"CA01", // chaosrec
 		"7D00", // siegebonus
 		"D900", // ambidextrous
+		"7E01", // invulnerability
+		"BF00", // iceprot
+		"7500", // reinvigoration
+		"D600", // spy
+		"E301", // scale walls
+		"D500", // assassin
 };
 
 	private static List<String> attrList = new ArrayList<String>();

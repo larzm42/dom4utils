@@ -50,7 +50,7 @@ public class MonsterStatIndexer {
 	private static String value3[] = {"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "", "teleport", "", "", "", "", "", "", "", "", "" };
 	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value5[] = {"magicbeing", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value6[] = {"", "", "", "", "", "", "", "", "", "oldage", "", "", "", "", "", "" };
+	private static String value6[] = {"", "", "", "", "", "", "", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" };
 	private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	
@@ -93,7 +93,11 @@ public class MonsterStatIndexer {
 		{"coldres15", "130"},
 		{"fireres15", "129"},
 		{"poisonres15", "131"},
-//		{"oldage", "245"},
+		{"noleader", "35"},
+		{"poorleader", "35"}, 
+		{"goodleader", "35"}, 
+		{"expertleader", "35"}, 
+		{"superiorleader", "35"}
 //		{"misc2", ""},
 		};
 	
@@ -730,7 +734,22 @@ public class MonsterStatIndexer {
 				}
 			}
 			stream.close();
-			
+
+			// additional leadership
+			doit2(sheet, "9D00", 35, new Callback() {
+				
+				@Override
+				public String notFound() {
+					return "40";
+				}
+				
+				@Override
+				public String found(String value) {
+					return Integer.toString(Integer.parseInt(value)+40);
+				}
+			});
+
+
 			// Large bitmap
 			for (String[] pair : DOTHESE) {
 				columnsUsed.remove(Integer.parseInt(pair[1]));
@@ -775,6 +794,41 @@ public class MonsterStatIndexer {
 								poisoncloud = true;
 							}
 							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0));
+						} else if (pair[0].equals("noleader")) {
+							String additional = getAttr("9D00", rowNumber-1);
+							if (!"".equals(additional)) {
+								cell.setCellValue(additional);
+							} else {
+								cell.setCellValue("0");
+							}
+						} else if (pair[0].equals("poorleader")) {
+							String additional = getAttr("9D00", rowNumber-1);
+							if (!"".equals(additional)) {
+								cell.setCellValue(Integer.toString(10+Integer.parseInt(additional)));
+							} else {
+								cell.setCellValue("10");
+							}
+						} else if (pair[0].equals("goodleader")) {
+							String additional = getAttr("9D00", rowNumber-1);
+							if (!"".equals(additional)) {
+								cell.setCellValue(Integer.toString(80+Integer.parseInt(additional)));
+							} else {
+								cell.setCellValue("80");
+							}
+						} else if (pair[0].equals("expertleader")) {
+							String additional = getAttr("9D00", rowNumber-1);
+							if (!"".equals(additional)) {
+								cell.setCellValue(Integer.toString(120+Integer.parseInt(additional)));
+							} else {
+								cell.setCellValue("120");
+							}
+						} else if (pair[0].equals("superiorleader")) {
+							String additional = getAttr("9D00", rowNumber-1);
+							if (!"".equals(additional)) {
+								cell.setCellValue(Integer.toString(160+Integer.parseInt(additional)));
+							} else {
+								cell.setCellValue("160");
+							}
 						} else {
 							cell.setCellValue(1);
 						}
@@ -818,6 +872,12 @@ public class MonsterStatIndexer {
 								|| pair[0].equals("pierceres")
 								) {
 							cell.setCellValue("");
+						} else if (pair[0].equals("noleader")
+								|| pair[0].equals("poorleader")
+								|| pair[0].equals("goodleader")
+								|| pair[0].equals("expertleader")
+								|| pair[0].equals("superiorleader")
+								) {
 						} else {
 							cell.setCellValue(0);
 						}
@@ -1462,28 +1522,28 @@ public class MonsterStatIndexer {
 			//doit2(sheet, "B600", 219);
 			
 			// startage
-//			doit2(sheet, "1D01", 38, new CallbackAdapter(){
-//				@Override
-//				public String found(String value) {
-//					int age = Integer.parseInt(value);
-//					if (age == -1) {
-//						age = 0;
-//					}
-//					return Integer.toString((int)(age+age*.1));
-//				}
-//				@Override
-//				public String notFound() {
-//					return null;
-//				}
-//			});
+			doit2(sheet, "1D01", 38, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					int age = Integer.parseInt(value);
+					if (age == -1) {
+						age = 0;
+					}
+					return Integer.toString((int)(age+age*.1));
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
 			
 			// maxage
-//			doit2(sheet, "1C01", 39, new CallbackAdapter(){
-//				@Override
-//				public String notFound() {
-//					return null;
-//				}
-//			});
+			doit2(sheet, "1C01", 39, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.MONSTER_MAGIC);

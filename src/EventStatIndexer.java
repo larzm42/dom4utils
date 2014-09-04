@@ -104,13 +104,53 @@ public class EventStatIndexer {
 	static String[][] effectMapping = {
 		{"4000", "incdom"}, 
 		{"3900", "decscale Turmoil"}, 
+		{"3A00", "decscale Misfortune"}, 
+		{"3B00", "decscale Death"}, 
 		{"2A00", "gold"}, 
 		{"3200", "defence"}, 
 		{"0800", "landgold"}, 
 		{"0100", "nation"}, 
+		{"1800", "1d6units"}, 
+		{"1900", "2d6units"}, 
+		{"1A00", "3d6units"}, 
+		{"1B00", "4d6units"}, 
+		{"1C00", "5d6units"}, 
+		{"1D00", "6d6units"}, 
+		{"1E00", "7d6units"}, 
+		{"1F00", "8d6units"}, 
+		{"2000", "9d6units"}, 
 		{"2100", "10d6units"}, 
+		{"2200", "11d6units"}, 
+		{"2300", "12d6units"}, 
+		{"2400", "13d6units"}, 
+		{"2500", "14d6units"}, 
+		{"2600", "15d6units"}, 
 		{"2700", "16d6units"}, 
-		 
+		{"2900", "magicitem"}, 
+		{"0E00", "1d6vis?"}, 
+		{"0F00", "1d6vis?"}, 
+		{"1000", "1d6vis?"}, 
+		{"1100", "2d6vis"}, 
+		{"1200", "3d6vis"}, 
+		{"1300", "4d6vis"}, 
+		{"3500", "gemloss"}, 
+		{"0A00", "kill"}, 
+		{"1400", "1com"}, 
+		{"5D00", "code"}, 
+		{"0C00", "unrest"}, 
+		{"4E00", "taxboost"}, 
+		{"0D00", "lab"}, 
+		{"4100", "newsite"}, 
+		{"0900", "landprod"}, 
+		{"3300", "temple"}, 
+		{"2F00", "fort"}, 
+		{"0300", "e3"}, 
+		{"3F00", "killmon"}, 
+		{"4400", "killcom"}, 
+		{"5A00", "bloodboost"}, 
+		{"2300", "stealthcom"}, 
+		{"3400", "revolt"}, 
+	 
 	};
 	
 	public static void doit(List<Event> events) throws IOException {
@@ -259,7 +299,7 @@ public class EventStatIndexer {
 				return pair[1];
 			}
 		}
-		return "???"+value+"???";
+		return "!!!"+value+"!!!";
 	}
 	
 	private static String translateEffects(String value) {
@@ -268,7 +308,7 @@ public class EventStatIndexer {
 				return pair[1];
 			}
 		}
-		return value;
+		return "!!!"+value+"!!!";
 	}
 	
 	public static void main(String[] args) {

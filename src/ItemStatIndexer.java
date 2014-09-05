@@ -30,7 +30,13 @@ public class ItemStatIndexer {
 		"secondarypath",
 		"secondarylevel",
 		"weapon",
-		"armor"
+		"armor",
+		"test",
+		"special",
+		"autocombatspell",
+		"startbattlespell",
+		"itemspell",
+		"ritual"
 	};
 
 	private static XSSFWorkbook readFile(String filename) throws IOException {
@@ -115,6 +121,33 @@ public class ItemStatIndexer {
 
 	}
 	
+	private static boolean hasAttr(String attr, long position) throws IOException {
+        FileInputStream stream = new FileInputStream("Dominions4.exe");	
+        try {
+    		stream.skip(position);
+    		int i = 0;
+    		byte[] c = new byte[2];
+    		while ((stream.read(c, 0, 2)) != -1) {
+    			String high = String.format("%02X", c[1]);
+    			String low = String.format("%02X", c[0]);
+    			int weapon = Integer.decode("0X" + high + low);
+    			if (weapon == 0) {
+    				return false;
+    			} else {
+    				if ((low + high).equals(attr)) {
+    					return true;
+    				}
+    			}				
+    			if (i > 384) {
+    				break;
+    			}
+    		}
+    		return false;
+        } finally {
+    		stream.close();
+        }
+	}
+
 	public static void main(String[] args) {
 
 		FileInputStream stream = null;
@@ -367,77 +400,85 @@ public class ItemStatIndexer {
 			}
 			stream.close();
 
-//			stream = new FileInputStream("Dominions4.exe");			
-//			stream.skip(Starts.ITEM);
-//			rowNumber = 1;
-//			// Itemspell
-//			stream.skip(48);
-//			start = start + 48l;
-//			i = 0;
-//			isr = new InputStreamReader(stream, "ISO-8859-1");
-//	        in = new BufferedReader(isr);
-//			while ((ch = in.read()) > -1) {
-//				StringBuffer name = new StringBuffer();
-//				while (ch != 0) {
-//					name.append((char)ch);
-//					ch = in.read();
-//				}
-//				in.close();
-//
-//				stream = new FileInputStream("Dominions4.exe");		
-//				start = start + 208l;
-//				stream.skip(start);
-//				isr = new InputStreamReader(stream, "ISO-8859-1");
-//		        in = new BufferedReader(isr);
-//
-//				//System.out.println(name);
-//				XSSFRow row = sheet.getRow(rowNumber);
-//				rowNumber++;
-//				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
-//				cell.setCellValue(name.toString());
-//				i++;
-//				if (i > 384) {
-//					break;
-//				}
-//			}
-//			stream.close();
+			stream = new FileInputStream("Dominions4.exe");			
+			stream.skip(Starts.ITEM);
+			rowNumber = 1;
+	        startIndex = Starts.ITEM;
+			// Itemspell
+			stream.skip(48);
+			startIndex = startIndex + 48l;
+			i = 0;
+			isr = new InputStreamReader(stream, "ISO-8859-1");
+	        in = new BufferedReader(isr);
+			while ((ch = in.read()) > -1) {
+				StringBuffer name = new StringBuffer();
+				while (ch != 0) {
+					name.append((char)ch);
+					ch = in.read();
+				}
+				in.close();
 
-//	        start = 0x0575ae8l;
-//			stream = new FileInputStream("Dominions4.exe");			
-//			stream.skip(start);
-//			rowNumber = 1;
-//			// Startbattlespell Autocombatspell?
-//			stream.skip(84);
-//			start = start + 84l;
-//			i = 0;
-//			isr = new InputStreamReader(stream, "ISO-8859-1");
-//	        in = new BufferedReader(isr);
-//			while ((ch = in.read()) > -1) {
-//				StringBuffer name = new StringBuffer();
-//				while (ch != 0) {
-//					name.append((char)ch);
-//					ch = in.read();
-//				}
-//				in.close();
-//
-//				stream = new FileInputStream("Dominions4.exe");		
-//				start = start + 208l;
-//				stream.skip(start);
-//				isr = new InputStreamReader(stream, "ISO-8859-1");
-//		        in = new BufferedReader(isr);
-//
-//				//System.out.println(name);
-//				XSSFRow row = sheet.getRow(rowNumber);
-//				rowNumber++;
-//				XSSFCell cell = row.getCell(129, Row.CREATE_NULL_AS_BLANK);
-//				cell.setCellValue(name.toString());
-//				i++;
-//				if (i > 384) {
-//					break;
-//				}
-//			}
-//			in.close();
-//			stream.close();
+				stream = new FileInputStream("Dominions4.exe");		
+				startIndex = startIndex + 208l;
+				stream.skip(startIndex);
+				isr = new InputStreamReader(stream, "ISO-8859-1");
+		        in = new BufferedReader(isr);
+
+				//System.out.println(name);
+				XSSFRow row = sheet.getRow(rowNumber);
+				rowNumber++;
+				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
+				cell.setCellValue(name.toString());
+				i++;
+				if (i > 384) {
+					break;
+				}
+			}
+			stream.close();
+
+			stream = new FileInputStream("Dominions4.exe");			
+			stream.skip(Starts.ITEM);
+			rowNumber = 1;
+	        startIndex = Starts.ITEM;
+			// Startbattlespell and Autocombatspell
+			stream.skip(84);
+			startIndex = startIndex + 84l;
+			i = 0;
+			isr = new InputStreamReader(stream, "ISO-8859-1");
+	        in = new BufferedReader(isr);
+			while ((ch = in.read()) > -1) {
+				StringBuffer name = new StringBuffer();
+				while (ch != 0) {
+					name.append((char)ch);
+					ch = in.read();
+				}
+				in.close();
+
+				int blankCol = 129;
+				int column = 128;
+				if (hasAttr("8500", startIndex+36l)) {
+					column = 129;
+					blankCol = 128;
+				}
+				stream = new FileInputStream("Dominions4.exe");		
+				startIndex = startIndex + 208l;
+				stream.skip(startIndex);
+				isr = new InputStreamReader(stream, "ISO-8859-1");
+		        in = new BufferedReader(isr);
+
+				//System.out.println(name);
+				XSSFRow row = sheet.getRow(rowNumber);
+				rowNumber++;
+				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				cell.setCellValue(name.toString());
+				XSSFCell blankcell = row.getCell(blankCol, Row.CREATE_NULL_AS_BLANK);
+				blankcell.setCellValue("");
+				i++;
+				if (i > 384) {
+					break;
+				}
+			}
+			stream.close();
 
 			// Fireres
 			doit(sheet, "C600", 11);
@@ -466,69 +507,6 @@ public class ItemStatIndexer {
 			// inspirational leadership
 			doit(sheet, "7001", 64);
 
-//			stream = new FileInputStream("Dominions4.exe");			
-//			stream.skip(Starts.ITEM);
-//			rowNumber = 1;
-//			// fire ritual range
-//			i = 0;
-//			k = 0;
-//			pos = -1;
-//			numFound = 0;
-//			c = new byte[2];
-//			stream.skip(120);
-//			while ((stream.read(c, 0, 2)) != -1) {
-//				String high = String.format("%02X", c[1]);
-//				String low = String.format("%02X", c[0]);
-//				int weapon = Integer.decode("0X" + high + low);
-//				if (weapon == 0) {
-//					boolean found = false;
-//					int value = 0;
-//					stream.skip(18l - numFound*2l);
-//					// Values
-//					for (int x = 0; x < numFound; x++) {
-//						byte[] d = new byte[4];
-//						stream.read(d, 0, 4);
-//						String high1 = String.format("%02X", d[3]);
-//						String low1 = String.format("%02X", d[2]);
-//						high = String.format("%02X", d[1]);
-//						low = String.format("%02X", d[0]);
-//						//System.out.print(low + high + " ");
-//						if (x == pos) {
-//							value = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
-//							//System.out.print(fire);
-//							found = true;
-//						}
-//						//stream.skip(2);
-//					}
-//					
-//					//System.out.println("");
-//					XSSFRow row = sheet.getRow(rowNumber);
-//					rowNumber++;
-//					XSSFCell cell = row.getCell(82, Row.CREATE_NULL_AS_BLANK);
-//					if (found) {
-//						cell.setCellValue(value);
-//					} else {
-//						cell.setCellValue("");
-//					}
-//					stream.skip(206l - 18l - numFound*4l);
-//					numFound = 0;
-//					pos = -1;
-//					k = 0;
-//					i++;
-//				} else {
-//					//System.out.print(low + high + " ");
-//					if ((low + high).equals("2800")) {
-//						pos = k;
-//					}
-//					k++;
-//					numFound++;
-//				}				
-//				if (i > 384) {
-//					break;
-//				}
-//			}
-//			stream.close();
-
 			// morale
 			doit(sheet, "3401", 27);
 
@@ -540,6 +518,9 @@ public class ItemStatIndexer {
 
 			// fear
 			doit(sheet, "B700", 66);
+
+			// fire ritual range
+			//doit(sheet, "2800", 82); deal with elemental and sorcery range
 
 			wb.write(fos);
 			fos.close();

@@ -150,6 +150,15 @@ public class EventStatIndexer {
 		{"5A00", "bloodboost"}, 
 		{"2300", "stealthcom"}, 
 		{"3400", "revolt"}, 
+		{"2B00", "newdom"}, 
+		{"1600", "3com"}, 
+		{"2800", "id"}, 
+		{"4500", "worldunrest"}, 
+		{"4700", "worldincscale"}, 
+		{"4A00", "worlddecscale"}, 
+		{"4F00", "worldritrebate"}, 
+		{"6600", "worldheal"}, 
+		{"6100", "linger"}, 
 	 
 	};
 	

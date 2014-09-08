@@ -749,7 +749,6 @@ public class MonsterStatIndexer {
 				}
 			});
 
-
 			// Large bitmap
 			for (String[] pair : DOTHESE) {
 				columnsUsed.remove(Integer.parseInt(pair[1]));
@@ -796,6 +795,8 @@ public class MonsterStatIndexer {
 							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0));
 						} else if (pair[0].equals("noleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							baseLeaderCell.setCellValue("0");
 							if (!"".equals(additional)) {
 								cell.setCellValue(additional);
 							} else {
@@ -803,6 +804,8 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("poorleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							baseLeaderCell.setCellValue("10");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(10+Integer.parseInt(additional)));
 							} else {
@@ -810,6 +813,8 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("goodleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							baseLeaderCell.setCellValue("80");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(80+Integer.parseInt(additional)));
 							} else {
@@ -817,6 +822,8 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("expertleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							baseLeaderCell.setCellValue("120");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(120+Integer.parseInt(additional)));
 							} else {
@@ -824,6 +831,8 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("superiorleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							baseLeaderCell.setCellValue("160");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(160+Integer.parseInt(additional)));
 							} else {
@@ -1418,6 +1427,14 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// seduction
+			doit2(sheet, "2A01", 106, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
 			// assassin
 			doit2(sheet, "D500", 103, new CallbackAdapter() {
 				@Override
@@ -1425,6 +1442,12 @@ public class MonsterStatIndexer {
 					return "0";
 				}
 			});
+			
+			// explode on death
+			doit2(sheet, "2901", 249);
+			
+			// taskmaster
+			doit2(sheet, "7B01", 119);
 			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

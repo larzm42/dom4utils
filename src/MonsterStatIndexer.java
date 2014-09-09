@@ -49,7 +49,7 @@ public class MonsterStatIndexer {
 	private static String value2[] = {"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "sacred", "mountainsurvival", "illusion", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" };
 	private static String value3[] = {"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "", "teleport", "", "", "", "", "", "", "", "", "" };
 	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	private static String value5[] = {"magicbeing", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value5[] = {"magicbeing", "", "", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" };
 	private static String value6[] = {"", "", "", "", "", "", "", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" };
 	private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
@@ -93,11 +93,22 @@ public class MonsterStatIndexer {
 		{"coldres15", "130"},
 		{"fireres15", "129"},
 		{"poisonres15", "131"},
+		{"shockres15", "128"},
 		{"noleader", "35"},
 		{"poorleader", "35"}, 
 		{"goodleader", "35"}, 
 		{"expertleader", "35"}, 
-		{"superiorleader", "35"}
+		{"superiorleader", "35"},
+		{"poorundeadleader", "36"},
+		{"okundeadleader", "36"}, 
+		{"goodundeadleader", "36"}, 
+		{"expertundeadleader", "36"}, 
+		{"superiorundeadleader", "36"},
+		{"poormagicleader", "37"},
+		{"okmagicleader", "37"}, 
+		{"goodmagicleader", "37"}, 
+		{"expertmagicleader", "37"}, 
+		{"superiormagicleader", "37"}
 //		{"misc2", ""},
 		};
 	
@@ -142,6 +153,7 @@ public class MonsterStatIndexer {
 		"realm3",
 		"realm2",
 		"realm1",
+		"baseleadership",
 		"test"
 	};
 	
@@ -793,6 +805,9 @@ public class MonsterStatIndexer {
 								poisoncloud = true;
 							}
 							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0));
+						} else if (pair[0].equals("shockres15")) {
+							String additional = getAttr("C700", rowNumber-1);
+							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional));
 						} else if (pair[0].equals("noleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
 							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
@@ -838,6 +853,26 @@ public class MonsterStatIndexer {
 							} else {
 								cell.setCellValue("160");
 							}
+						} else if (pair[0].equals("poormagicleader")) {
+							cell.setCellValue("10");
+						} else if (pair[0].equals("okmagicleader")) {
+							cell.setCellValue("40");
+						} else if (pair[0].equals("goodmagicleader")) {
+							cell.setCellValue("80");
+						} else if (pair[0].equals("expertmagicleader")) {
+							cell.setCellValue("120");
+						} else if (pair[0].equals("superiormagicleader")) {
+							cell.setCellValue("160");
+						} else if (pair[0].equals("poorundeadleader")) {
+							cell.setCellValue("10");
+						} else if (pair[0].equals("okundeadleader")) {
+							cell.setCellValue("40");
+						} else if (pair[0].equals("goodundeadleader")) {
+							cell.setCellValue("80");
+						} else if (pair[0].equals("expertundeadleader")) {
+							cell.setCellValue("120");
+						} else if (pair[0].equals("superiorundeadleader")) {
+							cell.setCellValue("160");
 						} else {
 							cell.setCellValue(1);
 						}
@@ -872,6 +907,10 @@ public class MonsterStatIndexer {
 							String additional = getAttr("C800", rowNumber-1);
 							int poisonres = Integer.parseInt(additional.equals("")?"0":additional) + (poisoncloud?10:0);
 							cell.setCellValue(poisonres==0?"":Integer.toString(poisonres));
+						} else if (pair[0].equals("shockres15")) {
+							String additional = getAttr("C700", rowNumber-1);
+							int shockres = Integer.parseInt(additional.equals("")?"0":additional);
+							cell.setCellValue(shockres==0?"":Integer.toString(shockres));
 						} else if (pair[0].equals("stealthy40")
 								|| pair[0].equals("immobile")
 								|| pair[0].equals("teleport")
@@ -886,6 +925,16 @@ public class MonsterStatIndexer {
 								|| pair[0].equals("goodleader")
 								|| pair[0].equals("expertleader")
 								|| pair[0].equals("superiorleader")
+								|| pair[0].equals("poormagicleader")
+								|| pair[0].equals("okmagicleader")
+								|| pair[0].equals("goodmagicleader")
+								|| pair[0].equals("expertmagicleader")
+								|| pair[0].equals("superiormagicleader")
+								|| pair[0].equals("poorundeadleader")
+								|| pair[0].equals("okundeadleader")
+								|| pair[0].equals("goodundeadleader")
+								|| pair[0].equals("expertundeadleader")
+								|| pair[0].equals("superiorundeadleader")
 								) {
 						} else {
 							cell.setCellValue(0);
@@ -1448,6 +1497,40 @@ public class MonsterStatIndexer {
 			
 			// taskmaster
 			doit2(sheet, "7B01", 119);
+			
+			// unique
+			doit2(sheet, "1301", 216, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// poisoncloud
+			doit2(sheet, "6A00", 145);
+			
+			// startaff
+			doit2(sheet, "B900", 250);
+			
+			// uwregen
+			doit2(sheet, "DD00", 251);
+			
+			// patrolbonus
+			doit2(sheet, "AA00", 188);
+			
+			// castledef
+			doit2(sheet, "D700", 189);
+			
+			// sailsz
+			doit2(sheet, "7000", 98, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// maxsailsz
+			doit2(sheet, "9A01", 99);
 			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

@@ -12,100 +12,59 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
-public class AttributeDumper {
-	private static String[] KNOWN_MONSTER_ATTRS = {
-		"6C00", // stealthy
-		"C900", // coldres
-		"DC00", // cold
-		"C600", // fireres
-		"3C01", // heat
-		"C800", // poisonres
-		"C700", // shockres
-		"6A00", // poisoncloud
-		"CD01", // patience
-		"AF00", // stormimmune
-		"BD00", // regeneration
-		"C200", // secondshape
-		"C300", // firstshape
-		"C100", // shapechange
-		"C400", // secondtmpshape
-		"1C01", // maxage
-		"CA00", // damagerev
-		"9E01", // bloodvengeance
-		"EB00", // nobadevents
-		"E400", // bringeroffortune
-		"1901", // darkvision
+public class AttributeDumperItem {
+	private static String[] KNOWN_ITEM_ATTRS = {
+		"C600", // Fireres
+		"C900", // Coldres
+		"C800", // Poisonres
+		"C700", // Shockres
+		"9D00", // Leadership
+		"9700", // str
+		"C501", // fixforge
+		"9E00", // magic leadership
+		"9F00", // undead leadership
+		"7001", // inspirational leadership
+		"3401", // morale
+		"A100", // penetration
+		"8300", // pillage
 		"B700", // fear
-		"1501", // voidsanity
-		"6700", // standard
-		"6E01", // formationfighter
-		"6F01", // undisciplined
-		"9801", // bodyguard
-		"A400", // summon1
-		"A500", // summon2
-		"A600", // summon3
-		"7001", // inspirational
-		"8300", // pillagebonus
-		"BE00", // berserk
-		"F200", // startdom
-		"F300", // pathcost
-		"6F00", // waterbreathing
-		"AA01", // realm
-		"B401", // batstartsum1
-		"B501", // batstartsum2
-		"B601", // batstartsum3
-		"B701", // batstartsum4
-		"B801", // batstartsum5
-		"B901", // batstartsum1d6
-		"BA01", // batstartsum2d6
-		"BB01", // batstartsum3d6
-		"BC01", // batstartsum4d6
-		"BD01", // batstartsum5d6
-		"BE01", // batstartsum6d6
-		"2501", // darkpower
-		"AE00", // stormpower
-		"B100", // firepower
-		"B000", // coldpower
-		"2501", // darkpower
-		"A001", // chaospower
-		"4401", // magicpower
-		"EA00", // winterpower
-		"E700", // springpower
-		"E800", // summerpower
-		"E900",	// fallpower
-		"FB00", // nametype
-		"B600",	// itemslots
-		"0901", // ressize
-		"1D01", // startage
-		"AB00", // blind
-		"B200", // eyes
-		"7A00", // supplybonus
-		"7C01", // slave
-		"7900", // researchbonus
-		"CA01", // chaosrec
-		"7D00", // siegebonus
-		"D900", // ambidextrous
-		"7E01", // invulnerability
-		"BF00", // iceprot
+		"A000", // mr
+		"0601", // taint
 		"7500", // reinvigoration
-		"D600", // spy
-		"E301", // scale walls
-		"D500", // assassin
-		"D200", // dream seducer
-		"2A01", // seduction
-		"2901", // explode on death
-		"7B01", // taskmaster
-		"1301", // unique
 		"6900", // awe
-		"9D00", // additional leadership
-		"B900", // startaff
-		"F500", // landshape
-		"F600", // watershape
-		"DD00", // uwregen
-		"AA00", // patrolbonus
-		"D700", // castledef
-		"7000", // sailsz
-		"9A01", // maxsailsz
+		"8500", // autospell
+		"0A00", // F
+		"0B00", // A
+		"0C00", // W
+		"0D00", // E
+		"0E00", // S
+		"0F00", // D
+		"1000", // N
+		"1100", // B
+		"1200", // H
+		"1400", // elemental
+		"1500", // sorcery
+		"1600", // all
+		"1700", // elemental range
+		"1800", // sorcery range
+		"1900", // all range
+		"2800", // fire ritual range
+		"2900", // air ritual range
+		"2A00", // water ritual range
+		"2B00", // earth ritual range
+		"2C00", // astral ritual range
+		"2D00", // death ritual range
+		"2E00", // nature ritual range
+		"2F00", // blood ritual range
+		"1901", // darkvision
+		//"CE01", // regeneration
+		"6E00", // waterbreathing
+		"8601", // stealthb
+		"6C00", // stealth
+		"9600", // att
+		"7901", // def
+		"9601", // woundfend
+		//"1601", // restricted
 };
 
 	private static List<String> attrList = new ArrayList<String>();
@@ -115,17 +74,17 @@ public class AttributeDumper {
 	public static void main(String[] args) {
 		try {
 			FileInputStream stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.MONSTER);
+			stream.skip(Starts.ITEM);
 			int i = 0;
 			long numFound = 0;
 			byte[] c = new byte[2];
-			stream.skip(64);
+			stream.skip(120);
 			while ((stream.read(c, 0, 2)) != -1) {
 				String high = String.format("%02X", c[1]);
 				String low = String.format("%02X", c[0]);
 				int weapon = Integer.decode("0X" + high + low);
 				if (weapon == 0) {
-					stream.skip(46l - numFound*2l);
+					stream.skip(18l - numFound*2l);
 					System.out.print("id:" + (i+1));
 					// Values
 					for (int x = 0; x < numFound; x++) {
@@ -135,14 +94,14 @@ public class AttributeDumper {
 						String low1 = String.format("%02X", d[2]);
 						high = String.format("%02X", d[1]);
 						low = String.format("%02X", d[0]);
-						if (!Arrays.asList(KNOWN_MONSTER_ATTRS).contains(attrList.get(x))) {
+						if (!Arrays.asList(KNOWN_ITEM_ATTRS).contains(attrList.get(x))) {
 							System.out.print("\n\t" + attrList.get(x) + ": ");
 							System.out.print(new BigInteger(high1 + low1 + high + low, 16).intValue() + " ");
 						}
 					}
 
 					System.out.println("");
-					stream.skip(254l - 46l - numFound*4l);
+					stream.skip(206l - 18l - numFound*4l);
 					numFound = 0;
 					i++;
 					
@@ -159,7 +118,7 @@ public class AttributeDumper {
 					attrList.add(low + high);
 					numFound++;
 				}				
-				if (i > 2641) {
+				if (i > 384) {
 					break;
 				}
 			}
@@ -176,7 +135,7 @@ public class AttributeDumper {
 
 			System.out.println("Summary:");
 			for (Entry<String, Integer> entry : list) {
-				if (!Arrays.asList(KNOWN_MONSTER_ATTRS).contains(entry.getKey())) {
+				if (!Arrays.asList(KNOWN_ITEM_ATTRS).contains(entry.getKey())) {
 					System.out.println("id: " + entry.getKey() + " " + entry.getValue());
 				}
 			}

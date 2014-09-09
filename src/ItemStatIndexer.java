@@ -36,6 +36,10 @@ public class ItemStatIndexer {
 		"autocombatspell",
 		"startbattlespell",
 		"itemspell",
+		"restricted1",
+		"restricted2",
+		"restricted3",
+		"restrictions",
 		"ritual"
 	};
 
@@ -91,13 +95,17 @@ public class ItemStatIndexer {
 					if (callback == null) {
 						cell.setCellValue(value);
 					} else {
-						cell.setCellValue(callback.found(Integer.toString(value)));
+						if (callback.found(Integer.toString(value)) != null) {
+							cell.setCellValue(callback.found(Integer.toString(value)));
+						}
 					}
 				} else {
 					if (callback == null) {
 						cell.setCellValue("");
 					} else {
-						cell.setCellValue(callback.notFound());
+						if (callback.notFound() != null) {
+							cell.setCellValue(callback.notFound());
+						}
 					}
 				}
 				stream.skip(206l - 18l - numFound*4l);
@@ -501,6 +509,9 @@ public class ItemStatIndexer {
 			// fixforge
 			doit(sheet, "C501", 18);
 
+			// magic leadership
+			doit(sheet, "9E00", 63);
+
 			// undead leadership
 			doit(sheet, "9F00", 62);
 
@@ -519,8 +530,358 @@ public class ItemStatIndexer {
 			// fear
 			doit(sheet, "B700", 66);
 
+			// mr
+			doit(sheet, "A000", 26);
+
+			// taint
+			doit(sheet, "0601", 60);
+
+			// reinvigoration
+			doit(sheet, "7500", 35);
+
+			// awe
+			doit(sheet, "6900", 67);
+
+			// F
+			doit(sheet, "0A00", 73);
+
+			// A
+			doit(sheet, "0B00", 74);
+
+			// W
+			doit(sheet, "0C00", 75);
+
+			// E
+			doit(sheet, "0D00", 76);
+
+			// S
+			doit(sheet, "0E00", 77);
+
+			// D
+			doit(sheet, "0F00", 78);
+
+			// N
+			doit(sheet, "1000", 79);
+
+			// B
+			doit(sheet, "1100", 80);
+
+			// H
+			doit(sheet, "1200", 81);
+
+			// elemental
+			doit(sheet, "1400", 73, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1400", 74, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1400", 75, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1400", 76, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
+			// sorcery
+			doit(sheet, "1500", 77, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1500", 78, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1500", 79, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1500", 80, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			
+			// all paths
+			doit(sheet, "1600", 73, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 74, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 75, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 76, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 77, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 78, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 79, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1600", 80, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
 			// fire ritual range
-			//doit(sheet, "2800", 82); deal with elemental and sorcery range
+			doit(sheet, "2800", 82);
+
+			// air ritual range
+			doit(sheet, "2900", 83);
+
+			// water ritual range
+			doit(sheet, "2A00", 84);
+
+			// earth ritual range
+			doit(sheet, "2B00", 85);
+
+			// astral ritual range
+			doit(sheet, "2C00", 86);
+
+			// death ritual range
+			doit(sheet, "2D00", 87);
+
+			// nature ritual range
+			doit(sheet, "2E00", 88);
+
+			// blood ritual range
+			doit(sheet, "2F00", 89);
+
+			// elemental range
+			doit(sheet, "1700", 82, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1700", 83, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1700", 84, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1700", 85, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
+			// sorcery range
+			doit(sheet, "1800", 86, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1800", 87, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1800", 88, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1800", 89, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
+			// all range
+			doit(sheet, "1900", 82, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 83, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 84, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 85, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 86, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 87, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 88, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "1900", 89, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
+			// darkvision
+			doit(sheet, "1901", 14);
+
+			// limited regeneration
+			doit(sheet, "CE01", 16);
+
+			// regeneration
+			doit(sheet, "BD00", 141);
+
+			// waterbreathing
+			doit(sheet, "6E00", 47);
+
+			// stealthb
+			doit(sheet, "8601", 38);
+
+			// stealth
+			doit(sheet, "6C00", 37);
+
+			// att
+			doit(sheet, "9600", 29);
+
+			// def
+			doit(sheet, "7901", 30);
+
+			// woundfend
+			doit(sheet, "9601", 17);
+
+			// restricted
+			//doit(sheet, "1601", 142);
+			// restricted
+			stream = new FileInputStream("Dominions4.exe");			
+			stream.skip(Starts.ITEM);
+			i = 0;
+			int k = 0;
+			Set<Integer> posSet = new HashSet<Integer>();
+			long numFound = 0;
+			c = new byte[2];
+			stream.skip(120);
+			while ((stream.read(c, 0, 2)) != -1) {
+				String high = String.format("%02X", c[1]);
+				String low = String.format("%02X", c[0]);
+				int weapon = Integer.decode("0X" + high + low);
+				if (weapon == 0) {
+					stream.skip(18l - numFound*2l);
+					int numRealms = 0;
+					// Values
+					for (int x = 0; x < numFound; x++) {
+						byte[] d = new byte[4];
+						stream.read(d, 0, 4);
+						String high1 = String.format("%02X", d[3]);
+						String low1 = String.format("%02X", d[2]);
+						high = String.format("%02X", d[1]);
+						low = String.format("%02X", d[0]);
+						//System.out.print(low + high + " ");
+						if (posSet.contains(x)) {
+							int fire = new BigInteger(high1 + low1 + high + low, 16).intValue();//Integer.decode("0X" + high + low);
+							//System.out.print(i+1 + "\t" + fire);
+							//System.out.println("");
+							XSSFRow row = sheet.getRow(i+1);
+							XSSFCell cell = row.getCell(142+numRealms, Row.CREATE_NULL_AS_BLANK);							
+							cell.setCellValue(fire-100);
+							numRealms++;
+						}
+						//stream.skip(2);
+					}
+					
+//					System.out.println("");
+					stream.skip(206l - 18l - numFound*4l);
+					numFound = 0;
+					posSet.clear();
+					k = 0;
+					i++;
+				} else {
+					//System.out.print(low + high + " ");
+					if ((low + high).equals("1601")) {
+						posSet.add(k);
+					}
+					k++;
+					numFound++;
+				}				
+				if (i > 384) {
+					break;
+				}
+			}
+			stream.close();
 
 			wb.write(fos);
 			fos.close();

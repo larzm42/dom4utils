@@ -925,6 +925,9 @@ public class ItemStatIndexer {
 			// eyeloss
 			doit(sheet, "7E00", 150);
 
+			// armysize
+			doit(sheet, "A301", 151);
+
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);

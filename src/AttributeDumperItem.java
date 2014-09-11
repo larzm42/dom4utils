@@ -81,6 +81,8 @@ public class AttributeDumperItem {
 		"D800", // bloodsac
 		"6B01", // mastersmith
 		"8400", // alch
+		"7E00", // eyeloss
+		"A301", // armysize
 };
 
 	private static List<String> attrList = new ArrayList<String>();

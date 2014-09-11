@@ -19,10 +19,22 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ItemStatIndexer {
+	private static Map<String, boolean[]> largeBitmapCache = new HashMap<String, boolean[]>();
+
+	static class CacheKey {
+		String key;
+		int id;
+		public CacheKey(String key, int id) {
+			super();
+			this.key = key;
+			this.id = id;
+		}
+	}
+
 	private static int MASK[] = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080,
 		0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000, 0x8000};
 
-	private static String value1[] = {"bless", "luck", "", "airshield", "barkskin", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value1[] = {"bless", "luck", "", "airshield", "barkskin", "", "", "", "bers", "", "", "", "", "", "", "" };
 	private static String value2[] = {"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "", "eth", "ironskin", "", "", "" };
 	private static String value3[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
@@ -40,7 +52,7 @@ public class ItemStatIndexer {
 		{"luck", "55"}, 
 		{"airshield", "15"}, 
 		//{"barkskin", "15"}, 
-		//{"bers", "15"}, 
+		{"bers", "107"}, 
 		//{"stoneskin", "15"}, 
 		{"fly", "43"}, 
 		{"quick", "51"}, 
@@ -48,9 +60,9 @@ public class ItemStatIndexer {
 		//{"ironskin", "15"}, 
 		{"trample", "53"}, 
 		//{"fireshield?", "52"}, 
-		{"disease", "57"}, 
-		{"curse", "56"}, 
-		{"cursed", "58"}, 
+		{"disease", "58"}, 
+		{"curse", "57"}, 
+		{"cursed", "59"}, 
 		};
 
 	private static Map<Integer, String> columnsUsed = new HashMap<Integer, String>();
@@ -75,7 +87,13 @@ public class ItemStatIndexer {
 		"restricted2",
 		"restricted3",
 		"restrictions",
-		"ritual"
+		"ritual",
+		"#sumbat",
+		"sumbat",
+		"affliction",
+		"#sumrit",
+		"sumrit",
+		"#sumauto"
 	};
 
 	private static XSSFWorkbook readFile(String filename) throws IOException {
@@ -859,6 +877,54 @@ public class ItemStatIndexer {
 			// woundfend
 			doit(sheet, "9601", 17);
 
+			// berserk
+			doit(sheet, "BE00", 106);
+
+			// aging
+			doit(sheet, "2F01", 145);
+
+			// ivylord
+			doit(sheet, "6500", 126);
+
+			// forest
+			doit(sheet, "A601", 39);
+
+			// waste
+			doit(sheet, "A701", 41);
+
+			// mount
+			doit(sheet, "A501", 40);
+
+			// swamp
+			doit(sheet, "A801", 42);
+
+			// researchbonus
+			doit(sheet, "7900", 118);
+			
+			// gitfofwater
+			doit(sheet, "6F00", 48);
+
+			// corpselord
+			doit(sheet, "9A00", 146);
+
+			// lictorlord
+			doit(sheet, "6600", 147);
+
+			// sumauto
+			doit(sheet, "8B00", 134);
+
+			// bloodsac
+			doit(sheet, "D800", 148);
+
+			// mastersmith
+			doit(sheet, "6B01", 149);
+
+			// alch
+			doit(sheet, "8400", 21);
+
+			// eyeloss
+			doit(sheet, "7E00", 150);
+
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);
@@ -915,6 +981,27 @@ public class ItemStatIndexer {
 				}
 			}
 			stream.close();
+
+			// Large bitmap
+			for (String[] pair : DOTHESE) {
+				columnsUsed.remove(Integer.parseInt(pair[1]));
+				rowNumber = 1;
+				boolean[] boolArray = largeBitmap(pair[0]);
+				for (boolean found : boolArray) {
+					XSSFRow row = sheet.getRow(rowNumber);
+					rowNumber++;
+					XSSFCell cell = row.getCell(Integer.parseInt(pair[1]), Row.CREATE_NULL_AS_BLANK);
+					if (found) {
+						if (pair[0].equals("airshield")) {
+							cell.setCellValue(80);
+						} else {
+							cell.setCellValue(1);
+						}
+					} else {
+							cell.setCellValue("");
+					}
+				}
+			}
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);
@@ -1138,6 +1225,175 @@ public class ItemStatIndexer {
 				}
 			}
 		}
+	}
+	
+	private static boolean[] largeBitmap(String fieldName) throws IOException {
+		boolean[] boolArray = largeBitmapCache.get(fieldName);
+		if (boolArray != null) {
+			return boolArray;
+		}
+		FileInputStream stream = new FileInputStream("Dominions4.exe");			
+		stream.skip(Starts.ITEM);
+		int i = 0;
+		byte[] c = new byte[24];
+		boolArray = new boolean[385];
+		stream.skip(184);
+		while ((stream.read(c, 0, 24)) != -1) {
+			boolean found = false;
+			String high = String.format("%02X", c[1]);
+			String low = String.format("%02X", c[0]);
+			int val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value1[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[3]);
+			low = String.format("%02X", c[2]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value2[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[5]);
+			low = String.format("%02X", c[4]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value3[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[7]);
+			low = String.format("%02X", c[6]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value4[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[9]);
+			low = String.format("%02X", c[8]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value5[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[11]);
+			low = String.format("%02X", c[10]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value6[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[13]);
+			low = String.format("%02X", c[12]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value7[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[15]);
+			low = String.format("%02X", c[14]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value8[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[17]);
+			low = String.format("%02X", c[16]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value9[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[19]);
+			low = String.format("%02X", c[18]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value10[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[21]);
+			low = String.format("%02X", c[20]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value11[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			high = String.format("%02X", c[23]);
+			low = String.format("%02X", c[22]);
+			val = Integer.decode("0X" + high + low);
+			if (val > 0) {
+				for (int j=0; j < 16; j++) {
+					if ((val & MASK[j]) != 0) {
+						if (value12[j].equals(fieldName)) {
+							found = true;
+						}
+					}
+				}
+			}
+			boolArray[i] = found;
+			stream.skip(184l);
+			i++;
+			if (i > 384) {
+				break;
+			}
+		}
+		stream.close();
+		largeBitmapCache.put(fieldName, boolArray);
+		return boolArray;
 	}
 
 }

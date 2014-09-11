@@ -66,6 +66,21 @@ public class AttributeDumperItem {
 		"7901", // def
 		"9601", // woundfend
 		"1601", // restricted
+		"BE00", // berserk
+		"2F01", // aging
+		"6500", // ivylord
+		"A501", // mount
+		"A601", // forest
+		"A701", // waste
+		"A801", // swamp
+		"7900", // researchbonus
+		"6F00", // gitfofwater
+		"9A00", // corpselord
+		"6600", // lictorlord
+		"8B00", // sumauto
+		"D800", // bloodsac
+		"6B01", // mastersmith
+		"8400", // alch
 };
 
 	private static List<String> attrList = new ArrayList<String>();

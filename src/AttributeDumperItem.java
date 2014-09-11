@@ -57,14 +57,15 @@ public class AttributeDumperItem {
 		"2E00", // nature ritual range
 		"2F00", // blood ritual range
 		"1901", // darkvision
-		//"CE01", // regeneration
+		"CE01", // limited regeneration
+		"BD00", // regeneration
 		"6E00", // waterbreathing
 		"8601", // stealthb
 		"6C00", // stealth
 		"9600", // att
 		"7901", // def
 		"9601", // woundfend
-		//"1601", // restricted
+		"1601", // restricted
 };
 
 	private static List<String> attrList = new ArrayList<String>();

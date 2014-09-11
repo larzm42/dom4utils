@@ -19,7 +19,42 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ItemStatIndexer {
+	private static int MASK[] = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080,
+		0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000, 0x8000};
+
+	private static String value1[] = {"bless", "luck", "", "airshield", "barkskin", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value2[] = {"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "", "eth", "ironskin", "", "", "" };
+	private static String value3[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value5[] = {"", "", "", "", "", "", "trample", "", "", "", "", "", "", "", "", "fireshield?" };
+	private static String value6[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value7[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value8[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value9[] = {"disease", "curse", "", "", "", "", "", "", "", "", "", "", "", "", "", "cursed" };
+	private static String value10[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value11[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value12[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+
+	private static String DOTHESE[][] = {
+		{"bless", "54"}, 
+		{"luck", "55"}, 
+		{"airshield", "15"}, 
+		//{"barkskin", "15"}, 
+		//{"bers", "15"}, 
+		//{"stoneskin", "15"}, 
+		{"fly", "43"}, 
+		{"quick", "51"}, 
+		{"eth", "52"}, 
+		//{"ironskin", "15"}, 
+		{"trample", "53"}, 
+		//{"fireshield?", "52"}, 
+		{"disease", "57"}, 
+		{"curse", "56"}, 
+		{"cursed", "58"}, 
+		};
+
 	private static Map<Integer, String> columnsUsed = new HashMap<Integer, String>();
+	
 	private static String SkipColumns[] = {
 		"id",
 		"name",
@@ -825,8 +860,6 @@ public class ItemStatIndexer {
 			doit(sheet, "9601", 17);
 
 			// restricted
-			//doit(sheet, "1601", 142);
-			// restricted
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);
 			i = 0;
@@ -883,6 +916,209 @@ public class ItemStatIndexer {
 			}
 			stream.close();
 
+			stream = new FileInputStream("Dominions4.exe");			
+			stream.skip(Starts.ITEM);
+			i = 0;
+			c = new byte[24];
+			stream.skip(184);
+			while ((stream.read(c, 0, 24)) != -1) {
+				boolean found = false;
+				System.out.print("(" + (i+1) + ") ");
+				String high = String.format("%02X", c[1]);
+				String low = String.format("%02X", c[0]);
+				//System.out.print(high + low + " ");
+				int val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print("1:{");
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value1[j].equals("")?("*****"+(j+1)+"*****"):value1[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[3]);
+				low = String.format("%02X", c[2]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 2:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value2[j].equals("")?("*****"+(j+1)+"*****"):value2[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[5]);
+				low = String.format("%02X", c[4]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 3:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value3[j].equals("")?("*****"+(j+1)+"*****"):value3[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+
+				high = String.format("%02X", c[7]);
+				low = String.format("%02X", c[6]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 4:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value4[j].equals("")?("*****"+(j+1)+"*****"):value4[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+
+				high = String.format("%02X", c[9]);
+				low = String.format("%02X", c[8]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 5:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value5[j].equals("")?("*****"+(j+1)+"*****"):value5[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[11]);
+				low = String.format("%02X", c[10]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 6:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value6[j].equals("")?("*****"+(j+1)+"*****"):value6[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[13]);
+				low = String.format("%02X", c[12]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 7:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value7[j].equals("")?("*****"+(j+1)+"*****"):value7[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[15]);
+				low = String.format("%02X", c[14]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 8:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value8[j].equals("")?("*****"+(j+1)+"*****"):value8[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[17]);
+				low = String.format("%02X", c[16]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 9:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value9[j].equals("")?("*****"+(j+1)+"*****"):value9[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[19]);
+				low = String.format("%02X", c[18]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 10:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value10[j].equals("")?("*****"+(j+1)+"*****"):value10[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[21]);
+				low = String.format("%02X", c[20]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 11:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value11[j].equals("")?("*****"+(j+1)+"*****"):value11[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				high = String.format("%02X", c[23]);
+				low = String.format("%02X", c[22]);
+				//System.out.print(high + low + " ");
+				val = Integer.decode("0X" + high + low);
+				if (val > 0) {
+					System.out.print(" 12:{");
+					found = false;
+					for (int j=0; j < 16; j++) {
+						if ((val & MASK[j]) != 0) {
+							System.out.print((found?",":"") + (value12[j].equals("")?("*****"+(j+1)+"*****"):value12[j]));
+							found = true;
+						}
+					}
+					System.out.print("}");
+				}
+				
+				if (!found) {
+					//System.out.println("");
+				}
+				System.out.println(" ");
+				stream.skip(184l);
+				i++;
+				if (i > 384) {
+					break;
+				}
+			}
+			stream.close();
+
+			
 			wb.write(fos);
 			fos.close();
 

@@ -1,21 +1,20 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.util.StringTokenizer;
 
 public class EventStatIndexer {
 	static class Event {
@@ -101,6 +100,12 @@ public class EventStatIndexer {
 		{"1100", "nativesoil"}, 
 
 	};
+	
+	static String[] requirementToUnit = {
+		"monster", 
+	};
+
+	
 	static String[][] effectMapping = {
 		{"4000", "incdom"}, 
 		{"3600", "incscale?"}, 
@@ -178,6 +183,59 @@ public class EventStatIndexer {
 	 
 	};
 	
+	static String[] effectToUnit = {
+		"1d6units", 
+		"2d6units", 
+		"3d6units", 
+		"4d6units", 
+		"5d6units", 
+		"6d6units", 
+		"7d6units", 
+		"8d6units", 
+		"9d6units", 
+		"10d6units", 
+		"11d6units", 
+		"12d6units", 
+		"13d6units", 
+		"14d6units", 
+		"15d6units", 
+		"16d6units", 
+		"1com", 
+		"2com", 
+		"killmon", 
+		"killcom", 
+		"stealthcom", 
+		"3com", 
+		"assassin", 
+	};
+	
+	static String[] effectToGem = {
+		"1d6vis?", 
+		"1d6vis?", 
+		"1d6vis?", 
+		"2d6vis", 
+		"3d6vis", 
+		"4d6vis", 
+	};
+	
+	static String[] effectToScale = {
+		"incscale?", 
+		"incscale2", 
+		"decscale?", 
+		"worldincscale", 
+		"worldincscale2", 
+		"worlddecscale", 
+	};
+	
+	static Set<String> effectToUnitSet = new HashSet<String>();
+	static Set<String> requirementToUnitSet = new HashSet<String>();
+	static Set<String> effectToGemSet = new HashSet<String>();
+	static Set<String> effectToScaleSet = new HashSet<String>();
+	
+	static Map<Integer, String> unitMap = new HashMap<Integer, String>();
+	static Map<Integer, String> gemMap = new HashMap<Integer, String>();
+	static Map<Integer, String> scaleMap = new HashMap<Integer, String>();
+
 	public static void doit(List<Event> events) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.EVENT);
@@ -200,13 +258,17 @@ public class EventStatIndexer {
 					high = String.format("%02X", c[1]);
 					low = String.format("%02X", c[0]);
 						int tmp = new BigInteger(high + low, 16).intValue();
-						if (tmp < 1000) {
+						if (tmp < 5000) {
 							value = Integer.decode("0X" + high + low);
 						} else {
 							value = new BigInteger("FFFF" + high + low, 16).intValue();
 						}
 						//System.out.print(value + " ");
-						events.get(i).requirements.get(x).value = Integer.toString(value);
+						if (requirementToUnitSet.contains(events.get(i).requirements.get(x).name)) {
+							events.get(i).requirements.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+						} else {
+							events.get(i).requirements.get(x).value = Integer.toString(value);
+						}
 					//}
 					stream.skip(6);
 				}
@@ -255,13 +317,21 @@ public class EventStatIndexer {
 					low = String.format("%02X", c[0]);
 					//System.out.print(low + high + " ");
 						int tmp = new BigInteger(high + low, 16).intValue();
-						if (tmp < 1000) {
+						if (tmp < 5000) {
 							value = Integer.decode("0X" + high + low);
 						} else {
 							value = new BigInteger("FFFF" + high + low, 16).intValue();
 						}
 		//				System.out.print(value + " ");
-						events.get(i).effects.get(x).value = Integer.toString(value);
+						if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+						} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
+						} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
+						} else {
+							events.get(i).effects.get(x).value = Integer.toString(value);
+						}
 					stream.skip(6);
 				}
 				
@@ -337,11 +407,45 @@ public class EventStatIndexer {
 	}
 	
 	public static void main(String[] args) {
-
+		effectToUnitSet.addAll(Arrays.asList(effectToUnit));
+		requirementToUnitSet.addAll(Arrays.asList(requirementToUnit));
+		effectToGemSet.addAll(Arrays.asList(effectToGem));
+		effectToScaleSet.addAll(Arrays.asList(effectToScale));
 		FileInputStream stream = null;
 		try {
-	        int ch;
-	        
+			File file = new File("units.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuffer stringBuffer = new StringBuffer();
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				StringTokenizer tok = new StringTokenizer(line, "\t");
+				Integer key = Integer.parseInt(tok.nextToken());
+				String value = tok.nextToken();
+				unitMap.put(key, value);
+			}
+			fileReader.close();
+			
+			gemMap.put(0, "Fire");
+			gemMap.put(1, "Air");
+			gemMap.put(2, "Water");
+			gemMap.put(3, "Earth");
+			gemMap.put(4, "Astral");
+			gemMap.put(5, "Death");
+			gemMap.put(6, "Nature");
+			gemMap.put(7, "Slaves");
+			gemMap.put(50, "Random");
+			gemMap.put(51, "Elemental");
+			gemMap.put(52, "Sorcery");
+			gemMap.put(56, "all7");
+			
+			scaleMap.put(0, "Turmoil");
+			scaleMap.put(1, "Sloth");
+			scaleMap.put(2, "Cold");
+			scaleMap.put(3, "Death");
+			scaleMap.put(4, "Misfortune");
+			scaleMap.put(5, "Drain");
+
 	        List<Event> events = new ArrayList<Event>();
 
 			stream = new FileInputStream("Dominions4.exe");			

@@ -106,6 +106,10 @@ public class AttributeDumper {
 		"D700", // castledef
 		"7000", // sailsz
 		"9A01", // maxsailsz
+		"DF00", // incunrest
+		"BC00", // barbs
+		"4E01", // inn
+		"1801", // stonebeing
 };
 
 	private static List<String> attrList = new ArrayList<String>();

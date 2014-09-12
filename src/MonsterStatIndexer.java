@@ -108,8 +108,8 @@ public class MonsterStatIndexer {
 		{"okmagicleader", "37"}, 
 		{"goodmagicleader", "37"}, 
 		{"expertmagicleader", "37"}, 
-		{"superiormagicleader", "37"}
-//		{"misc2", ""},
+		{"superiormagicleader", "37"},
+		{"misc2", "40"},
 		};
 	
 	private static String SkipColumns[] = {
@@ -760,7 +760,7 @@ public class MonsterStatIndexer {
 					return Integer.toString(Integer.parseInt(value)+40);
 				}
 			});
-
+			
 			// Large bitmap
 			for (String[] pair : DOTHESE) {
 				columnsUsed.remove(Integer.parseInt(pair[1]));
@@ -873,6 +873,20 @@ public class MonsterStatIndexer {
 							cell.setCellValue("120");
 						} else if (pair[0].equals("superiorundeadleader")) {
 							cell.setCellValue("160");
+						} else if (pair[0].equals("misc2")) {
+							XSSFCell handCell = row.getCell(40, Row.CREATE_NULL_AS_BLANK);
+							handCell.setCellValue(0);
+							XSSFCell headCell = row.getCell(41, Row.CREATE_NULL_AS_BLANK);
+							headCell.setCellValue(0);
+							XSSFCell bodyCell = row.getCell(42, Row.CREATE_NULL_AS_BLANK);
+							bodyCell.setCellValue(0);
+							XSSFCell footCell = row.getCell(43, Row.CREATE_NULL_AS_BLANK);
+							footCell.setCellValue(0);
+							XSSFCell miscCell = row.getCell(44, Row.CREATE_NULL_AS_BLANK);
+							miscCell.setCellValue(2);
+						} else if (pair[0].equals("mounted")) {
+							XSSFCell footCell = row.getCell(43, Row.CREATE_NULL_AS_BLANK);
+							footCell.setCellValue(0);
 						} else {
 							cell.setCellValue(1);
 						}
@@ -935,6 +949,7 @@ public class MonsterStatIndexer {
 								|| pair[0].equals("goodundeadleader")
 								|| pair[0].equals("expertundeadleader")
 								|| pair[0].equals("superiorundeadleader")
+								|| pair[0].equals("misc2")
 								) {
 						} else {
 							cell.setCellValue(0);
@@ -1532,6 +1547,41 @@ public class MonsterStatIndexer {
 			// maxsailsz
 			doit2(sheet, "9A01", 99);
 			
+			// incunrest
+			doit2(sheet, "DF00", 193, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					double val = Double.parseDouble(value)/10d;
+					if (val < 1 && val > -1) {
+						return Double.toString(val);
+					}
+					return Integer.toString((int)val);
+				}
+			});
+			
+			// barbs
+			doit2(sheet, "BC00", 153, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
+			// inn
+			doit2(sheet, "4E01", 47);
+			
+			// stonebeing
+			doit2(sheet, "1801", 80, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override
@@ -1625,7 +1675,107 @@ public class MonsterStatIndexer {
 			}, true);
 			
 			// itemslots
-			//doit2(sheet, "B600", 219);
+			doit2(sheet, "B600", 40, new CallbackAdapter(){
+				// hand
+				@Override
+				public String found(String value) {
+					int numHands = 0;
+					int val = Integer.parseInt(value);
+					if ((val & 0x0002) != 0) {
+						numHands++;
+					}
+					if ((val & 0x0004) != 0) {
+						numHands++;
+					}
+					if ((val & 0x0008) != 0) {
+						numHands++;
+					}
+					if ((val & 0x0010) != 0) {
+						numHands++;
+					}
+					return Integer.toString(numHands);
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "B600", 41, new CallbackAdapter(){
+				// head
+				@Override
+				public String found(String value) {
+					int numHeads = 0;
+					int val = Integer.parseInt(value);
+					if ((val & 0x0080) != 0) {
+						numHeads++;
+					}
+					if ((val & 0x0100) != 0) {
+						numHeads++;
+					}
+					return Integer.toString(numHeads);
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "B600", 42, new CallbackAdapter(){
+				// body
+				@Override
+				public String found(String value) {
+					int numBody = 0;
+					int val = Integer.parseInt(value);
+					if ((val & 0x0400) != 0) {
+						numBody++;
+					}
+					return Integer.toString(numBody);
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "B600", 43, new CallbackAdapter(){
+				// foot
+				@Override
+				public String found(String value) {
+					int numFoot = 0;
+					int val = Integer.parseInt(value);
+					if ((val & 0x0800) != 0) {
+						numFoot++;
+					}
+					return Integer.toString(numFoot);
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "B600", 44, new CallbackAdapter(){
+				// misc
+				@Override
+				public String found(String value) {
+					int numMisc = 0;
+					int val = Integer.parseInt(value);
+					if ((val & 0x1000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x2000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x4000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x8000) != 0) {
+						numMisc++;
+					}
+					return Integer.toString(numMisc);
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
 			
 			// startage
 			doit2(sheet, "1D01", 38, new CallbackAdapter(){

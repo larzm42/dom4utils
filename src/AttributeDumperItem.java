@@ -83,6 +83,10 @@ public class AttributeDumperItem {
 		"8400", // alch
 		"7E00", // eyeloss
 		"A301", // armysize
+		"8900", // defender
+		"7700", // forbidden light
+		"C701", // cannotwear
+		"C801", // cannotwear
 };
 
 	private static List<String> attrList = new ArrayList<String>();

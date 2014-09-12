@@ -928,6 +928,45 @@ public class ItemStatIndexer {
 			// armysize
 			doit(sheet, "A301", 151);
 
+			// defender
+			doit(sheet, "8900", 152);
+
+			// Hack for Forbidden Light
+			doit(sheet, "7700", 73, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+				@Override
+				public String found(String value) {
+					return "2";
+				}
+			});
+			doit(sheet, "7700", 77, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+				@Override
+				public String found(String value) {
+					return "2";
+				}
+			});
+
+			// cannotwear
+			doit(sheet, "C701", 153, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit(sheet, "C801", 153, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);

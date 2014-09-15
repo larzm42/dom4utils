@@ -1,5 +1,8 @@
 bin/
 lib/
+items/
+spells/
+units/
 .settings/
 Dominions4.exe
 NewBaseI.xlsx

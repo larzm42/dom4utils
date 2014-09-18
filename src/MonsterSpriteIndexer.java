@@ -1,7 +1,12 @@
 import java.io.FileInputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.SortedSet;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -22,6 +26,7 @@ public class MonsterSpriteIndexer {
 	static Map<String, List<String>> indexToInt = new HashMap<String, List<String>>();
 
 	public static void main(String[] args) {
+		indexToInt.put("first", new ArrayList<String>(Arrays.asList(new String[]{"00", "01"})));
 		indexToInt.put("sea", new ArrayList<String>(Arrays.asList(new String[]{"03", "04"})));
 		indexToInt.put("gods", new ArrayList<String>(Arrays.asList(new String[]{"07", "08", "09"})));
 		indexToInt.put("arco 1", new ArrayList<String>(Arrays.asList(new String[]{"0B"})));
@@ -30,6 +35,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("erm 1", new ArrayList<String>(Arrays.asList(new String[]{"17"})));
 		indexToInt.put("ermor dead", new ArrayList<String>(Arrays.asList(new String[]{"1B"})));
 		indexToInt.put("scel 2", new ArrayList<String>(Arrays.asList(new String[]{"1F"})));
+		indexToInt.put("sauro 1", new ArrayList<String>(Arrays.asList(new String[]{"23"})));
 		indexToInt.put("pyth 2", new ArrayList<String>(Arrays.asList(new String[]{"27"})));
 		indexToInt.put("pyth 3", new ArrayList<String>(Arrays.asList(new String[]{"2A", "2B"})));
 		indexToInt.put("ulm 1", new ArrayList<String>(Arrays.asList(new String[]{"2E", "2F"})));
@@ -52,7 +58,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("shinu 2", new ArrayList<String>(Arrays.asList(new String[]{"75"})));
 		indexToInt.put("jomon 3", new ArrayList<String>(Arrays.asList(new String[]{"79"})));
 		indexToInt.put("van 1", new ArrayList<String>(Arrays.asList(new String[]{"7D"})));
-		indexToInt.put("van 1", new ArrayList<String>(Arrays.asList(new String[]{"7D"})));
+		indexToInt.put("hel 1", new ArrayList<String>(Arrays.asList(new String[]{"80", "81"})));
 		indexToInt.put("van 2", new ArrayList<String>(Arrays.asList(new String[]{"84"})));
 		indexToInt.put("mid 3", new ArrayList<String>(Arrays.asList(new String[]{"88"})));
 		indexToInt.put("niefel 1", new ArrayList<String>(Arrays.asList(new String[]{"8C"})));
@@ -84,6 +90,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("patala 3", new ArrayList<String>(Arrays.asList(new String[]{"F6"})));
 		indexToInt.put("hinnom 1", new ArrayList<String>(Arrays.asList(new String[]{"FA"})));
 		indexToInt.put("ashdod 2", new ArrayList<String>(Arrays.asList(new String[]{"FD", "FE"})));
+		indexToInt.put("gath 3", new ArrayList<String>(Arrays.asList(new String[]{"01", "02"})));
 		indexToInt.put("ur", new ArrayList<String>(Arrays.asList(new String[]{"05", "06"})));
 		indexToInt.put("asp 2", new ArrayList<String>(Arrays.asList(new String[]{"11"})));
 		indexToInt.put("lem 3", new ArrayList<String>(Arrays.asList(new String[]{"15"})));
@@ -97,7 +104,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("ocean 1", new ArrayList<String>(Arrays.asList(new String[]{"40"})));
 		indexToInt.put("ocean 2", new ArrayList<String>(Arrays.asList(new String[]{"44"})));
 		indexToInt.put("pelag 1", new ArrayList<String>(Arrays.asList(new String[]{"4C"})));
-		indexToInt.put("pelag 1", new ArrayList<String>(Arrays.asList(new String[]{"4C"})));
+		indexToInt.put("pelag 2", new ArrayList<String>(Arrays.asList(new String[]{"4F", "50"})));
 		indexToInt.put("fire", new ArrayList<String>(Arrays.asList(new String[]{"57"})));
 		indexToInt.put("earth", new ArrayList<String>(Arrays.asList(new String[]{"5B"})));
 		indexToInt.put("water", new ArrayList<String>(Arrays.asList(new String[]{"5F"})));
@@ -112,7 +119,6 @@ public class MonsterSpriteIndexer {
 		/*
 		macha 3: 1975
 		rus 1: 3047
-		gath 3: 4845
 		ur 2: 5005
 		empty: 5023
 		muspel: 5173
@@ -120,7 +126,6 @@ public class MonsterSpriteIndexer {
 		xib 3: 5282
 		ocean 3: 5838
 		pelag 3: 5968
-		hob 1: 6785
 		hob 2: 6786
 		hob 3: 6827
 		naz: 6942
@@ -158,12 +163,12 @@ public class MonsterSpriteIndexer {
 			}
 			stream.close();
 			
+			indexes1.put(0, "first");
 			for (Map.Entry<Integer, String> entry : indexes1.entrySet()) {
 				System.out.println(entry.getValue() + ": " + entry.getKey());
 			}
 			
 			Map<String, List<String>> map = new HashMap<String, List<String>>();
-			try {
 				stream = new FileInputStream("Dominions4.exe");
 				
 				byte[] b = new byte[32];
@@ -193,7 +198,7 @@ public class MonsterSpriteIndexer {
 						list = new ArrayList<String>();
 						map.put(index, list);
 					}
-					list.add(name + ": " + offset + " " + index);
+					list.add(id + ": " + name + ": " + offset + " " + index);
 					System.out.println(id + ":" + name + ": " + offset + " " + index);
 					
 					id++;
@@ -212,10 +217,11 @@ public class MonsterSpriteIndexer {
 					String ind = iter.next();
 					System.out.println(ind);
 					List<String> list = map.get(ind);
-					SortedSet<SortedByOffset> sortedSet = new TreeSet<SortedByOffset>();
+					List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
 					for (String myList : list) {
 						sortedSet.add(new SortedByOffset(myList));
 					}
+					Collections.sort(sortedSet);
 					for (SortedByOffset thing : sortedSet) {
 						System.out.println("  " + thing.value);
 						things++;
@@ -225,10 +231,6 @@ public class MonsterSpriteIndexer {
 				System.out.println("Indexes:" + indexes.size() + " Monsters:" + things);
 				
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 			for (Map.Entry<Integer, String> entry : indexes1.entrySet()) {
 				List<String> mappings = indexToInt.get(entry.getValue());
 				if (mappings != null) {
@@ -236,37 +238,95 @@ public class MonsterSpriteIndexer {
 					int groupNegativeOffset = 0;
 					int groupPositiveOffset = 0;
 					for (String group : mappings) {
+						indexes.remove(group);
 						List<String> list = map.get(group);
-						SortedSet<SortedByOffset> sortedSet = new TreeSet<SortedByOffset>();
+						List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
 						for (String myList : list) {
 							if (myList.indexOf("smeg") != -1) continue;
-							sortedSet.add(new SortedByOffset(myList));
+							SortedByOffset sortedByOffset = new SortedByOffset(myList);
+							if (sortedByOffset.getIntValue() > 460 || entry.getValue().equals("first")) {
+								sortedSet.add(new SortedByOffset(myList));
+							}
 						}
+						Collections.sort(sortedSet);
 						if (first) {
-							SortedByOffset sortedByOffset = sortedSet.first();
+							SortedByOffset sortedByOffset = sortedSet.get(0);
 							groupNegativeOffset = sortedByOffset.getIntValue();
 							groupPositiveOffset = entry.getKey();
 							first = false;
 						}
 						int tweak = 0;
+						if (entry.getValue().equals("first")) {
+							tweak = -2;
+						}
 						if (entry.getValue().equals("man 3")) {
 							tweak = 2;
 						}
 						if (entry.getValue().equals("misc")) {
 							tweak = 2;
 						}
+						if (entry.getValue().equals("patala 3")) {
+							tweak = 2;
+						}
 						if (entry.getValue().equals("hob 1")) {
 							tweak = 5;
 						}
+						if (entry.getValue().equals("ur")) {
+							tweak = -2;
+						}
+						if (entry.getValue().equals("van 2")) {
+							tweak = -2;
+						}
+						if (entry.getValue().equals("mid 3")) {
+							tweak = -2;
+						}
+						if (entry.getValue().equals("ocean 2")) {
+							tweak = 4;
+						}
 						
 						for (SortedByOffset ugh : sortedSet) {
-							System.out.println(ugh.value + ": " + (groupPositiveOffset - groupNegativeOffset + ugh.getIntValue()+2+tweak));
+							int val = groupPositiveOffset - groupNegativeOffset + ugh.getIntValue()+2+tweak;
+							System.out.println(ugh.value + ": " + val);
+							if (val > 0) {
+								StringTokenizer tok = new StringTokenizer(ugh.value);
+								String idStr = tok.nextToken();
+								idStr = idStr.substring(0, idStr.length()-1);
+								String oldFileName1 = "monster_" + String.format("%04d", val) + ".png";
+								String oldFileName2 = "monster_" + String.format("%04d", ++val) + ".png";
+								String newFileName1 = String.format("%04d", Integer.parseInt(idStr)) + "_1.png";
+								String newFileName2 = String.format("%04d", Integer.parseInt(idStr)) + "_2.png";
+								
+								System.out.println(oldFileName1 + "->" + newFileName1);
+								System.out.println(oldFileName2 + "->" + newFileName2);
+
+								Path old1 = Paths.get("monsters", oldFileName1);
+								Path new1 = Paths.get("monsters/output", newFileName1);
+								Path old2 = Paths.get("monsters", oldFileName2);
+								Path new2 = Paths.get("monsters/output", newFileName2);
+								try {
+									Files.copy(old1, new1);
+								} catch (NoSuchFileException e) {
+									e.printStackTrace();
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+//								try {
+//									Files.copy(old2, new2);
+//								} catch (NoSuchFileException e) {
+//									
+//								}
+							} else {
+								System.err.println("FAILED");
+							}
+
 						}
 					}
 				}
 			}
 
-			
+			for (String output : indexes) {
+				System.out.println(output);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -110,6 +110,9 @@ public class AttributeDumper {
 		"BC00", // barbs
 		"4E01", // inn
 		"1801", // stonebeing
+		"5001", // shrinkhp
+		"4F01", // growhp
+		"FD01", // transformation
 };
 
 	private static List<String> attrList = new ArrayList<String>();

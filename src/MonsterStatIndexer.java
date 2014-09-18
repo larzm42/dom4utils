@@ -1582,6 +1582,15 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// shrinkhp
+			doit2(sheet, "5001", 252);
+			
+			// growhp
+			doit2(sheet, "4F01", 253);
+			
+			// transformation
+			doit2(sheet, "FD01", 254);
+			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

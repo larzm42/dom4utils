@@ -9,6 +9,8 @@ public class Starts {
 	public static final long ITEM_AND_MONSTER_DESC = 0x0190cf0l;
 	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x0280930l;
 	
+	public static final long MONSTER_TRS_INDEX = 0x0155f4l;
+	
 	public static final long SITE = 0x087f578l;
 	
 	public static final long NAMES = 0x04fc87cl;

@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.Stack;
+import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 
@@ -203,20 +206,20 @@ public class MonsterIndexer {
 						System.out.println(oldFileName1 + "->" + newFileName1);
 						System.out.println(oldFileName2 + "->" + newFileName2);
 
-						Path old1 = Paths.get("monsters", oldFileName1);
-						Path new1 = Paths.get("monsters\\output\\", newFileName1);
-						Path old2 = Paths.get("monsters", oldFileName2);
-						Path new2 = Paths.get("monsters\\output\\", newFileName2);
-						try {
-							Files.copy(old1, new1);
-						} catch (NoSuchFileException e) {
-							
-						}
-						try {
-							Files.copy(old2, new2);
-						} catch (NoSuchFileException e) {
-							
-						}
+//						Path old1 = Paths.get("monsters", oldFileName1);
+//						Path new1 = Paths.get("monsters\\output\\", newFileName1);
+//						Path old2 = Paths.get("monsters", oldFileName2);
+//						Path new2 = Paths.get("monsters\\output\\", newFileName2);
+//						try {
+//							Files.copy(old1, new1);
+//						} catch (NoSuchFileException e) {
+//							
+//						}
+//						try {
+//							Files.copy(old2, new2);
+//						} catch (NoSuchFileException e) {
+//							
+//						}
 					} else {
 						System.err.println("FAILED");
 					}
@@ -225,7 +228,7 @@ public class MonsterIndexer {
 				id++;
 				stream.skip(218);
 			}
-			indexes.remove("00");
+			/*indexes.remove("00");
 			indexes.remove("01");
 			indexes.remove("02");
 			indexes.remove("03");
@@ -338,7 +341,7 @@ public class MonsterIndexer {
 			indexes.remove("F6");
 			indexes.remove("FA");
 			indexes.remove("FD");
-			indexes.remove("FE");
+			indexes.remove("FE");*/
 			TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
 				@Override
 				public int compare(String o1, String o2) {
@@ -351,8 +354,13 @@ public class MonsterIndexer {
 			while (iter.hasNext()) {
 				String ind = iter.next();
 				System.out.println(ind);
-				for (String thing : map.get(ind)) {
-					System.out.println("  " + thing);
+				List<String> list = map.get(ind);
+				SortedSet<SortedByOffset> sortedSet = new TreeSet<SortedByOffset>();
+				for (String myList : list) {
+					sortedSet.add(new SortedByOffset(myList));
+				}
+				for (SortedByOffset thing : sortedSet) {
+					System.out.println("  " + thing.value);
 					things++;
 				}
 			}
@@ -372,5 +380,30 @@ public class MonsterIndexer {
 			}
 		}
 	}
-
 }
+
+/*class SortedByOffset implements Comparable<SortedByOffset> {
+	public String value;
+	public SortedByOffset(String value) {
+		this.value = value;
+	}
+	@Override
+	public int compareTo(SortedByOffset o) {
+		Stack<String> stack = new Stack<String>();
+		StringTokenizer tok = new StringTokenizer(value);
+		while (tok.hasMoreTokens()) {
+			stack.push(tok.nextToken());
+		}
+		Integer myValue = Integer.decode("0X" + stack.pop() + stack.pop());
+		
+		stack.clear();
+		StringTokenizer tok2 = new StringTokenizer(o.value);
+		while (tok2.hasMoreTokens()) {
+			stack.push(tok2.nextToken());
+		}
+		Integer otherValue = Integer.decode("0X" + stack.pop() + stack.pop());
+		return myValue.compareTo(otherValue);
+	}
+	
+}*/
+

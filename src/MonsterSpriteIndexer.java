@@ -68,7 +68,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("rus 3", new ArrayList<String>(Arrays.asList(new String[]{"A0"})));
 		indexToInt.put("mict 1", new ArrayList<String>(Arrays.asList(new String[]{"A4"})));
 		indexToInt.put("mict 2", new ArrayList<String>(Arrays.asList(new String[]{"A7", "A8"})));
-		indexToInt.put("mict 3", new ArrayList<String>(Arrays.asList(new String[]{"A7", "AB"})));
+		indexToInt.put("mict 3", new ArrayList<String>(Arrays.asList(new String[]{"AB"})));
 		indexToInt.put("aby 1", new ArrayList<String>(Arrays.asList(new String[]{"AF", "B0"})));
 		indexToInt.put("aby 2", new ArrayList<String>(Arrays.asList(new String[]{"B3"})));
 		indexToInt.put("aby 3", new ArrayList<String>(Arrays.asList(new String[]{"B7"})));
@@ -244,7 +244,15 @@ public class MonsterSpriteIndexer {
 						for (String myList : list) {
 							if (myList.indexOf("smeg") != -1) continue;
 							SortedByOffset sortedByOffset = new SortedByOffset(myList);
-							if (sortedByOffset.getIntValue() > 460 || entry.getValue().equals("first")) {
+							if (entry.getValue().equals("first")) {
+								if (sortedByOffset.getIntValue() < 450) {
+									sortedSet.add(new SortedByOffset(myList));
+								}
+							} else if (entry.getValue().equals("gath 3")) {
+								if (sortedByOffset.getIntValue() > 460) {
+									sortedSet.add(new SortedByOffset(myList));
+								}
+							} else {
 								sortedSet.add(new SortedByOffset(myList));
 							}
 						}
@@ -283,6 +291,45 @@ public class MonsterSpriteIndexer {
 						if (entry.getValue().equals("ocean 2")) {
 							tweak = 4;
 						}
+						if (entry.getValue().equals("aby 2")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("ermor dead")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("ulm 1")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("ulm 2")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("utg 3")) {
+							tweak = 6;
+						}
+						if (entry.getValue().equals("hel 1")) {
+							tweak = 4;
+						}
+						if (entry.getValue().equals("macha 2")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("asp 2")) {
+							tweak = 4;
+						}
+						if (entry.getValue().equals("mict 2")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("mict 3")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("pelag 2")) {
+							tweak = 4;
+						}
+						if (entry.getValue().equals("arco 3")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("rus 3")) {
+							tweak = 2;
+						}
 						
 						for (SortedByOffset ugh : sortedSet) {
 							int val = groupPositiveOffset - groupNegativeOffset + ugh.getIntValue()+2+tweak;
@@ -300,9 +347,9 @@ public class MonsterSpriteIndexer {
 								System.out.println(oldFileName2 + "->" + newFileName2);
 
 								Path old1 = Paths.get("monsters", oldFileName1);
-								Path new1 = Paths.get("monsters/output", newFileName1);
-								Path old2 = Paths.get("monsters", oldFileName2);
-								Path new2 = Paths.get("monsters/output", newFileName2);
+								Path new1 = Paths.get("monsters", "output", newFileName1);
+								//Path old2 = Paths.get("monsters", oldFileName2);
+								//Path new2 = Paths.get("monsters", "output", newFileName2);
 								try {
 									Files.copy(old1, new1);
 								} catch (NoSuchFileException e) {

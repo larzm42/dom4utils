@@ -1591,6 +1591,26 @@ public class MonsterStatIndexer {
 			// transformation
 			doit2(sheet, "FD01", 254);
 			
+			// heretic
+			doit2(sheet, "B800", 206);
+			
+			// popkill
+			doit2(sheet, "2001", 194, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return Integer.toString(Integer.parseInt(value)*10);
+				}
+			});
+			
+			// autohealer
+			doit2(sheet, "6201", 175);
+			
+			// fireshield
+			doit2(sheet, "A300", 142);
+			
+			// startingaff
+			doit2(sheet, "E200", 255);
+			
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

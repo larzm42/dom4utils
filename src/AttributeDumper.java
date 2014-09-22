@@ -101,6 +101,8 @@ public class AttributeDumper {
 		"B900", // startaff
 		"F500", // landshape
 		"F600", // watershape
+		"4201", // forestshape
+		"4301", // plainshape
 		"DD00", // uwregen
 		"AA00", // patrolbonus
 		"D700", // castledef
@@ -113,6 +115,18 @@ public class AttributeDumper {
 		"5001", // shrinkhp
 		"4F01", // growhp
 		"FD01", // transformation
+		"A101", // domsummon
+		"DB00", // domsummon
+		"F100", // autosummon
+		"6B00", // autosummon
+		"8F00", // autosummon
+		"AD00", // turmoil summon
+		"9200", // cold summon
+		"B800", // heretic
+		"2001", // popkill
+		"6201", // autohealer
+		"A300", // fireshield
+		"E200", // startingaff
 };
 
 	private static List<String> attrList = new ArrayList<String>();
@@ -181,12 +195,18 @@ public class AttributeDumper {
 	            }
 	        } );
 
+	        int indexes = 0;
+	        int monsters = 0;
 			System.out.println("Summary:");
 			for (Entry<String, Integer> entry : list) {
 				if (!Arrays.asList(KNOWN_MONSTER_ATTRS).contains(entry.getKey())) {
 					System.out.println("id: " + entry.getKey() + " " + entry.getValue());
+					indexes++;
+					monsters += entry.getValue();
 				}
 			}
+			System.out.println("---------------------------");
+			System.out.println("indexes: " + indexes + " monsters: " + monsters);
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();

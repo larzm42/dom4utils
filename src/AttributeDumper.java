@@ -127,6 +127,33 @@ public class AttributeDumper {
 		"6201", // autohealer
 		"A300", // fireshield
 		"E200", // startingaff
+		"1E00", // gemprod fire
+		"1F00", // gemprod air
+		"2000", // gemprod water
+		"2100", // gemprod earth
+		"2200", // gemprod astral
+		"2300", // gemprod death
+		"2400", // gemprod nature
+		"2500", // gemprod blood
+		"F800", // fixdresearch
+		"C201", // divineins
+		"4701", // halt
+		"AF01", // crossbreeder
+		"7D01", // reclimit
+		"C501", // fixforgebonus
+		"6B01", // mastersmith
+		"A900", // lamiabonus
+		"FD00", // homesick
+		"DE00", // banefireshield
+		"A200", // animalawe
+		"6301", // autodishealer
+		"4801", // shatteredsoul
+		"CE00", // voidsum
+		"AE01", // makepearls
+		"5501", // inspiringres
+		"1101", // drainimmune
+		"AC00", // diseasecloud
+		"D300", // inquisitor
 };
 
 	private static List<String> attrList = new ArrayList<String>();

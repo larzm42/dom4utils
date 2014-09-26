@@ -119,6 +119,9 @@ public class MonsterStatIndexer {
 		"gcom",
 		"gmon",
 		"rcost",
+		"forgebonus",
+		"gem",
+		"mind",
 		"F",
 		"A",
 		"W",
@@ -1611,6 +1614,68 @@ public class MonsterStatIndexer {
 			// startingaff
 			doit2(sheet, "E200", 255);
 			
+			// fixedresearch
+			doit2(sheet, "F800", 256);
+			
+			// divineins
+			doit2(sheet, "C201", 257);
+			
+			// halt
+			doit2(sheet, "4701", 137);
+			
+			// crossbreeder
+			doit2(sheet, "AF01", 201);
+
+			// reclimit
+			doit2(sheet, "7D01", 14);
+			
+			// fixforgebonus
+			doit2(sheet, "C501", 172);
+
+			// mastersmith
+			doit2(sheet, "6B01", 173);
+
+			// lamiabonus
+			doit2(sheet, "A900", 258);
+
+			// homesick
+			doit2(sheet, "FD00", 113);
+
+			// banefireshield
+			doit2(sheet, "DE00", 143);
+
+			// animalawe
+			doit2(sheet, "A200", 135);
+
+			// autodishealer
+			doit2(sheet, "6301", 176);
+
+			// shatteredsoul
+			doit2(sheet, "4801", 181);
+
+			// voidsum
+			doit2(sheet, "CE00", 205);
+
+			// makepearls
+			doit2(sheet, "AE01", 202);
+
+			// inspiringres
+			doit2(sheet, "5501", 197);
+
+			// drainimmune
+			doit2(sheet, "1101", 196);
+			
+			// diseasecloud
+			doit2(sheet, "AC00", 146);
+
+			// inquisitor
+			doit2(sheet, "D300", 74, new CallbackAdapter(){
+				@Override
+				public String notFound() {
+					return "0";
+				}
+			});
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

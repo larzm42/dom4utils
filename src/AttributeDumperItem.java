@@ -87,6 +87,24 @@ public class AttributeDumperItem {
 		"7700", // forbidden light
 		"C701", // cannotwear
 		"C801", // cannotwear
+		"7000", // sailsz
+		"9A01", // maxsail
+		"7100", // flytr
+		"7F01", // protf
+		"B800", // heretic
+		"6301", // autodishealer
+		"AA00", // patrolbonus
+		"B500", // prec
+		"5801", // tmpfiregems
+		"5901", // tmpairgems
+		"5A01", // tmpwatergems
+		"5B01", // tmpearthgems
+		"5C01", // tmpastralgems
+		"5D01", // tmpdeathgems
+		"5E01", // tmpnaturegems
+		"5F01", // tmpbloodgems
+		"6201", // healer
+		"7A00", // supplybonus
 };
 
 	private static List<String> attrList = new ArrayList<String>();
@@ -155,12 +173,18 @@ public class AttributeDumperItem {
 	            }
 	        } );
 
+	        int indexes = 0;
+	        int items = 0;
 			System.out.println("Summary:");
 			for (Entry<String, Integer> entry : list) {
 				if (!Arrays.asList(KNOWN_ITEM_ATTRS).contains(entry.getKey())) {
 					System.out.println("id: " + entry.getKey() + " " + entry.getValue());
+					indexes++;
+					items += entry.getValue();
 				}
 			}
+			System.out.println("---------------------------");
+			System.out.println("indexes: " + indexes + " items: " + items);
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();

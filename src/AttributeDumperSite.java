@@ -154,12 +154,18 @@ public class AttributeDumperSite {
 	            }
 	        } );
 
+	        int indexes = 0;
+	        int sites = 0;
 			System.out.println("Summary:");
 			for (Entry<String, Integer> entry : list) {
 				if (!Arrays.asList(KNOWN_ITEM_ATTRS).contains(entry.getKey())) {
 					System.out.println("id: " + entry.getKey() + " " + entry.getValue());
+					indexes++;
+					sites += entry.getValue();
 				}
 			}
+			System.out.println("---------------------------");
+			System.out.println("indexes: " + indexes + " sites: " + sites);
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();

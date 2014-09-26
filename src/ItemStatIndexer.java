@@ -36,7 +36,7 @@ public class ItemStatIndexer {
 
 	private static String value1[] = {"bless", "luck", "", "airshield", "barkskin", "", "", "", "bers", "", "", "", "", "", "", "" };
 	private static String value2[] = {"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "", "eth", "ironskin", "", "", "" };
-	private static String value3[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private static String value3[] = {"", "", "", "float", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value4[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private static String value5[] = {"", "", "", "", "", "", "trample", "", "", "", "", "", "", "", "", "fireshield?" };
 	private static String value6[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
@@ -55,6 +55,7 @@ public class ItemStatIndexer {
 		{"bers", "107"}, 
 		//{"stoneskin", "15"}, 
 		{"fly", "43"}, 
+		{"float", "44"}, 
 		{"quick", "51"}, 
 		{"eth", "52"}, 
 		//{"ironskin", "15"}, 
@@ -966,6 +967,53 @@ public class ItemStatIndexer {
 					return null;
 				}
 			});
+
+			// sailsz
+			doit(sheet, "7000", 45);
+
+			// maxsail
+			doit(sheet, "9A01", 46);
+
+			// flytr
+			doit(sheet, "7100", 50);
+
+			// protf
+			doit(sheet, "7F01", 24);
+
+			// heretic
+			doit(sheet, "B800", 119);
+
+			// autodishealer
+			doit(sheet, "6301", 19);
+
+			// patrolbonus
+			doit(sheet, "AA00", 114);
+
+			// prec
+			doit(sheet, "B500", 31);
+
+			// tmpfiregems
+			doit(sheet, "5801", 90);
+			// tmpairgems
+			doit(sheet, "5901", 91);
+			// tmpwatergems
+			doit(sheet, "5A01", 92);
+			// tmpearthgems
+			doit(sheet, "5B01", 93);
+			// tmpastralgems
+			doit(sheet, "5C01", 94);
+			// tmpdeathgems
+			doit(sheet, "5D01", 95);
+			// tmpnaturegems
+			doit(sheet, "5E01", 96);
+			// tmpbloodgems
+			doit(sheet, "5F01", 97);
+
+			// healer
+			doit(sheet, "6201", 20);
+
+			// supplybonus
+			doit(sheet, "7A00", 117);
 
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			

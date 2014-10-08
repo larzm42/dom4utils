@@ -1486,8 +1486,8 @@ public class MonsterStatIndexer {
 			// scale walls
 			doit2(sheet, "E301", 247);
 			
-			// dream seducer
-			doit2(sheet, "D200", 105, new CallbackAdapter() {
+			// dream seducer (succubus)
+			doit2(sheet, "D200", 106, new CallbackAdapter() {
 				@Override
 				public String notFound() {
 					return "0";
@@ -1495,7 +1495,7 @@ public class MonsterStatIndexer {
 			});
 			
 			// seduction
-			doit2(sheet, "2A01", 106, new CallbackAdapter() {
+			doit2(sheet, "2A01", 105, new CallbackAdapter() {
 				@Override
 				public String notFound() {
 					return "0";

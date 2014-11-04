@@ -217,7 +217,7 @@ public class MonsterStatIndexer {
 			}
 			stream.skip(254l);
 			i++;
-			if (i > 2645) {
+			if (i > 2785) {
 				break;
 			}
 		}
@@ -233,7 +233,7 @@ public class MonsterStatIndexer {
 		stream.skip(Starts.MONSTER);
 		int i = 0;
 		byte[] c = new byte[16];
-		boolArray = new boolean[2646];
+		boolArray = new boolean[2786];
 		stream.skip(240);
 		while ((stream.read(c, 0, 16)) != -1) {
 			boolean found = false;
@@ -336,7 +336,7 @@ public class MonsterStatIndexer {
 			boolArray[i] = found;
 			stream.skip(240l);
 			i++;
-			if (i > 2645) {
+			if (i > 2785) {
 				break;
 			}
 		}
@@ -495,7 +495,7 @@ public class MonsterStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 2645) {
+			if (i > 2785) {
 				break;
 			}
 		}
@@ -555,6 +555,7 @@ public class MonsterStatIndexer {
 				//System.out.println(name);
 
 				XSSFRow row = sheet.getRow(rowNumber);
+				System.out.println("row: " + rowNumber);
 				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;
@@ -744,7 +745,7 @@ public class MonsterStatIndexer {
 				}
 				stream.skip(254l);
 				i++;
-				if (i > 2645) {
+				if (i > 2785) {
 					break;
 				}
 			}
@@ -1097,7 +1098,7 @@ public class MonsterStatIndexer {
 				System.out.println(" ");
 				stream.skip(240l);
 				i++;
-				if (i > 2645) {
+				if (i > 2785) {
 					break;
 				}
 			}
@@ -1154,7 +1155,7 @@ public class MonsterStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 2645) {
+				if (i > 2785) {
 					break;
 				}
 			}
@@ -2025,7 +2026,7 @@ public class MonsterStatIndexer {
 					}
 				}
 			}
-			for (int j = 1; j < 2646; j++) {
+			for (int j = 1; j < 2786; j++) {
 				Magic monMagic = monsterMagic.get(j);
 				if (monMagic != null) {
 					XSSFRow row = sheet.getRow(j);

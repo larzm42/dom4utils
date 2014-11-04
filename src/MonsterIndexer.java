@@ -25,7 +25,7 @@ public class MonsterIndexer {
 	public static void main(String[] args) {
 //		indexToInt.put("00", 0);
 //		indexToInt.put("01", 256);
-//		indexToInt.put("02", 2072);
+//		indexToInt.put("02", 4893);
 //		indexToInt.put("03", 161);
 //		indexToInt.put("04", 417);
 //		indexToInt.put("05", 4921);

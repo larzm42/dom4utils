@@ -3,11 +3,11 @@ public class Starts {
 	public static final long ITEM_DESC = 0x0190d0c;
 	public static final long ITEM = 0x0662e50l;
 	
-	public static final long MONSTER = 0x06c50c0l;
-	public static final long MONSTER_MAGIC = 0x0958878l;
-	public static final long MONSTER_DESC = 0x01c3240l;
-	public static final long ITEM_AND_MONSTER_DESC = 0x0190cf0l;
-	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x0280930l;
+	public static final long MONSTER = 0x0b21358l;
+	public static final long MONSTER_MAGIC = 0x0db4bb0l;
+	public static final long MONSTER_DESC = 0x01c9b20l;
+	public static final long ITEM_AND_MONSTER_DESC = 0x0195908l;
+	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x0294f90l;
 	
 	public static final long MONSTER_TRS_INDEX = 0x0155f4l;
 	

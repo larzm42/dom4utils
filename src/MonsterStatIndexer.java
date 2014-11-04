@@ -555,7 +555,6 @@ public class MonsterStatIndexer {
 				//System.out.println(name);
 
 				XSSFRow row = sheet.getRow(rowNumber);
-				System.out.println("row: " + rowNumber);
 				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;

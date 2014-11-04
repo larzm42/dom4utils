@@ -33,7 +33,7 @@ public class SpellDescDumper {
 			
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
-			int firstIndex = 0x68a430;
+			int firstIndex = 0x69ee90;
 			stream.skip(Starts.SPELL_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;

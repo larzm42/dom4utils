@@ -73,7 +73,7 @@ public class MonsterDescDumper {
 			
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
-			int firstIndex = 0x592af0;
+			int firstIndex = 0x597b08;
 			stream.skip(Starts.ITEM_AND_MONSTER_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;

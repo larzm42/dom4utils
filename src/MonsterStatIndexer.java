@@ -1676,6 +1676,12 @@ public class MonsterStatIndexer {
 				}
 			});
 
+			// beastmaster
+			doit2(sheet, "7101", 120);
+
+			// douse
+			doit2(sheet, "7400", 198);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override
@@ -1806,6 +1812,9 @@ public class MonsterStatIndexer {
 					if ((val & 0x0100) != 0) {
 						numHeads++;
 					}
+					if ((val & 0x0200) != 0) {
+						numHeads++;
+					}
 					return Integer.toString(numHeads);
 				}
 				@Override
@@ -1861,6 +1870,9 @@ public class MonsterStatIndexer {
 						numMisc++;
 					}
 					if ((val & 0x8000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x10000) != 0) {
 						numMisc++;
 					}
 					return Integer.toString(numMisc);

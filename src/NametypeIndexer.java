@@ -42,7 +42,7 @@ public class NametypeIndexer {
 				}
 				if (name.toString().equals("end")) {
 					id ++;
-					if (id > 154) { break;}
+					if (id > Starts.NAMES_COUNT) { break;}
 					System.out.println(id +"");
 					continue;
 				}

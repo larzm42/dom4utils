@@ -2204,7 +2204,7 @@
 2204	Oni Spirit
 2205	Great Sauromancer
 2206	Eldest Dwarf
-2207	Black Sorcerer
+2207	Great Sorcerer
 2208	Hunter Spider
 2209	Horror Mantis
 2210	Float Cat Horror
@@ -2640,7 +2640,147 @@
 2640	Giant Shaman
 2641	Giant Sorcerer
 2642	Yeti Shaman
-2643	Hoburg Slinger
-2644	Hoburg Spearman
-2645	Hoburg Pikeman
-2646	Hoburg Defender
+2643	Human Warrior
+2644	Human Warrior
+2645	Human Warrior
+2646	Human Warrior
+2647	Kuraka
+2648	Hatun Runa
+2649	Aucac Runa Spearman
+2650	Aucac Runa Maceman
+2651	Aucac Runa Axeman
+2652	Aucac Runa Archer
+2653	Sun Guard
+2654	Apu
+2655	Apusqispay
+2656	Aclla
+2657	Hurin Priest
+2658	Inca
+2659	Coya
+2660	Mallqui
+2661	Mallqui Priestess
+2662	Mallqui Priest
+2663	Royal Mallqui
+2664	Paqo of the Mountain Spirits
+2665	Paqo of the Earth Mother
+2666	Runancha
+2667	Condor Warrior
+2668	Xibalban Warrior
+2669	Xibalban Warrior
+2670	Xibalban Dart Thrower
+2671	Xibalban Guard
+2672	Sun Guide
+2673	Xibalban Scout
+2674	Batab
+2675	Ajaw
+2676	Ajaw Kan Ek'
+2677	Ah K'in
+2678	Chilan
+2679	Ah Nakom
+2680	Ah Itz
+2681	Camazotz
+2682	Way
+2683	Jaguar
+2684	Ah K'in Kan Ek'
+2685	Viracocha
+2686	Apu Inti
+2687	Large Scorpion
+2688	Giant Scorpion
+2689	Xibalban Scorpion
+2690	Sacred Scorpion
+2691	Xibalban Scorpion Trainer
+2692	Halach Uinic
+2693	Heavenly Condor
+2694	Condor
+2695	Sapa Inca
+2696	Stone Huaca
+2697	Huaca
+2698	Apu Illapa
+2699	Ayar
+2700	Supaya
+2701	Nazcan Longdead
+2702	Nazcan Longdead
+2703	Caelian Longdead
+2704	Caelian Longdead
+2705	Caelian Longdead
+2706	Caelian Longdead
+2707	Soulless Nazcan
+2708	Soulless Nazcan Warrior
+2709	Soulless Nazcan Warrior
+2710	Soulless Nazcan Warrior
+2711	Soulless Nazcan Warrior
+2712	Apostate Seraph
+2713	First Couple
+2714	Bacab
+2715	Muuch Ajaw
+2716	Muuch K'uhul
+2717	Ah Ha'
+2718	Ah Itz
+2719	Camazotz
+2720	Muuch Scout
+2721	Muuch Militia
+2722	Muuch Dart Thrower
+2723	Muuch Warrior
+2724	Muuch Warrior
+2725	Muuch Warrior
+2726	Muuch Warrior
+2727	Muuch Jungle Warrior
+2728	Muuch Batab
+2729	Wo' Muuch
+2730	Chak Muuch Dart Thrower
+2731	Chak Muuch Obsidian Warrior
+2732	Chak Muuch Assassin
+2733	Zotz Batab
+2734	Zotz Warrior
+2735	Zotz Warrior
+2736	Onaqui
+2737	Immortal Coya
+2738	Zotz Warrior
+2739	Zotz Warrior
+2740	Zotz Dart Thrower
+2741	Zotz Guard
+2742	Zotz Guard
+2743	Obsidian Warrior
+2744	Sak Muuch Dart Thrower
+2745	Sak Muuch Warrior
+2746	Sak Muuch Warrior
+2747	Wo' Muuch
+2748	Ah Ha'
+2749	Bacab
+2750	Chilan
+2751	Way
+2752	Jaguar
+2753	Ah Itz
+2754	Camazotz
+2755	Hun Came
+2756	Bolon-ti-ku
+2757	Demon of the Bone Staff
+2758	Demon of the Skull Staff
+2759	Demon of Pus
+2760	Jaundice Demon
+2761	Sweeping Demon
+2762	Stabbing Demon
+2763	Grandfather Earth
+2764	Hun Balam
+2765	Balam of the North
+2766	Balam of the North
+2767	Balam of the North
+2768	Balam of the East
+2769	Balam of the East
+2770	Balam of the East
+2771	Balam of the South
+2772	Balam of the South
+2773	Balam of the South
+2774	Balam of the West
+2775	Balam of the West
+2776	Balam of the West
+2777	Demon Macaw
+2778	Chaac of the North
+2779	Chaac of the East
+2780	Chaac of the South
+2781	Chaac of the West
+2782	Batab
+2783	Hoburg Slinger
+2784	Hoburg Spearman
+2785	Hoburg Pikeman
+2786	Hoburg Defender

@@ -139,7 +139,7 @@ public class AttributeDumperSite {
 					attrList.add(low + high);
 					numFound++;
 				}				
-				if (i > 1045) {
+				if (i >= Starts.SITE_COUNT) {
 					break;
 				}
 			}

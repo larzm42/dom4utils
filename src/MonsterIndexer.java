@@ -18,7 +18,9 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-
+/********************************/
+/*********** OBSOLETE ***********/
+/********************************/
 public class MonsterIndexer {
 	static Map<String, Integer> indexToInt = new HashMap<String, Integer>();
 	

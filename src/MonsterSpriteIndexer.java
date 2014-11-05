@@ -339,18 +339,18 @@ public class MonsterSpriteIndexer {
 								StringTokenizer tok = new StringTokenizer(ugh.value);
 								String idStr = tok.nextToken();
 								idStr = idStr.substring(0, idStr.length()-1);
-								String oldFileName1 = "monster_" + String.format("%04d", val) + ".png";
-								String oldFileName2 = "monster_" + String.format("%04d", ++val) + ".png";
-								String newFileName1 = String.format("%04d", Integer.parseInt(idStr)) + "_1.png";
-								String newFileName2 = String.format("%04d", Integer.parseInt(idStr)) + "_2.png";
+								String oldFileName1 = "monster_" + String.format("%04d", val) + ".tga";
+								String oldFileName2 = "monster_" + String.format("%04d", ++val) + ".tga";
+								String newFileName1 = String.format("%04d", Integer.parseInt(idStr)) + "_1.tga";
+								String newFileName2 = String.format("%04d", Integer.parseInt(idStr)) + "_2.tga";
 								
 								System.out.println(oldFileName1 + "->" + newFileName1);
 								System.out.println(oldFileName2 + "->" + newFileName2);
 
 								Path old1 = Paths.get("monsters", oldFileName1);
 								Path new1 = Paths.get("monsters", "output", newFileName1);
-								//Path old2 = Paths.get("monsters", oldFileName2);
-								//Path new2 = Paths.get("monsters", "output", newFileName2);
+								Path old2 = Paths.get("monsters", oldFileName2);
+								Path new2 = Paths.get("monsters", "output", newFileName2);
 								try {
 									Files.copy(old1, new1);
 								} catch (NoSuchFileException e) {
@@ -358,11 +358,13 @@ public class MonsterSpriteIndexer {
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-//								try {
-//									Files.copy(old2, new2);
-//								} catch (NoSuchFileException e) {
-//									
-//								}
+								try {
+									Files.copy(old2, new2);
+								} catch (NoSuchFileException e) {
+									e.printStackTrace();
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
 							} else {
 								System.err.println("FAILED");
 							}

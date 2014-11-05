@@ -4,7 +4,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/********************************/
+/*********** OBSOLETE ***********/
+/********************************/
 public class ItemDumper {
 	
 	public static void main(String[] args) {

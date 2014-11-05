@@ -158,7 +158,7 @@ public class AttributeDumperItem {
 					attrList.add(low + high);
 					numFound++;
 				}				
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}

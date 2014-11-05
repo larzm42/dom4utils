@@ -154,6 +154,8 @@ public class AttributeDumper {
 		"1101", // drainimmune
 		"AC00", // diseasecloud
 		"D300", // inquisitor
+		"7101", // beastmaster
+		"7400", // douse
 };
 
 	private static List<String> attrList = new ArrayList<String>();
@@ -207,7 +209,7 @@ public class AttributeDumper {
 					attrList.add(low + high);
 					numFound++;
 				}				
-				if (i > 2641) {
+				if (i >= Starts.MONSTER_COUNT) {
 					break;
 				}
 			}

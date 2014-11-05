@@ -275,15 +275,15 @@ public class EventStatIndexer {
 	static Map<Integer, String> gemMap = new HashMap<Integer, String>();
 	static Map<Integer, String> scaleMap = new HashMap<Integer, String>();
 
-	public static void doit(List<Event> events) throws IOException {
+	public static void requirements(List<Event> events) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.EVENT);
+		stream.skip(1200l);
 		
 		int i = 0;
-		int k = 0;
 		long numFound = 0;
 		byte[] c = new byte[2];
-		stream.skip(6);
+		stream.skip(2l);
 		while ((stream.read(c, 0, 2)) != -1) {
 			String high = String.format("%02X", c[1]);
 			String low = String.format("%02X", c[0]);
@@ -296,35 +296,27 @@ public class EventStatIndexer {
 					stream.read(c, 0, 2);
 					high = String.format("%02X", c[1]);
 					low = String.format("%02X", c[0]);
-						int tmp = new BigInteger(high + low, 16).intValue();
-						if (tmp < 5000) {
-							value = Integer.decode("0X" + high + low);
-						} else {
-							value = new BigInteger("FFFF" + high + low, 16).intValue();
-						}
-						//System.out.print(value + " ");
-						if (requirementToUnitSet.contains(events.get(i).requirements.get(x).name)) {
-							events.get(i).requirements.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
-						} else {
-							events.get(i).requirements.get(x).value = Integer.toString(value);
-						}
-					//}
+					int tmp = new BigInteger(high + low, 16).intValue();
+					if (tmp < 5000) {
+						value = Integer.decode("0X" + high + low);
+					} else {
+						value = new BigInteger("FFFF" + high + low, 16).intValue();
+					}
+					if (requirementToUnitSet.contains(events.get(i).requirements.get(x).name)) {
+						events.get(i).requirements.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+					} else {
+						events.get(i).requirements.get(x).value = Integer.toString(value);
+					}
 					stream.skip(6);
 				}
 				
-				//System.out.println("");
-				stream.skip(328l - 26l - numFound*8l);
+				stream.skip(1528l - 26l - numFound*8l);
 				numFound = 0;
-				//pos = -1;
-				k = 0;
 				i++;
 			} else {
-//				if (numFound == 0) System.out.print("Requirements: ");
 				Pair pair = new Pair();
 				pair.name = translateRequirements(low + high);
 				events.get(i).requirements.add(pair);
-//				System.out.print(low + high + " ");
-				k++;
 				numFound++;
 			}				
 			if (i >= events.size()) {
@@ -334,10 +326,11 @@ public class EventStatIndexer {
 		stream.close();
 	}
 	
-	public static void doit2(List<Event> events) throws IOException {
+	public static void effects(List<Event> events) throws IOException {
 		FileInputStream stream = new FileInputStream("Dominions4.exe");			
 		stream.skip(Starts.EVENT);
-		
+		stream.skip(1200l);
+
 		int i = 0;
 		long numFound = 0;
 		byte[] c = new byte[2];
@@ -354,36 +347,30 @@ public class EventStatIndexer {
 					stream.read(c, 0, 2);
 					high = String.format("%02X", c[1]);
 					low = String.format("%02X", c[0]);
-					//System.out.print(low + high + " ");
-						int tmp = new BigInteger(high + low, 16).intValue();
-						if (tmp < 5000) {
-							value = Integer.decode("0X" + high + low);
-						} else {
-							value = new BigInteger("FFFF" + high + low, 16).intValue();
-						}
-		//				System.out.print(value + " ");
-						if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
-						} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
-						} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
-						} else {
-							events.get(i).effects.get(x).value = Integer.toString(value);
-						}
+					int tmp = new BigInteger(high + low, 16).intValue();
+					if (tmp < 5000) {
+						value = Integer.decode("0X" + high + low);
+					} else {
+						value = new BigInteger("FFFF" + high + low, 16).intValue();
+					}
+					if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
+						events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+					} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
+						events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
+					} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
+						events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
+					} else {
+						events.get(i).effects.get(x).value = Integer.toString(value);
+					}
 					stream.skip(6);
 				}
-				
-	//			System.out.println("");
-				stream.skip(328l - 40l - numFound*8l);
+				stream.skip(1528l - 40l - numFound*8l);
 				numFound = 0;
 				i++;
 			} else {
-				//if (numFound == 0) System.out.print("Effects: ");
 				Pair pair = new Pair();
 				pair.name = translateEffects(low + high);
 				events.get(i).effects.add(pair);
-//				System.out.print(low + high + " ");
 				numFound++;
 			}				
 			if (i >= events.size()) {
@@ -393,40 +380,6 @@ public class EventStatIndexer {
 		stream.close();
 	}
 
-	public static void doit3(List<Event> events) throws IOException {
-        int ch;
-
-		for (Event event : events) {
-			FileInputStream stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.EVENT_DESC);
-			
-			stream.skip(event.id - 7124888);
-			
-			// Name
-			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
-	        Reader in = new BufferedReader(isr);
-			while ((ch = in.read()) > -1) {
-				StringBuffer name = new StringBuffer();
-				while (ch != 0) {
-					name.append((char)ch);
-					ch = in.read();
-				}
-				if (name.length() == 0) {
-					continue;
-				}
-				if (name.toString().equals("end")) {
-					break;
-				}
-				event.description = name.toString();
-				break;
-			}
-			in.close();
-			stream.close();
-			
-
-		}
-	}
-	
 	private static String translateRequirements(String value) {
 		for (String[]pair : requirementMapping) {
 			if (pair[0].equals(value)) {
@@ -455,7 +408,6 @@ public class EventStatIndexer {
 			File file = new File("units.txt");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			StringBuffer stringBuffer = new StringBuffer();
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				StringTokenizer tok = new StringTokenizer(line, "\t");
@@ -491,31 +443,46 @@ public class EventStatIndexer {
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.EVENT);
-			
-			// id
-			int i = 0;
-			byte[] d = new byte[4];
-			while ((stream.read(d, 0, 4)) != -1) {
+			long startIndex = Starts.EVENT;
+				
+			// Name
+			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
+			Reader in = new BufferedReader(isr);
+			int ch;
+			while ((ch = in.read()) > -1) {
+				StringBuffer name = new StringBuffer();
+				while (ch != 0) {
+					name.append((char)ch);
+					ch = in.read();
+				}
+				if (name.length() == 0) {
+					continue;
+				}
+				if (name.toString().equals("end")) {
+					break;
+				}
 				Event event = new Event();
-				event.id = new BigInteger(new byte[]{d[3], d[2], d[1], d[0]}).intValue();
+				event.description = name.toString();
 				event.requirements = new ArrayList<Pair>();
 				event.effects = new ArrayList<Pair>();
 				events.add(event);
-				stream.skip(324l);
-				i++;
-				if (i >= 2924) {
-					break;
-				}
-			}
-			stream.close();
 
+				stream = new FileInputStream("Dominions4.exe");		
+				startIndex = startIndex + 1528l;
+				stream.skip(startIndex);
+				isr = new InputStreamReader(stream, "ISO-8859-1");
+				in = new BufferedReader(isr);
+			}
+			in.close();
+			stream.close();
+				
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.EVENT);
+			stream.skip(1200l);
 			
 			// rarity
-			i = 0;
+			int i = 0;
 			byte[] c = new byte[2];
-			stream.skip(4);
 			while ((stream.read(c, 0, 2)) != -1) {
 				String high = String.format("%02X", c[1]);
 				String low = String.format("%02X", c[0]);
@@ -524,8 +491,7 @@ public class EventStatIndexer {
 					tmp = new BigInteger("FFFFFF" + low, 16).intValue();
 				}
 				events.get(i).rarity = tmp;
-				//System.out.println(tmp + " " + events.get(i).description);
-				stream.skip(326l);
+				stream.skip(1526l);
 				i++;
 				if (i >= events.size()) {
 					break;
@@ -533,15 +499,11 @@ public class EventStatIndexer {
 			}
 			stream.close();
 
-			doit(events);
-			doit2(events);
-			doit3(events);
-			
-			//System.out.println("sdfsdfds");
+			requirements(events);
+			effects(events);
 			
 			for (Event event : events) {
 				System.out.print(event.rarity + "\t");
-				//System.out.print(event.id + "\t");
 				System.out.print(event.description + "\t");
 				boolean first = true;
 				for (Pair pair : event.requirements) {

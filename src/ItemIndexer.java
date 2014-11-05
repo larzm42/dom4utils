@@ -56,13 +56,13 @@ public class ItemIndexer {
 
 					System.out.println(oldFileName1 + "->" + newFileName1);
 
-//					Path old1 = Paths.get("items", oldFileName1);
-//					Path new1 = Paths.get("items\\output\\", newFileName1);
-//					try {
-//						Files.copy(old1, new1);
-//					} catch (NoSuchFileException e) {
-//
-//					}
+					Path old1 = Paths.get("items", oldFileName1);
+					Path new1 = Paths.get("items\\output\\", newFileName1);
+					try {
+						Files.copy(old1, new1);
+					} catch (NoSuchFileException e) {
+
+					}
 				} else {
 					System.err.println("FAILED");
 				}

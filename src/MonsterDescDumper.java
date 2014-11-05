@@ -73,7 +73,7 @@ public class MonsterDescDumper {
 			
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
-			int firstIndex = 0x597b08;
+			int firstIndex = indexes.get(0);//0x597b08;
 			stream.skip(Starts.ITEM_AND_MONSTER_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;
@@ -114,7 +114,7 @@ public class MonsterDescDumper {
 							}
 						}
 						if (state == State.UNIT) {
-							List<Integer> idsInt = new ArrayList();
+							List<Integer> idsInt = new ArrayList<Integer>();
 							if (name.toString().startsWith("mon ")) {
 								idsInt.add(Integer.valueOf(name.substring(4)));
 								blockedMonsterIds.add(Integer.valueOf(name.substring(4)));

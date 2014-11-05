@@ -175,7 +175,7 @@ public class ItemStatIndexer {
 				k++;
 				numFound++;
 			}				
-			if (i > 384) {
+			if (i >= Starts.ITEM_COUNT) {
 				break;
 			}
 		}
@@ -200,7 +200,7 @@ public class ItemStatIndexer {
     					return true;
     				}
     			}				
-    			if (i > 384) {
+    			if (i >= Starts.ITEM_COUNT) {
     				break;
     			}
     		}
@@ -293,7 +293,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -320,7 +320,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -346,7 +346,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -372,7 +372,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -398,7 +398,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(207l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -427,7 +427,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -456,7 +456,7 @@ public class ItemStatIndexer {
 				}
 				stream.skip(206l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -492,7 +492,7 @@ public class ItemStatIndexer {
 				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -536,7 +536,7 @@ public class ItemStatIndexer {
 				XSSFCell blankcell = row.getCell(blankCol, Row.CREATE_NULL_AS_BLANK);
 				blankcell.setCellValue("");
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -1066,7 +1066,7 @@ public class ItemStatIndexer {
 					k++;
 					numFound++;
 				}				
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -1289,7 +1289,7 @@ public class ItemStatIndexer {
 				System.out.println(" ");
 				stream.skip(184l);
 				i++;
-				if (i > 384) {
+				if (i >= Starts.ITEM_COUNT) {
 					break;
 				}
 			}
@@ -1326,7 +1326,7 @@ public class ItemStatIndexer {
 		stream.skip(Starts.ITEM);
 		int i = 0;
 		byte[] c = new byte[24];
-		boolArray = new boolean[385];
+		boolArray = new boolean[Starts.ITEM_COUNT];
 		stream.skip(184);
 		while ((stream.read(c, 0, 24)) != -1) {
 			boolean found = false;
@@ -1477,7 +1477,7 @@ public class ItemStatIndexer {
 			boolArray[i] = found;
 			stream.skip(184l);
 			i++;
-			if (i > 384) {
+			if (i >= Starts.ITEM_COUNT) {
 				break;
 			}
 		}

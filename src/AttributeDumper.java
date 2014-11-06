@@ -156,6 +156,9 @@ public class AttributeDumper {
 		"D300", // inquisitor
 		"7101", // beastmaster
 		"7400", // douse
+		"6C01", // preanimator
+		"6D01", // dreanimator
+		"FF01", // mummify
 };
 
 	private static List<String> attrList = new ArrayList<String>();

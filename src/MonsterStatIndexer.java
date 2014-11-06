@@ -1682,6 +1682,15 @@ public class MonsterStatIndexer {
 			// douse
 			doit2(sheet, "7400", 198);
 
+			// preanimator
+			doit2(sheet, "6C01", 259);
+
+			// dreanimator
+			doit2(sheet, "6D01", 260);
+
+			// mummify
+			doit2(sheet, "FF01", 261);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

@@ -1690,6 +1690,9 @@ public class MonsterStatIndexer {
 
 			// mummify
 			doit2(sheet, "FF01", 261);
+			
+			// onebattlespell
+			doit2(sheet, "D100", 262);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

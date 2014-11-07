@@ -159,6 +159,7 @@ public class AttributeDumper {
 		"6C01", // preanimator
 		"6D01", // dreanimator
 		"FF01", // mummify
+		"D100", // onebattlespell
 };
 
 	private static List<String> attrList = new ArrayList<String>();

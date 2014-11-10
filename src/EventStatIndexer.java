@@ -290,7 +290,7 @@ public class EventStatIndexer {
 			int weapon = Integer.decode("0X" + high + low);
 			if (weapon == 0) {
 				int value = 0;
-				stream.skip(24l - numFound*2l);
+				stream.skip(28l - numFound*2l);
 				// Values
 				for (int x = 0; x < numFound; x++) {
 					stream.read(c, 0, 2);
@@ -310,7 +310,7 @@ public class EventStatIndexer {
 					stream.skip(6);
 				}
 				
-				stream.skip(1528l - 26l - numFound*8l);
+				stream.skip(1528l - 30l - numFound*8l);
 				numFound = 0;
 				i++;
 			} else {

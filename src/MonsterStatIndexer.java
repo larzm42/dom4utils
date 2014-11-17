@@ -764,6 +764,43 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// itemslots defaults
+			doit2(sheet, "B600", 40, new CallbackAdapter(){
+				// hand
+				@Override
+				public String notFound() {
+					return "2";
+				}
+			});
+			doit2(sheet, "B600", 41, new CallbackAdapter(){
+				// head
+				@Override
+				public String notFound() {
+					return "1";
+				}
+			});
+			doit2(sheet, "B600", 42, new CallbackAdapter(){
+				// body
+				@Override
+				public String notFound() {
+					return "1";
+				}
+			});
+			doit2(sheet, "B600", 43, new CallbackAdapter(){
+				// foot
+				@Override
+				public String notFound() {
+					return "1";
+				}
+			});
+			doit2(sheet, "B600", 44, new CallbackAdapter(){
+				// misc
+				@Override
+				public String notFound() {
+					return "2";
+				}
+			});
+			
 			// Large bitmap
 			for (String[] pair : DOTHESE) {
 				columnsUsed.remove(Integer.parseInt(pair[1]));

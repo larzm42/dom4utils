@@ -86,6 +86,8 @@ public class AttributeDumperSite {
 		"F601", // def
 		"0202", // awe
 		"FF01", // reinvigoration
+		"0002", // airshield
+		"4A00", // provdefcom
 };
 
 	private static List<String> attrList = new ArrayList<String>();

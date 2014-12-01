@@ -1175,6 +1175,12 @@ public class SiteStatIndexer {
 			// reinvigoration
 			doit(sheet, "FF01", 101);
 			
+			// airshield
+			doit(sheet, "0002", 102);
+			
+			// provdefcom
+			doit(sheet, "4A00", 103);
+			
 			wb.write(fos);
 			fos.close();
 		} catch (FileNotFoundException e) {

@@ -1321,11 +1321,23 @@ public class MonsterStatIndexer {
 			// berserk
 			doit2(sheet, "BE00", 139);
 			
-			// startdom
-			doit2(sheet, "F200", 46);
-			
 			// pathcost
 			doit2(sheet, "F300", 45);
+			
+			// default startdom
+			doit2(sheet, "F300", 46, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});
+			// startdom
+			doit2(sheet, "F200", 46, new CallbackAdapter() {
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
 			
 			// waterbreathing
 			doit2(sheet, "6F00", 122);

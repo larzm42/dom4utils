@@ -1,3 +1,18 @@
+/* This file is part of dom4utils.
+ *
+ * dom4utils is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * dom4utils is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with dom4utils.  If not, see <http://www.gnu.org/licenses/>.
+ */
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,11 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class NametypeIndexer {
 	
 	public static void main(String[] args) {
-
+		run();
+	}
+	
+	public static void run() {
 		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
 		FileInputStream stream = null;
 		try {
@@ -22,15 +39,11 @@ public class NametypeIndexer {
 			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
 	        Reader in = new BufferedReader(isr);
 	        int ch;
-			//byte[] b = new byte[1];
-			//byte[] c = new byte[2];
 
 			stream.skip(Starts.NAMES);
 			int id = 100;
 			System.out.println("100");
 			while ((ch = in.read()) > -1) {
-				//stream.skip(10);
-				//stream.read(c, 0, 2);
 				
 				StringBuffer name = new StringBuffer();
 				while (ch != 0) {
@@ -47,8 +60,6 @@ public class NametypeIndexer {
 					continue;
 				}
 				
-//				String index = String.format("%02X", c[1]);
-//				String offset = String.format("%02X", c[0]);
 				List<String> list = map.get(id);
 				if (list == null) {
 					list = new ArrayList<String>();
@@ -56,34 +67,8 @@ public class NametypeIndexer {
 				}
 				list.add(name.toString());
 				System.out.println(name);
-//				
-//				int val = Integer.decode("0X" + index + offset);
-//				String.format("%04d", val);
-//				if (val > 0) {
-//					String oldFileName1 = "item_" + String.format("%04d", val) + ".tga";
-//					String newFileName1 = "item" + id + ".tga";
-//
-//					System.out.println(oldFileName1 + "->" + newFileName1);
-//
-//					Path old1 = Paths.get("items", oldFileName1);
-//					Path new1 = Paths.get("items\\output\\", newFileName1);
-//					try {
-//						Files.copy(old1, new1);
-//					} catch (NoSuchFileException e) {
-//
-//					}
-//				} else {
-//					System.err.println("FAILED");
-//				}
-//				
-//				id++;
-//				stream.skip(164);
 			}
 			
-//			Set<Entry<Integer, List<String>>> entrySet = map.entrySet();
-//			for (Entry<Integer, List<String>> entry : entrySet) {
-//				if (entry.)
-//			}
 			in.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

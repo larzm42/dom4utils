@@ -14,7 +14,19 @@
  * along with dom4utils.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public interface Callback {
-	public String found(String value);
-	public String notFound();
+public class Dom4Utils {
+	public static void main(String[] args) {
+		// Stats
+		ItemStatIndexer.run();
+		SiteStatIndexer.run();
+		MonsterStatIndexer.run();
+		
+		// Descriptions
+		ItemMonsterDescDumper.run();
+		SpellDescDumper.run();
+		
+		// Sprites
+		ItemSpriteIndexer.run();
+		MonsterSpriteIndexer.run();
+	}
 }

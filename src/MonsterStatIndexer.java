@@ -1761,6 +1761,30 @@ public class MonsterStatIndexer {
 			// onebattlespell
 			doit2(sheet, "D100", 262);
 
+			// fireattuned
+			doit2(sheet, "F501", 263);									
+
+			// airattuned
+			doit2(sheet, "F601", 264);
+
+			// waterattuned
+			doit2(sheet, "F701", 265);
+
+			// earthattuned
+			doit2(sheet, "F801", 266);
+
+			// astralattuned
+			doit2(sheet, "F901", 267);
+
+			// deathattuned
+			doit2(sheet, "FA01", 268);
+
+			// natureattuned
+			doit2(sheet, "FB01", 269);
+
+			// bloodattuned
+			doit2(sheet, "FC01", 270);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

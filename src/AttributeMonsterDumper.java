@@ -174,6 +174,14 @@ public class AttributeMonsterDumper {
 		"6D01", // dreanimator
 		"FF01", // mummify
 		"D100", // onebattlespell
+		"F501", // fireattuned
+		"F601", // airattuned
+		"F701", // waterattuned
+		"F801", // earthattuned
+		"F901", // astralattuned
+		"FA01", // deathattuned
+		"FB01", // natureattuned
+		"FC01", // bloodattuned
 };
 
 	private static List<String> attrList = new ArrayList<String>();

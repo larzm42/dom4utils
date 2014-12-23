@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class AttributeMonsterDumper {
+public class AttributeDumperMonster {
 	private static String[] KNOWN_MONSTER_ATTRS = {
 		"6C00", // stealthy
 		"C900", // coldres

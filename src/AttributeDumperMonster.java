@@ -182,6 +182,14 @@ public class AttributeDumperMonster {
 		"FA01", // deathattuned
 		"FB01", // natureattuned
 		"FC01", // bloodattuned
+		"0A00", // magicboost F
+		"0B00", // magicboost A
+		"0C00", // magicboost W
+		"0D00", // magicboost E
+		"0E00", // magicboost S
+		"0F00", // magicboost D
+		"1000", // magicboost N
+		"1600", // magicboost ALL
 };
 
 	private static List<String> attrList = new ArrayList<String>();

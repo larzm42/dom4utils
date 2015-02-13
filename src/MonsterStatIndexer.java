@@ -171,6 +171,7 @@ public class MonsterStatIndexer {
 		"realm2",
 		"realm1",
 		"baseleadership",
+		"pathboost",
 		"test"
 	};
 	
@@ -1784,6 +1785,30 @@ public class MonsterStatIndexer {
 
 			// bloodattuned
 			doit2(sheet, "FC01", 270);
+
+			// magicboost F
+			doit2(sheet, "0A00", 271);
+
+			// magicboost A
+			doit2(sheet, "0B00", 272);
+
+			// magicboost W
+			doit2(sheet, "0C00", 273);
+
+			// magicboost E
+			doit2(sheet, "0D00", 274);
+
+			// magicboost S
+			doit2(sheet, "0E00", 275);
+
+			// magicboost D
+			doit2(sheet, "0F00", 276);
+
+			// magicboost N
+			doit2(sheet, "1000", 277);
+
+			// magicboost ALL
+			doit2(sheet, "1600", 278);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

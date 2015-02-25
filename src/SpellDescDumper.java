@@ -13,10 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with dom4utils.  If not, see <http://www.gnu.org/licenses/>.
  */
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,8 +79,8 @@ public class SpellDescDumper {
 
 				if (names.size() > 0 && desc != null) {
 					for (String name : names) {
-						File file = new File("spells\\" + name.replaceAll("[^a-zA-Z0-9\\-]", "") + ".txt");
-						FileOutputStream os = new FileOutputStream(file);
+						Path path = Paths.get("spells", name.replaceAll("[^a-zA-Z0-9\\-]", "") + ".txt");
+						OutputStream os = Files.newOutputStream(path);
 						os.write(desc.getBytes());
 						os.close();
 					}

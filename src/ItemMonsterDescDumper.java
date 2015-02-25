@@ -13,10 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with dom4utils.  If not, see <http://www.gnu.org/licenses/>.
  */
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,9 +32,9 @@ public class ItemMonsterDescDumper {
 		ITEM, NOTHING, UNIT
 	};
 	static Map<Integer, String> monsters = new HashMap<Integer, String>();
-	static String LAST_ITEM = "Crown of the Shah";
+	static String LAST_ITEM = "Ring of Dwarven Gold";
 	static String FIRST_UNIT = "Minister of Magic";
-	static String LAST_UNIT = "Eldest Dwarf";
+	static String LAST_UNIT = "Phoenix";
 	static Set<Integer> blockedMonsterIds = new HashSet<Integer>();
 	
 	public static void main(String[] args) {
@@ -91,7 +93,7 @@ public class ItemMonsterDescDumper {
 			
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
-			int firstIndex = indexes.get(0);//0x597b08;
+			int firstIndex = indexes.get(0);
 			stream.skip(Starts.ITEM_AND_MONSTER_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;
@@ -123,8 +125,8 @@ public class ItemMonsterDescDumper {
 				if (names.size() > 0 && desc != null) {
 					for (String name : names) {
 						if (state == State.ITEM) {
-							File file = new File("items\\" + name.replaceAll("[^a-zA-Z0-9\\-]", "") + ".txt");
-							FileOutputStream os = new FileOutputStream(file);
+							Path path = Paths.get("items", "desc", name.replaceAll("[^a-zA-Z0-9\\-]", "") + ".txt");
+							OutputStream os = Files.newOutputStream(path);
 							os.write(desc.getBytes());
 							os.close();
 							if (name.equals(LAST_ITEM)) {
@@ -150,8 +152,8 @@ public class ItemMonsterDescDumper {
 								}
 							}
 							for (Integer idInt : idsInt) {
-								File file = new File("units\\" + String.format("%04d", idInt) + ".txt");
-								FileOutputStream os = new FileOutputStream(file);
+								Path path = Paths.get("monsters", "desc", String.format("%04d", idInt) + ".txt");
+								OutputStream os = Files.newOutputStream(path);
 								os.write(desc.getBytes());
 								os.close();
 							}

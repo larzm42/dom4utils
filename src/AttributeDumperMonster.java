@@ -190,6 +190,9 @@ public class AttributeDumperMonster {
 		"0F00", // magicboost D
 		"1000", // magicboost N
 		"1600", // magicboost ALL
+		"EA01", // heatrec
+		"EB01", // coldrec
+		"D801", // spreadchaos/death
 };
 
 	private static List<String> attrList = new ArrayList<String>();

@@ -505,7 +505,9 @@ public class MonsterStatIndexer {
 			} else {
 				//System.out.print(low + high + " ");
 				if (attr.indexOf(low + high) != -1) {
-					pos = k;
+					if (pos == -1) {
+						pos = k;
+					}
 				}
 				k++;
 				numFound++;
@@ -1814,6 +1816,44 @@ public class MonsterStatIndexer {
 
 			// magicboost ALL
 			doit2(sheet, "1600", 278);
+
+			// heatrec
+			doit2(sheet, "EA01", 280, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});
+
+			// coldrec
+			doit2(sheet, "EB01", 281, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});
+
+			// spread chaos
+			doit2(sheet, "D801", 282, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					if (value.equals("100")) {
+						return "1";
+					}
+					return "";
+				}
+			});
+
+			// spread death
+			doit2(sheet, "D801", 283, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					if (value.equals("103")) {
+						return "1";
+					}
+					return "";
+				}
+			});
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

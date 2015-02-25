@@ -1501,7 +1501,12 @@ public class MonsterStatIndexer {
 			});
 			
 			// eyes
-			//doit2(sheet, "B200", 20);
+			doit2(sheet, "B200", 279, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return Integer.toString((Integer.parseInt(value) + 2));
+				}
+			});
 			
 			// supplybonus
 			doit2(sheet, "7A00", 192);

@@ -2780,7 +2780,28 @@
 2780	Chaac of the South
 2781	Chaac of the West
 2782	Batab
-2783	Hoburg Slinger
-2784	Hoburg Spearman
-2785	Hoburg Pikeman
-2786	Hoburg Defender
+2783	Drakon
+2784	Thrice Horned Boar
+2785	Solar Eagle
+2786	Celestial Gryphon
+2787	Celestial Lion
+2788	Man-Eater
+2789	Raven of the Underworld
+2790	Myrmecoleon
+2791	Earth Serpent
+2792	Solar Serpent
+2793	Serpent of Chaos
+2794	Demonic Locust
+2795	Dog of the Underworld
+2796	Hound of Hades
+2797	Hieracosphinx
+2798	Criosphinx
+2799	Wadjet
+2800	Ormr
+2801	Linnormr
+2802	Svartalf Mastersmith
+2803	Linnormr
+2804	Hoburg Slinger
+2805	Hoburg Spearman
+2806	Hoburg Pikeman
+2807	Hoburg Defender

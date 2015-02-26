@@ -197,10 +197,6 @@ public class MonsterStatIndexer {
 	
 	private static Map<Integer, Magic> monsterMagic = new HashMap<Integer, Magic>();
 	
-//	private static String magout(int mag) {
-//		return (mag > 0 ? mag : "") + "\t";
-//	}
-
 	private static String magicStrip(int mag) {
 		return mag > 0 ? Integer.toString(mag) : "";
 	}
@@ -1859,6 +1855,15 @@ public class MonsterStatIndexer {
 			
 			// corpseeater
 			doit2(sheet, "EC00", 284);
+
+			// poisonskin
+			doit2(sheet, "0602", 285);
+
+			// bug
+			doit2(sheet, "AB01", 286);
+
+			// uwbug
+			doit2(sheet, "AC01", 287);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

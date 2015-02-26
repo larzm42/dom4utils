@@ -986,8 +986,10 @@ public class MonsterStatIndexer {
 							String additional = getAttr("C700", rowNumber-1);
 							int shockres = Integer.parseInt(additional.equals("")?"0":additional);
 							cell.setCellValue(shockres==0?"":Integer.toString(shockres));
-						} else if (pair[0].equals("stealthy40")
-								|| pair[0].equals("immobile")
+						} else if (pair[0].equals("stealthy40")) {
+							String additional = getAttr("6C00", rowNumber-1);
+							cell.setCellValue(additional == null || additional.equals("") ? "" : additional);
+						} else if (pair[0].equals("immobile")
 								|| pair[0].equals("teleport")
 								|| pair[0].equals("float")
 								|| pair[0].equals("bluntres")
@@ -1854,6 +1856,9 @@ public class MonsterStatIndexer {
 					return "";
 				}
 			});
+			
+			// corpseeater
+			doit2(sheet, "EC00", 284);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

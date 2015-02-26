@@ -193,6 +193,7 @@ public class AttributeDumperMonster {
 		"EA01", // heatrec
 		"EB01", // coldrec
 		"D801", // spreadchaos/death
+		"EC00", // corpseeater
 };
 
 	private static List<String> attrList = new ArrayList<String>();

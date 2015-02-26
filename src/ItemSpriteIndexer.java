@@ -35,6 +35,9 @@ public class ItemSpriteIndexer {
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
 		FileInputStream stream = null;
 		try {
+			Path itemsPath = Files.createDirectories(Paths.get("items", "output"));
+			Files.walkFileTree(itemsPath, new DirCleaner());
+
 			stream = new FileInputStream("Dominions4.exe");
 			
 			byte[] b = new byte[32];

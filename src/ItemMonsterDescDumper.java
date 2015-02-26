@@ -91,6 +91,11 @@ public class ItemMonsterDescDumper {
 			}
 			stream.close();
 			
+			Path itemDescPath = Files.createDirectories(Paths.get("items", "desc"));
+			Files.walkFileTree(itemDescPath, new DirCleaner());
+			Path descPath = Files.createDirectories(Paths.get("monsters", "desc"));
+			Files.walkFileTree(descPath, new DirCleaner());
+
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
 			int firstIndex = indexes.get(0);

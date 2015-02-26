@@ -154,6 +154,9 @@ public class MonsterSpriteIndexer {
 	
 		FileInputStream stream = null;
 		try {
+			Path monstersPath = Files.createDirectories(Paths.get("monsters", "output"));
+			Files.walkFileTree(monstersPath, new DirCleaner());
+
 			stream = new FileInputStream("monster.trs");
 			stream.skip(Starts.MONSTER_TRS_INDEX);
 

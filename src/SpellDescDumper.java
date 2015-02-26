@@ -50,9 +50,12 @@ public class SpellDescDumper {
 			}
 			stream.close();
 			
+			Path spellsDescPath = Files.createDirectories(Paths.get("spells"));
+			Files.walkFileTree(spellsDescPath, new DirCleaner());
+			
 			stream = new FileInputStream("Dominions4.exe");
 			byte[] b = new byte[1];
-			int firstIndex = indexes.get(0);//0x69ee90;
+			int firstIndex = indexes.get(0);
 			stream.skip(Starts.SPELL_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;

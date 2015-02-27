@@ -119,6 +119,8 @@ public class AttributeDumperItem {
 		"5F01", // tmpbloodgems
 		"6201", // healer
 		"7A00", // supplybonus
+		"8100", // airbreathing
+		"A901", // mapspeed
 };
 
 	private static List<String> attrList = new ArrayList<String>();

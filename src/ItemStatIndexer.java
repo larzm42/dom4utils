@@ -883,6 +883,9 @@ public class ItemStatIndexer {
 			// waterbreathing
 			doit(sheet, "6E00", 47);
 
+			// airbreathing
+			doit(sheet, "8100", 49);
+
 			// stealthb
 			doit(sheet, "8601", 38);
 
@@ -1034,6 +1037,9 @@ public class ItemStatIndexer {
 
 			// supplybonus
 			doit(sheet, "7A00", 117);
+
+			// mapspeed
+			doit(sheet, "A901", 33);
 
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			

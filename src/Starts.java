@@ -30,10 +30,15 @@ public class Starts {
 	public static final int SITE_COUNT = 1048;
 	
 	public static final long NAMES = 0x095e33cl;
+	public static final long FIXED_NAMES = 0x0aa2c60l;
+	
 	public static final int NAMES_COUNT = 158;
 	
 	public static final long SPELL_DESC = 0x02a4260l;
 	public static final long SPELL_DESC_INDEX = 0x02e1560l;
 
 	public static final long EVENT = 0x02e7350l;
+	
+	public static final long MERCENARY = 0x0b0ed02l;
+	public static final int MERCENARY_COUNT = 68;
 }

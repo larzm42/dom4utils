@@ -2111,6 +2111,34 @@ public class MonsterStatIndexer {
 					return null;
 				}
 			});
+			
+			// fixedname
+//			File herosFile = new File("heroes.txt");
+//			Set<Integer> heroes = new HashSet<Integer>();
+//			File namesFile = new File("names.txt");
+//			List<String> names = new ArrayList<String>();
+//			FileReader herosFileReader = new FileReader(herosFile);
+//			FileReader namesFileReader = new FileReader(namesFile);
+//			BufferedReader bufferedReader = new BufferedReader(herosFileReader);
+//			String line;
+//			while ((line = bufferedReader.readLine()) != null) {
+//				heroes.add(Integer.parseInt(line));
+//			}
+//			bufferedReader = new BufferedReader(namesFileReader);
+//			while ((line = bufferedReader.readLine()) != null) {
+//				names.add(line);
+//			}
+//			bufferedReader.close();
+//			int nameIndex = 0;
+//			for (int row = 1; row <= Starts.MONSTER_COUNT; row++) {
+//				String unique = getAttr("1301", row);
+//				String nametype = getAttr("FB00", row);
+//				if ((heroes.contains(row) || (unique != null && !unique.equals(""))) && (nametype == null || nametype.equals(""))) {
+//					System.out.println(names.get(nameIndex++));
+//				} else {
+//					System.out.println("");
+//				}
+//			}
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.MONSTER_MAGIC);

@@ -1853,6 +1853,28 @@ public class MonsterStatIndexer {
 				}
 			});
 			
+			// spread order
+			doit2(sheet, "D901", 288, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					if (value.equals("100")) {
+						return "1";
+					}
+					return "";
+				}
+			});
+
+			// spread growth
+			doit2(sheet, "D901", 289, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					if (value.equals("103")) {
+						return "1";
+					}
+					return "";
+				}
+			});
+			
 			// corpseeater
 			doit2(sheet, "EC00", 284);
 

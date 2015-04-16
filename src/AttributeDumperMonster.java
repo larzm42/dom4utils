@@ -193,6 +193,7 @@ public class AttributeDumperMonster {
 		"EA01", // heatrec
 		"EB01", // coldrec
 		"D801", // spreadchaos/death
+		"D901", // spreadorder/growth
 		"EC00", // corpseeater
 		"0602", // poisonskin
 		"AB01", // bug

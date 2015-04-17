@@ -1887,6 +1887,15 @@ public class MonsterStatIndexer {
 			// uwbug
 			doit2(sheet, "AC01", 287);
 
+			// spreaddom
+			doit2(sheet, "9C00", 291);
+
+			// reform
+			doit2(sheet, "8A01", 292);
+
+			// battlesum5
+			doit2(sheet, "8E01", 293);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

@@ -198,6 +198,9 @@ public class AttributeDumperMonster {
 		"0602", // poisonskin
 		"AB01", // bug
 		"AC01", // uwbug
+		"9C00", // spreaddom
+		"8A01", // reform
+		"8E01", // battlesum5
 };
 
 	private static List<String> attrList = new ArrayList<String>();

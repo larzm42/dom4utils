@@ -121,6 +121,16 @@ public class AttributeDumperItem {
 		"7A00", // supplybonus
 		"8100", // airbreathing
 		"A901", // mapspeed
+		"1E00", // gf
+		"1F00", // ga
+		"2000", // gw
+		"2100", // ge
+		"2200", // gs
+		"2300", // gd
+		"2400", // gn
+		"2500", // gb
+		"6C01", // reanimation bonus priest
+		"6D01", // reanimation bonus death
 };
 
 	private static List<String> attrList = new ArrayList<String>();

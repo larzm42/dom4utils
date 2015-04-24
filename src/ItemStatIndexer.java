@@ -1041,6 +1041,36 @@ public class ItemStatIndexer {
 			// mapspeed
 			doit(sheet, "A901", 33);
 
+			// gf
+			doit(sheet, "1E00", 98);
+
+			// ga
+			doit(sheet, "1F00", 99);
+
+			// gw
+			doit(sheet, "2000", 100);
+
+			// ge
+			doit(sheet, "2100", 101);
+
+			// gs
+			doit(sheet, "2200", 102);
+
+			// gd
+			doit(sheet, "2300", 103);
+
+			// gn
+			doit(sheet, "2400", 104);
+
+			// gb
+			doit(sheet, "2500", 105);
+
+			// reanimation bonus priest
+			doit(sheet, "6C01", 154);
+			
+			// reanimation bonus death
+			doit(sheet, "6D01", 155);
+			
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.ITEM);

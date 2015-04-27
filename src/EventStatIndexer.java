@@ -521,18 +521,22 @@ public class EventStatIndexer {
 			requirements(events);
 			effects(events);
 			
+			System.out.println("id\tname\trarity\tdescription\trequirements\teffects");
+			i = 1;
 			for (Event event : events) {
+				System.out.print(i++ + "\t");
+				System.out.print(event.description.substring(0, Math.min(event.description.length(), 40)) + "\t");
 				System.out.print(event.rarity + "\t");
 				System.out.print(event.description + "\t");
 				boolean first = true;
 				for (Pair pair : event.requirements) {
-					System.out.print((first?"":", ")+pair.name + " " + pair.value);
+					System.out.print((first?"":"|")+pair.name + " " + pair.value);
 					first = false;
 				}
 				System.out.print("\t");
 				first=true;
 				for (Pair pair : event.effects) {
-					System.out.print((first?"":", ")+pair.name + " " + pair.value);
+					System.out.print((first?"":"|")+pair.name + " " + pair.value);
 					first = false;
 				}
 				System.out.println("");

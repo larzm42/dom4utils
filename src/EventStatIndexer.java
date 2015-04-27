@@ -49,7 +49,7 @@ public class EventStatIndexer {
 		{"1300", "mydominion"}, 
 		{"1200", "nation"}, 
 		{"1000", "maxdominion"}, 
-		{"0200", "pop"}, 
+		{"0200", "minpop"}, 
 		{"0400", "temple"}, 
 		{"0700", "maxunrest"}, 
 		{"0600", "minunrest"}, 
@@ -130,9 +130,9 @@ public class EventStatIndexer {
 	
 	static String[][] effectMapping = {
 		{"4000", "incdom"}, 
-		{"3600", "incscale1"}, 
+		{"3600", "incscale"}, 
 		{"3700", "incscale2"}, 
-		{"3900", "decscale1"}, 
+		{"3900", "decscale"}, 
 		{"3A00", "decscale2"}, 
 		{"3B00", "decscale3"}, 
 		{"2A00", "gold"}, 
@@ -157,12 +157,12 @@ public class EventStatIndexer {
 		{"2600", "15d6units"}, 
 		{"2700", "16d6units"}, 
 		{"2900", "magicitem"}, 
-		{"0E00", "1d3gems"}, 
-		{"0F00", "1d6gems"}, 
-		{"1000", "1d6gems"}, 
-		{"1100", "2d6gems"}, 
-		{"1200", "3d6gems"}, 
-		{"1300", "4d6gems"}, 
+		{"0E00", "1d3vis"}, 
+		{"0F00", "1d6vis"}, 
+		{"1000", "1d6vis"}, 
+		{"1100", "2d6vis"}, 
+		{"1200", "3d6vis"}, 
+		{"1300", "4d6vis"}, 
 		{"3500", "gemloss"}, 
 		{"0A00", "kill"}, 
 		{"1400", "1com"}, 
@@ -204,7 +204,7 @@ public class EventStatIndexer {
 		{"3D00", "curse"}, 
 		{"3800", "incscale2"}, 
 		{"0B00", "emigration"}, 
-		{"0200", "assassin"}, 
+		//{"0200", "assassin"}, 
 		{"3C00", "visitors"}, 
 		{"3E00", "disease"}, 
 		{"2C00", "addequip"}, 
@@ -224,23 +224,23 @@ public class EventStatIndexer {
 	};
 	
 	static String[] effectToUnit = {
-		"1d3units", 
-		"1d6units", 
-		"2d6units", 
-		"3d6units", 
-		"4d6units", 
-		"5d6units", 
-		"6d6units", 
-		"7d6units", 
-		"8d6units", 
-		"9d6units", 
-		"10d6units", 
-		"11d6units", 
-		"12d6units", 
-		"13d6units", 
-		"14d6units", 
-		"15d6units", 
-		"16d6units", 
+//		"1d3units", 
+//		"1d6units", 
+//		"2d6units", 
+//		"3d6units", 
+//		"4d6units", 
+//		"5d6units", 
+//		"6d6units", 
+//		"7d6units", 
+//		"8d6units", 
+//		"9d6units", 
+//		"10d6units", 
+//		"11d6units", 
+//		"12d6units", 
+//		"13d6units", 
+//		"14d6units", 
+//		"15d6units", 
+//		"16d6units", 
 		"1com", 
 		"2com", 
 		"3com", 
@@ -249,7 +249,7 @@ public class EventStatIndexer {
 		"killmon", 
 		"killcom", 
 		"stealthcom", 
-		"assassin", 
+		//"assassin", 
 		"fireboost", 
 		"airboost", 
 		"waterboost", 
@@ -262,18 +262,18 @@ public class EventStatIndexer {
 	};
 
 	static String[] effectToGem = {
-		"1d3gems", 
-		"1d6gems", 
-		"2d6gems", 
-		"3d6gems", 
-		"4d6gems", 
+		"1d3vis", 
+		"1d6vis", 
+		"2d6vis", 
+		"3d6vis", 
+		"4d6vis", 
 		"gemloss", 
 	};
 
 	static String[] effectToScale = {
 		"incscale1", 
 		"incscale2", 
-		"decscale1", 
+		"decscale", 
 		"decscale2", 
 		"decscale3", 
 		"worldincscale", 
@@ -438,18 +438,18 @@ public class EventStatIndexer {
 			}
 			fileReader.close();
 			
-			gemMap.put(0, "Fire");
-			gemMap.put(1, "Air");
-			gemMap.put(2, "Water");
-			gemMap.put(3, "Earth");
-			gemMap.put(4, "Astral");
-			gemMap.put(5, "Death");
-			gemMap.put(6, "Nature");
-			gemMap.put(7, "Slaves");
+			gemMap.put(0, "F");
+			gemMap.put(1, "A");
+			gemMap.put(2, "W");
+			gemMap.put(3, "E");
+			gemMap.put(4, "A");
+			gemMap.put(5, "D");
+			gemMap.put(6, "N");
+			gemMap.put(7, "B");
 			gemMap.put(50, "Random");
 			gemMap.put(51, "Elemental");
 			gemMap.put(52, "Sorcery");
-			gemMap.put(56, "all7");
+			gemMap.put(56, "All");
 			
 			scaleMap.put(0, "Turmoil");
 			scaleMap.put(1, "Sloth");
@@ -521,7 +521,7 @@ public class EventStatIndexer {
 			requirements(events);
 			effects(events);
 			
-			System.out.println("id\tname\trarity\tdescription\trequirements\teffects");
+			System.out.println("id\tname\trarity\tdescription\trequirements\teffects\ttest");
 			i = 1;
 			for (Event event : events) {
 				System.out.print(i++ + "\t");

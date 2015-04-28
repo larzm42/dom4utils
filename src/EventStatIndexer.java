@@ -70,7 +70,7 @@ public class EventStatIndexer {
 		{"6900", "unmagic"}, 
 		{"6F00", "prod"}, 
 		{"1400", "turn"}, 
-		{"4500", "national"}, 
+		{"4500", "nation"}, 
 		{"1C00", "noseason"}, 
 		{"1B00", "season"}, 
 		{"2000", "noera"}, 
@@ -84,29 +84,36 @@ public class EventStatIndexer {
 		{"1D00", "freesites"}, 
 		{"3A00", "unique"}, 
 		{"3D00", "monster"}, 
-		{"3C00", "nomonster"}, 
+		{"3C00", "nomonster"},
+		{"1600", "nomnr"},
 		{"3900", "fort"}, 
 		{"1500", "fullowner"}, 
 		{"1700", "notnation"}, 
-		{"2100", "r33"}, 
-		{"1600", "r22"}, 
-		{"4100", "r65"}, 
+		//{"2100", "r33"}, 
+		//{"1600", "r22"}, 
+		//{"4100", "r65"}, 
 		{"0A00", "gem"}, 
 		{"3500", "rare"}, 
 		{"0900", "maxtroops"}, 
 		{"3600", "mindef"}, 
 		{"0B00", "commander"}, 
 		{"3B00", "code"}, 
-		{"2300", "reseacher"}, 
+		{"4300", "code"}, // #req_anycode?
+		{"4400", "code"}, // #req_nearbycode?
+		{"5500", "code"}, // #req_nearowncode?
+		{"2300", "researcher"}, 
 		{"1E00", "freshwater"}, 
 		{"2500", "capital"}, 
 		{"2400", "capital"}, 
-		{"2C00", "pathdeath"}, 
-		{"2D00", "pathnature"}, 
+		{"2700", "pathfire"}, 
+		{"2800", "pathair"}, 
 		{"2900", "pathwater"}, 
 		{"2A00", "pathearth"}, 
 		{"2B00", "pathastral"}, 
+		{"2C00", "pathdeath"}, 
+		{"2D00", "pathnature"}, 
 		{"2E00", "pathblood"}, 
+		{"2F00", "pathholy"}, 
 		{"2200", "humanoidres"}, 
 		{"3100", "foundsite"}, 
 		{"3200", "hiddensite"}, 
@@ -114,17 +121,24 @@ public class EventStatIndexer {
 		{"3400", "nearbysite"}, 
 		{"3700", "maxdef"}, 
 		{"3800", "poptype"}, 
-		{"1100", "nativesoil"}, 
+		//{"1100", "nativesoil"}, 
 		{"0F00", "farm"}, 
 		{"0800", "mintroops"}, 
 		{"2600", "maxturn"}, 
 		{"3E00", "claimedthrone"}, 
-
+		{"7A00", "targpath1"}, 
+		{"7B00", "targpath2"}, 
+		{"7C00", "targpath3"}, 
+		{"7D00", "targpath4"}, 
+		{"7800", "targmnr"}, 
+		{"4800", "preach"}, 
+		{"7900", "targorder"}, 
+		
 	};
 	
 	static String[] requirementToUnit = {
-		"monster", 
-		"nomonster", 
+		//"monster", 
+		//"nomonster", 
 	};
 
 	
@@ -132,6 +146,7 @@ public class EventStatIndexer {
 		{"4000", "incdom"}, 
 		{"3600", "incscale"}, 
 		{"3700", "incscale2"}, 
+		{"3800", "incscale3"}, 
 		{"3900", "decscale"}, 
 		{"3A00", "decscale2"}, 
 		{"3B00", "decscale3"}, 
@@ -165,7 +180,7 @@ public class EventStatIndexer {
 		{"1300", "4d6vis"}, 
 		{"3500", "gemloss"}, 
 		{"0A00", "kill"}, 
-		{"1400", "1com"}, 
+		{"1400", "com"}, 
 		{"1500", "2com"}, 
 		{"5D00", "code"}, 
 		{"0C00", "unrest"}, 
@@ -190,21 +205,23 @@ public class EventStatIndexer {
 		{"4300", "stealthcom"}, 
 		{"3400", "revolt"}, 
 		{"2B00", "newdom"}, 
-		{"1600", "3com"}, 
-		{"1700", "4com"}, 
+		{"1600", "4com"}, 
+		{"1700", "5com"}, 
 		{"2800", "id"}, 
 		{"4500", "worldunrest"}, 
 		{"4700", "worldincscale"}, 
 		{"4800", "worldincscale2"}, 
+		{"4900", "worldincscale3"}, 
 		{"4A00", "worlddecscale"}, 
+		{"4B00", "worlddecscale2"}, 
+		{"4C00", "worlddecscale3"}, 
 		{"4F00", "worldritrebate"}, 
 		{"5000", "worldincdom"}, 
 		{"6600", "worldheal"}, 
 		{"6100", "linger"}, 
 		{"3D00", "curse"}, 
-		{"3800", "incscale2"}, 
 		{"0B00", "emigration"}, 
-		//{"0200", "assassin"}, 
+		{"0200", "assassin"}, 
 		{"3C00", "visitors"}, 
 		{"3E00", "disease"}, 
 		{"2C00", "addequip"}, 
@@ -219,8 +236,10 @@ public class EventStatIndexer {
 		{"6500", "worldmark"}, 
 		{"6300", "worldcurse"}, 
 		{"6700", "worldage"}, 
-		{"6D00", "otherplane"}, 
-	 
+		{"6D00", "banished"}, 
+		{"6900", "resetcode"},
+		{"7600", "order"}, 
+
 	};
 	
 	static String[] effectToUnit = {
@@ -241,24 +260,24 @@ public class EventStatIndexer {
 //		"14d6units", 
 //		"15d6units", 
 //		"16d6units", 
-		"1com", 
-		"2com", 
-		"3com", 
-		"4com", 
-		"1unit", 
-		"killmon", 
-		"killcom", 
-		"stealthcom", 
+//		"1com", 
+//		"2com", 
+//		"3com", 
+//		"4com", 
+//		"1unit", 
+		//"killmon", 
+		//"killcom", 
+//		"stealthcom", 
 		//"assassin", 
-		"fireboost", 
-		"airboost", 
-		"waterboost", 
-		"earthboost", 
-		"astralboost", 
-		"deathboost", 
-		"natureboost", 
-		"bloodboost", 
-		"holyboost", 
+//		"fireboost", 
+//		"airboost", 
+//		"waterboost", 
+//		"earthboost", 
+//		"astralboost", 
+//		"deathboost", 
+//		"natureboost", 
+//		"bloodboost", 
+//		"holyboost", 
 	};
 
 	static String[] effectToGem = {
@@ -271,14 +290,18 @@ public class EventStatIndexer {
 	};
 
 	static String[] effectToScale = {
-		"incscale1", 
+		"incscale", 
 		"incscale2", 
+		"incscale3", 
 		"decscale", 
 		"decscale2", 
 		"decscale3", 
 		"worldincscale", 
 		"worldincscale2", 
+		"worldincscale3", 
 		"worlddecscale", 
+		"worlddecscale2", 
+		"worlddecscale3", 
 	};
 	
 	static Set<String> effectToUnitSet = new HashSet<String>();
@@ -525,21 +548,25 @@ public class EventStatIndexer {
 			i = 1;
 			for (Event event : events) {
 				System.out.print(i++ + "\t");
-				System.out.print(event.description.substring(0, Math.min(event.description.length(), 40)) + "\t");
+				System.out.print(event.description.substring(0, Math.min(event.description.length(), 30)) + "\t");
 				System.out.print(event.rarity + "\t");
 				System.out.print(event.description + "\t");
 				boolean first = true;
 				for (Pair pair : event.requirements) {
-					System.out.print((first?"":"|")+pair.name + " " + pair.value);
+					//if (pair.name.startsWith("0x")) {
+						System.out.print((first?"":"|")+pair.name + " " + pair.value);
+					//}
 					first = false;
 				}
 				System.out.print("\t");
 				first=true;
 				for (Pair pair : event.effects) {
-					System.out.print((first?"":"|")+pair.name + " " + pair.value);
+					//if (pair.name.startsWith("0x")) {
+						System.out.print((first?"":"|")+pair.name + " " + pair.value);
+					//}
 					first = false;
 				}
-				System.out.println("");
+				System.out.println("\t");
 			}
 
 		} catch (FileNotFoundException e) {

@@ -239,6 +239,9 @@ public class EventStatIndexer {
 		{"6D00", "banished"}, 
 		{"6900", "resetcode"},
 		{"7600", "order"}, 
+		{"7100", "notext"}, 
+		{"6A00", "pathboost"}, 
+		{"6C00", "gainaff"}, 
 
 	};
 	
@@ -335,7 +338,7 @@ public class EventStatIndexer {
 					high = String.format("%02X", c[1]);
 					low = String.format("%02X", c[0]);
 					int tmp = new BigInteger(high + low, 16).intValue();
-					if (tmp < 5000) {
+					if (tmp <= 65535) {
 						value = Integer.decode("0X" + high + low);
 					} else {
 						value = new BigInteger("FFFF" + high + low, 16).intValue();
@@ -371,36 +374,36 @@ public class EventStatIndexer {
 
 		int i = 0;
 		long numFound = 0;
-		byte[] c = new byte[2];
+		byte[] c = new byte[8];
 		stream.skip(128);
 		while ((stream.read(c, 0, 2)) != -1) {
 			String high = String.format("%02X", c[1]);
 			String low = String.format("%02X", c[0]);
 			int weapon = Integer.decode("0X" + high + low);
 			if (weapon == 0) {
-				int value = 0;
+				long value = 0l;
 				stream.skip(38l - numFound*2l);
 				// Values
 				for (int x = 0; x < numFound; x++) {
-					stream.read(c, 0, 2);
-					high = String.format("%02X", c[1]);
-					low = String.format("%02X", c[0]);
-					int tmp = new BigInteger(high + low, 16).intValue();
-					if (tmp < 5000) {
-						value = Integer.decode("0X" + high + low);
-					} else {
-						value = new BigInteger("FFFF" + high + low, 16).intValue();
-					}
+					stream.read(c, 0, 8);
+					String b7 = String.format("%02X", c[7]);
+					String b6 = String.format("%02X", c[6]);
+					String b5 = String.format("%02X", c[5]);
+					String b4 = String.format("%02X", c[4]);
+					String b3 = String.format("%02X", c[3]);
+					String b2 = String.format("%02X", c[2]);
+					String b1 = String.format("%02X", c[1]);
+					String b0 = String.format("%02X", c[0]);
+					value = new BigInteger(b7+b6+b5+b4+b3+b2+b1+b0, 16).longValue();
 					if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+						events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Long.toString(value);
 					} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
+						events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Long.toString(value);
 					} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
+						events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Long.toString(value);
 					} else {
-						events.get(i).effects.get(x).value = Integer.toString(value);
+						events.get(i).effects.get(x).value = Long.toString(value);
 					}
-					stream.skip(6);
 				}
 				stream.skip(1528l - 40l - numFound*8l);
 				numFound = 0;

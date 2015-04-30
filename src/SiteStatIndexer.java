@@ -1199,6 +1199,9 @@ public class SiteStatIndexer {
 			// provdefcom
 			doit(sheet, "4A00", 103);
 			
+			// domconflict
+			doit(sheet, "2A00", 104);
+			
 			wb.write(fos);
 			fos.close();
 		} catch (FileNotFoundException e) {

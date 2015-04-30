@@ -338,7 +338,7 @@ public class EventStatIndexer {
 					high = String.format("%02X", c[1]);
 					low = String.format("%02X", c[0]);
 					int tmp = new BigInteger(high + low, 16).intValue();
-					if (tmp <= 65535) {
+					if (tmp <= 5000) {
 						value = Integer.decode("0X" + high + low);
 					} else {
 						value = new BigInteger("FFFF" + high + low, 16).intValue();
@@ -381,7 +381,6 @@ public class EventStatIndexer {
 			String low = String.format("%02X", c[0]);
 			int weapon = Integer.decode("0X" + high + low);
 			if (weapon == 0) {
-				long value = 0l;
 				stream.skip(38l - numFound*2l);
 				// Values
 				for (int x = 0; x < numFound; x++) {
@@ -394,15 +393,27 @@ public class EventStatIndexer {
 					String b2 = String.format("%02X", c[2]);
 					String b1 = String.format("%02X", c[1]);
 					String b0 = String.format("%02X", c[0]);
-					value = new BigInteger(b7+b6+b5+b4+b3+b2+b1+b0, 16).longValue();
-					if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Long.toString(value);
-					} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Long.toString(value);
-					} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
-						events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Long.toString(value);
-					} else {
+					if (events.get(i).effects.get(x).name.equals("gainaff")) {
+						long value = 0l;
+						value = new BigInteger(b7+b6+b5+b4+b3+b2+b1+b0, 16).longValue();
 						events.get(i).effects.get(x).value = Long.toString(value);
+					} else {
+						int value = 0;
+						int tmp = new BigInteger(b1 + b0, 16).intValue();
+						if (tmp < 5000) {
+							value = Integer.decode("0X" + b1 + b0);
+						} else {
+							value = new BigInteger("FFFF" + b1 + b0, 16).intValue();
+						}
+						if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
+						} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
+						} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
+							events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
+						} else {
+							events.get(i).effects.get(x).value = Integer.toString(value);
+						}
 					}
 				}
 				stream.skip(1528l - 40l - numFound*8l);

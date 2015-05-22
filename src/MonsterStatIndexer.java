@@ -1386,17 +1386,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "BE01", 244);
 
 			// autosummon (#summon1-5)
-			doit2(sheet, "F100,6B00,8F00", 225);
-			doit2(sheet, "F100", 226, new CallbackAdapter(){
-				@Override
-				public String found(String value) {
-					return "?";
-				}
-				@Override
-				public String notFound() {
-					return null;
-				}
-			});
+			doit2(sheet, "6B00,8F00", 225);
 			doit2(sheet, "6B00", 226, new CallbackAdapter(){
 				@Override
 				public String found(String value) {
@@ -1417,7 +1407,7 @@ public class MonsterStatIndexer {
 					return null;
 				}
 			});
-			doit2(sheet, "F100,6B00,8F00", 226, new CallbackAdapter(){
+			doit2(sheet, "6B00,8F00", 226, new CallbackAdapter(){
 				@Override
 				public String found(String value) {
 					return null;
@@ -1425,7 +1415,7 @@ public class MonsterStatIndexer {
 			});
 			
 			// domsummon
-			doit2(sheet, "A101,DB00", 229);
+			doit2(sheet, "A101,DB00,F100", 229);
 			doit2(sheet, "A101", 230, new CallbackAdapter(){
 				@Override
 				public String found(String value) {
@@ -1446,7 +1436,17 @@ public class MonsterStatIndexer {
 					return null;
 				}
 			});
-			doit2(sheet, "A101,DB00", 230, new CallbackAdapter(){
+			doit2(sheet, "F100", 230, new CallbackAdapter(){
+				@Override
+				public String found(String value) {
+					return "?";
+				}
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
+			doit2(sheet, "A101,DB00,F100", 230, new CallbackAdapter(){
 				@Override
 				public String found(String value) {
 					return null;

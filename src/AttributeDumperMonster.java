@@ -131,7 +131,7 @@ public class AttributeDumperMonster {
 		"FD01", // transformation
 		"A101", // domsummon
 		"DB00", // domsummon
-		"F100", // autosummon
+		"F100", // domsummon
 		"6B00", // autosummon
 		"8F00", // autosummon
 		"AD00", // turmoil summon

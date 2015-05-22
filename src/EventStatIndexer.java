@@ -70,7 +70,7 @@ public class EventStatIndexer {
 		{"6900", "unmagic"}, 
 		{"6F00", "prod"}, 
 		{"1400", "turn"}, 
-		{"4500", "nation"}, 
+		{"4500", "fornation"}, 
 		{"1C00", "noseason"}, 
 		{"1B00", "season"}, 
 		{"2000", "noera"}, 

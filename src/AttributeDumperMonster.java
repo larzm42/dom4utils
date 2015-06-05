@@ -201,6 +201,9 @@ public class AttributeDumperMonster {
 		"9C00", // spreaddom
 		"8A01", // reform
 		"8E01", // battlesum5
+		"F101", // acidsplash
+		"F201", // drake
+		"0402", // prophetshape
 };
 
 	private static List<String> attrList = new ArrayList<String>();

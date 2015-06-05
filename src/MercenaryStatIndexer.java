@@ -282,11 +282,10 @@ public class MercenaryStatIndexer {
 			
 			// eramask
 			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.MERCENARY);
+			stream.skip(Starts.MERCENARY-2);
 			rowNumber = 1;
 			int i = 0;
 			byte[] c = new byte[1];
-			stream.skip(310);
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
@@ -310,11 +309,10 @@ public class MercenaryStatIndexer {
 
 			// level
 			stream = new FileInputStream("Dominions4.exe");			
-			stream.skip(Starts.MERCENARY);
+			stream.skip(Starts.MERCENARY-1);
 			rowNumber = 1;
 			i = 0;
 			c = new byte[1];
-			stream.skip(311);
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;

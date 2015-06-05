@@ -1895,6 +1895,15 @@ public class MonsterStatIndexer {
 
 			// battlesum5
 			doit2(sheet, "8E01", 293);
+			
+			// acidsplash
+			doit2(sheet, "F101", 294);
+			
+			// drake
+			doit2(sheet, "F201", 295);
+
+			// prophetshape
+			doit2(sheet, "0402", 296);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

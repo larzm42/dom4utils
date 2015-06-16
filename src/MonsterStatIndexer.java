@@ -1819,6 +1819,9 @@ public class MonsterStatIndexer {
 			doit2(sheet, "EA01", 280, new CallbackAdapter() {
 				@Override
 				public String found(String value) {
+					if (value.equals("10")) {
+						return "0";
+					}
 					return "1";
 				}
 			});
@@ -1827,6 +1830,9 @@ public class MonsterStatIndexer {
 			doit2(sheet, "EB01", 281, new CallbackAdapter() {
 				@Override
 				public String found(String value) {
+					if (value.equals("10")) {
+						return "0";
+					}
 					return "1";
 				}
 			});

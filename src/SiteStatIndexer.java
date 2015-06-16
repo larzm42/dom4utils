@@ -569,7 +569,7 @@ public class SiteStatIndexer {
 						pos = k;
 					}
 					if ((low + high).equals("0401")) {
-						rit += "*";
+						rit += "FAWESDNB";
 						pos = k;
 					}
 					k++;

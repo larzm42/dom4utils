@@ -20,6 +20,8 @@ public class Dom4Utils {
 		ItemStatIndexer.run();
 		SiteStatIndexer.run();
 		MonsterStatIndexer.run();
+		EventStatIndexer.run();
+		MercenaryStatIndexer.run();
 		
 		// Descriptions
 		ItemMonsterDescDumper.run();

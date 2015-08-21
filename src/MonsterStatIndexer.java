@@ -1911,6 +1911,9 @@ public class MonsterStatIndexer {
 			// prophetshape
 			doit2(sheet, "0402", 296);
 
+			// horror
+			doit2(sheet, "8701", 297);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

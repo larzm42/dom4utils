@@ -204,6 +204,7 @@ public class AttributeDumperMonster {
 		"F101", // acidsplash
 		"F201", // drake
 		"0402", // prophetshape
+		"8701", // horror
 };
 
 	private static List<String> attrList = new ArrayList<String>();

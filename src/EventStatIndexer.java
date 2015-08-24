@@ -479,7 +479,7 @@ public class EventStatIndexer {
 			gemMap.put(1, "A");
 			gemMap.put(2, "W");
 			gemMap.put(3, "E");
-			gemMap.put(4, "A");
+			gemMap.put(4, "S");
 			gemMap.put(5, "D");
 			gemMap.put(6, "N");
 			gemMap.put(7, "B");

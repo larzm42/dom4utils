@@ -1914,6 +1914,9 @@ public class MonsterStatIndexer {
 			// horror
 			doit2(sheet, "8701", 297);
 
+			// insane
+			doit2(sheet, "3501", 180);
+
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {
 				@Override

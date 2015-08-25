@@ -32,7 +32,7 @@ public class ItemMonsterDescDumper {
 		ITEM, NOTHING, UNIT
 	};
 	static Map<Integer, String> monsters = new HashMap<Integer, String>();
-	static String LAST_ITEM = "Ring of Dwarven Gold";
+	static String LAST_ITEM = "Mercybrand";
 	static String FIRST_UNIT = "Minister of Magic";
 	static String LAST_UNIT = "Phoenix";
 	static Set<Integer> blockedMonsterIds = new HashSet<Integer>();

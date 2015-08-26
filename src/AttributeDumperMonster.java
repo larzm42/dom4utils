@@ -206,6 +206,8 @@ public class AttributeDumperMonster {
 		"0402", // prophetshape
 		"8701", // horror
 		"3501", // insane
+		"D800", // sacr
+		"1002", // enchrebate50
 };
 
 	private static List<String> attrList = new ArrayList<String>();

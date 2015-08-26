@@ -1916,6 +1916,12 @@ public class MonsterStatIndexer {
 
 			// insane
 			doit2(sheet, "3501", 180);
+			
+			// sacr
+			doit2(sheet, "D800", 199);
+			
+			// enchrebate50
+			doit2(sheet, "1002", 298);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

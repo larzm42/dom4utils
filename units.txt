@@ -459,7 +459,7 @@
 459	Foul Spawn
 460	Foul Spawn
 461	Foul Spawn
-462	Ancient Manticore
+462	...
 463	Fay Boar
 464	Harbinger
 465	Arch Angel
@@ -776,7 +776,7 @@
 776	Tartarian Monstrum
 777	Tartarian Monstra
 778	Divine Mummy
-779	Divine Serpent
+779	Rams-Headed Serpent
 780	Lord of the Hunt
 781	Juggernaut
 782	Giant Spider
@@ -1412,8 +1412,8 @@
 1412	Amphiptere
 1413	Trident Lord
 1414	Trident Lord
-1415	Mermage
-1416	Mermage
+1415	Pelagian Mermage
+1416	Pelagian Mermage
 1417	Amber Clan Mage
 1418	Amber Clan Priest
 1419	Amber Clan Guard
@@ -2801,7 +2801,86 @@
 2801	Linnormr
 2802	Svartalf Mastersmith
 2803	Linnormr
-2804	Hoburg Slinger
-2805	Hoburg Spearman
-2806	Hoburg Pikeman
-2807	Hoburg Defender
+2804	Ichtyid Shaman
+2805	Ichtyid Pearl Mage
+2806	Wondrous
+2807	Pelagian Shore Fighter
+2808	Pelagian Shore Fighter
+2809	Sideraspist
+2810	Sideraspist
+2811	Pelagian Shore Commander
+2812	Pelagian Shore Commander
+2813	Pelagian Explorer
+2814	Pelagian Explorer
+2815	Mermage
+2816	Mermage
+2817	Bone Tribe Hunter
+2818	Bone Tribe Beast Hunter
+2819	Bone Tribe Head Hunter
+2820	Bone Reader
+2821	Merman Hoplite
+2822	Merman Hoplite
+2823	Pelagian Mystic
+2824	Pelagian Mystic
+2825	Merman Commander
+2826	Merman Commander
+2827	Therodian Archer
+2828	Therodian Peltast
+2829	Therodian Hoplite
+2830	Therodian Scout
+2831	Therodian Commander
+2832	Strategis
+2833	Melia
+2834	Hekateride
+2835	Kabeiros
+2836	Daktyl
+2837	Korybant
+2838	Saos
+2839	Kourete
+2840	Spectral Archer
+2841	Spectral Peltast
+2842	Spectral Hoplite
+2843	Spectral Kourete
+2844	Spectral Commander
+2845	Ephor
+2846	Spectral Philosopher
+2847	Protogenos of the Sea
+2848	Father of the Sea
+2849	Father of Monsters
+2850	Statue of the Underworld
+2851	Titan of Winds and Waves
+2852	King of Frozen Bones
+2853	Ghost King
+2854	Flame Jelly
+2855	Floating Mind
+2856	Son of the Sea
+2857	Fish
+2858	Large Fish
+2859	Witness of the Deep
+2860	Soldier of the Deep
+2861	Haliade
+2862	Shambler Guard
+2863	Champion of the Closed Realm
+2864	Champion of the Closed Realm
+2865	Conqueror of the Closed Realm
+2866	Conqueror of the Closed Realm
+2867	Daduchos
+2868	Daduchos
+2869	Apostate of the Closed Realm
+2870	Apostate of the Closed Realm
+2871	Kabeiride
+2872	Kabeiride
+2873	Telkhine
+2874	Telkhine
+2875	Queen of the City
+2876	Queen of the City
+2877	Telkhine
+2878	Telkhine
+2879	Telkhine
+2880	Telkhine
+2881	Telkhine God-King
+2882	Telkhine God-King
+2883	Hoburg Slinger
+2884	Hoburg Spearman
+2885	Hoburg Pikeman
+2886	Hoburg Defender

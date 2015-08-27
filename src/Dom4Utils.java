@@ -30,5 +30,8 @@ public class Dom4Utils {
 		// Sprites
 		ItemSpriteIndexer.run();
 		MonsterSpriteIndexer.run();
+		
+		// Names
+		NametypeIndexer.run();
 	}
 }

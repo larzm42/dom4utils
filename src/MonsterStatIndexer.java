@@ -14,9 +14,11 @@
  * along with dom4utils.  If not, see <http://www.gnu.org/licenses/>.
  */
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -2149,32 +2151,36 @@ public class MonsterStatIndexer {
 			});
 			
 			// fixedname
-//			File herosFile = new File("heroes.txt");
-//			Set<Integer> heroes = new HashSet<Integer>();
-//			File namesFile = new File("names.txt");
-//			List<String> names = new ArrayList<String>();
-//			FileReader herosFileReader = new FileReader(herosFile);
-//			FileReader namesFileReader = new FileReader(namesFile);
-//			BufferedReader bufferedReader = new BufferedReader(herosFileReader);
-//			String line;
-//			while ((line = bufferedReader.readLine()) != null) {
-//				heroes.add(Integer.parseInt(line));
-//			}
-//			bufferedReader = new BufferedReader(namesFileReader);
-//			while ((line = bufferedReader.readLine()) != null) {
-//				names.add(line);
-//			}
-//			bufferedReader.close();
-//			int nameIndex = 0;
-//			for (int row = 1; row <= Starts.MONSTER_COUNT; row++) {
-//				String unique = getAttr("1301", row);
-//				String nametype = getAttr("FB00", row);
-//				if ((heroes.contains(row) || (unique != null && !unique.equals(""))) && (nametype == null || nametype.equals(""))) {
-//					System.out.println(names.get(nameIndex++));
-//				} else {
-//					System.out.println("");
-//				}
-//			}
+			File heroesFile = new File("heroes.txt");
+			Set<Integer> heroes = new HashSet<Integer>();
+			File namesFile = new File("names.txt");
+			List<String> names = new ArrayList<String>();
+			FileReader herosFileReader = new FileReader(heroesFile);
+			FileReader namesFileReader = new FileReader(namesFile);
+			BufferedReader bufferedReader = new BufferedReader(herosFileReader);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				heroes.add(Integer.parseInt(line));
+			}
+			bufferedReader.close();
+			bufferedReader = new BufferedReader(namesFileReader);
+			while ((line = bufferedReader.readLine()) != null) {
+				names.add(line);
+			}
+			bufferedReader.close();
+			int nameIndex = 0;
+			for (int row = 1; row <= Starts.MONSTER_COUNT; row++) {
+				String unique = getAttr("1301", row);
+				if (row == 621 || row == 980 ||row == 981||row==994||row==995||row==996||row==997||
+					row==1484 || row==1485|| row==1486|| row==1487 || (row >= 2765 && row <=2781)) {
+					unique = "0";
+				}
+				if (heroes.contains(row) || (unique != null && unique.equals("1"))) {
+					System.out.println(names.get(nameIndex++));
+				} else {
+					System.out.println("");
+				}
+			}
 
 			stream = new FileInputStream("Dominions4.exe");			
 			stream.skip(Starts.MONSTER_MAGIC);

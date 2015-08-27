@@ -32,7 +32,7 @@ public class Starts {
 	public static final long NAMES = 0x096e734l;
 	public static final long FIXED_NAMES = 0x0ab38c4l;
 	
-	public static final int NAMES_COUNT = 158;
+	public static final int NAMES_COUNT = 161;
 	
 	public static final long SPELL_DESC = 0x02b3648l;
 	public static final long SPELL_DESC_INDEX = 0x02f1908l;

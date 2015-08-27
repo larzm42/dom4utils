@@ -19,10 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class NametypeIndexer {
 	
@@ -31,7 +27,6 @@ public class NametypeIndexer {
 	}
 	
 	public static void run() {
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
 		FileInputStream stream = null;
 		try {
 			stream = new FileInputStream("Dominions4.exe");
@@ -60,16 +55,37 @@ public class NametypeIndexer {
 					continue;
 				}
 				
-				List<String> list = map.get(id);
-				if (list == null) {
-					list = new ArrayList<String>();
-					map.put(id, list);
-				}
-				list.add(name.toString());
 				System.out.println(name);
 			}
 			
 			in.close();
+			
+			stream = new FileInputStream("Dominions4.exe");
+			
+			isr = new InputStreamReader(stream, "ISO-8859-1");
+	        in = new BufferedReader(isr);
+
+			System.out.println("**********Fixed Names**********");
+			stream.skip(Starts.FIXED_NAMES);
+			while ((ch = in.read()) > -1) {
+				
+				StringBuffer name = new StringBuffer();
+				while (ch != 0) {
+					name.append((char)ch);
+					ch = in.read();
+				}
+				if (name.length() == 0) {
+					continue;
+				}
+				if (name.toString().equals("Active Mods")) {
+					break;
+				}
+				
+				System.out.println(name);
+			}
+			
+			in.close();
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

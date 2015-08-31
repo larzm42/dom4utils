@@ -1924,6 +1924,18 @@ public class MonsterStatIndexer {
 			
 			// enchrebate50
 			doit2(sheet, "1002", 298);
+			
+			// leper
+			doit2(sheet, "7C00", 182);
+			
+			// resources
+			doit2(sheet, "9701", 174);
+
+			// slimer
+			doit2(sheet, "9C01", 147);
+
+			// mindslime
+			doit2(sheet, "9201", 148);
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

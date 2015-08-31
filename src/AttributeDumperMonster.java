@@ -208,6 +208,10 @@ public class AttributeDumperMonster {
 		"3501", // insane
 		"D800", // sacr
 		"1002", // enchrebate50
+		"7C00", // leper
+		"9C01", // slimer
+		"9201", // mindslime
+		"9701", // resources
 };
 
 	private static List<String> attrList = new ArrayList<String>();

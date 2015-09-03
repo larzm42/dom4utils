@@ -133,6 +133,7 @@ public class EventStatIndexer {
 		{"7800", "targmnr"}, 
 		{"4800", "preach"}, 
 		{"7900", "targorder"}, 
+		{"4700", "story"}, 
 		
 	};
 	

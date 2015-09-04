@@ -1767,7 +1767,13 @@ public class MonsterStatIndexer {
 			doit2(sheet, "FF01", 261);
 			
 			// onebattlespell
-			doit2(sheet, "D100", 262);
+			doit2(sheet, "D100", 262, new CallbackAdapter() {
+				// Hack to get Pazuzu Natural Storm 
+				@Override
+				public String notFound() {
+					return null;
+				}
+			});
 
 			// fireattuned
 			doit2(sheet, "F501", 263);									

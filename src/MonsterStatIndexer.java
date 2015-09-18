@@ -1013,7 +1013,7 @@ public class MonsterStatIndexer {
 								|| pair[0].equals("misc2")
 								) {
 						} else {
-							cell.setCellValue(0);
+							cell.setCellValue("");
 						}
 					}
 				}
@@ -1222,12 +1222,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "CD01", 104);
 
 			// stormimmune
-			doit2(sheet, "AF00", 94, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "AF00", 94);
 			
 			// regeneration
 			doit2(sheet, "BD00", 151);
@@ -1495,12 +1490,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "FB00", 219);
 			
 			// blind
-			doit2(sheet, "AB00", 134, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "AB00", 134);
 			
 			// eyes
 			doit2(sheet, "B200", 279, new CallbackAdapter() {
@@ -1535,55 +1525,25 @@ public class MonsterStatIndexer {
 			doit2(sheet, "BF00", 123);
 			
 			// reinvigoration
-			doit2(sheet, "7500", 34, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "7500", 34);
 			
 			// ambidextrous
-			doit2(sheet, "D900", 32, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "D900", 32);
 			
 			// spy
-			doit2(sheet, "D600", 102, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "D600", 102);
 			
 			// scale walls
 			doit2(sheet, "E301", 247);
 			
 			// dream seducer (succubus)
-			doit2(sheet, "D200", 106, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "D200", 106);
 			
 			// seduction
-			doit2(sheet, "2A01", 105, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "2A01", 105);
 			
 			// assassin
-			doit2(sheet, "D500", 103, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "D500", 103);
 			
 			// explode on death
 			doit2(sheet, "2901", 249);
@@ -1592,12 +1552,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "7B01", 119);
 			
 			// unique
-			doit2(sheet, "1301", 216, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "1301", 216);
 			
 			// poisoncloud
 			doit2(sheet, "6A00", 145);
@@ -1615,12 +1570,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "D700", 189);
 			
 			// sailsz
-			doit2(sheet, "7000", 98, new CallbackAdapter() {
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "7000", 98);
 			
 			// maxsailsz
 			doit2(sheet, "9A01", 99);
@@ -1643,22 +1593,13 @@ public class MonsterStatIndexer {
 				public String found(String value) {
 					return "1";
 				}
-				@Override
-				public String notFound() {
-					return "0";
-				}
 			});
 			
 			// inn
 			doit2(sheet, "4E01", 47);
 			
 			// stonebeing
-			doit2(sheet, "1801", 80, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "1801", 80);
 			
 			// shrinkhp
 			doit2(sheet, "5001", 252);
@@ -1744,12 +1685,7 @@ public class MonsterStatIndexer {
 			doit2(sheet, "AC00", 146);
 
 			// inquisitor
-			doit2(sheet, "D300", 74, new CallbackAdapter(){
-				@Override
-				public String notFound() {
-					return "0";
-				}
-			});
+			doit2(sheet, "D300", 74);
 
 			// beastmaster
 			doit2(sheet, "7101", 120);
@@ -1942,6 +1878,33 @@ public class MonsterStatIndexer {
 
 			// mindslime
 			doit2(sheet, "9201", 148);
+
+			// corrupt
+			doit2(sheet, "E000", 107, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});
+			
+			// petrify
+			doit2(sheet, "6800", 154, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});
+			
+			// eyeloss
+			doit2(sheet, "F400", 155);
+			
+			// ethtrue
+			doit2(sheet, "0401", 157, new CallbackAdapter() {
+				@Override
+				public String found(String value) {
+					return "1";
+				}
+			});			
 
 			// gemprod fire
 			doit2(sheet, "1E00", 185, new CallbackAdapter() {

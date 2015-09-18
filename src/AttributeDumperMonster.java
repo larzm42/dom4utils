@@ -212,6 +212,10 @@ public class AttributeDumperMonster {
 		"9C01", // slimer
 		"9201", // mindslime
 		"9701", // resources
+		"E000", // corrupt
+		"6800", // petrify
+		"F400", // eyeloss
+		"0401", // ethtrue
 };
 
 	private static List<String> attrList = new ArrayList<String>();

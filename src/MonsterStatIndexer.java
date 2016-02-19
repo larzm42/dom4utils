@@ -946,6 +946,7 @@ public class MonsterStatIndexer {
 						} else if (pair[0].equals("mounted")) {
 							XSSFCell footCell = row.getCell(43, Row.CREATE_NULL_AS_BLANK);
 							footCell.setCellValue(0);
+							cell.setCellValue(1);
 						} else {
 							cell.setCellValue(1);
 						}

@@ -341,9 +341,9 @@ public class MonsterSpriteIndexer {
 						if (entry.getValue().equals("mict 2")) {
 							tweak = 2;
 						}
-						if (entry.getValue().equals("mict 3")) {
-							tweak = 2;
-						}
+//						if (entry.getValue().equals("mict 3")) {
+//							tweak = 2;
+//						}
 						if (entry.getValue().equals("pelag 2")) {
 							tweak = 4;
 						}

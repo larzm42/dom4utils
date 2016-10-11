@@ -120,8 +120,8 @@ public class AttributeDumperMonster {
 		"DD00", // uwregen
 		"AA00", // patrolbonus
 		"D700", // castledef
-		"7000", // sailsz
-		"9A01", // maxsailsz
+		"7000", // sailingshipsize
+		"9A01", // sailingmaxunitsize
 		"DF00", // incunrest
 		"BC00", // barbs
 		"4E01", // inn

@@ -1570,10 +1570,10 @@ public class MonsterStatIndexer {
 			// castledef
 			doit2(sheet, "D700", 189);
 			
-			// sailsz
+			// sailingshipsize
 			doit2(sheet, "7000", 98);
 			
-			// maxsailsz
+			// sailingmaxunitsize
 			doit2(sheet, "9A01", 99);
 			
 			// incunrest
@@ -2131,6 +2131,12 @@ public class MonsterStatIndexer {
 					return null;
 				}
 			});
+			
+			// heroarrivallimit
+			doit2(sheet, "1602", 299);
+			
+			// sailsize
+			doit2(sheet, "1702", 300);
 			
 			// fixedname
 			File heroesFile = new File("heroes.txt");

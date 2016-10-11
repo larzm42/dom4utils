@@ -991,10 +991,10 @@ public class ItemStatIndexer {
 				}
 			});
 
-			// sailsz
+			// sailingshipsize
 			doit(sheet, "7000", 45);
 
-			// maxsail
+			// sailingmaxunitsize
 			doit(sheet, "9A01", 46);
 
 			// flytr

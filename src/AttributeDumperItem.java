@@ -101,8 +101,8 @@ public class AttributeDumperItem {
 		"7700", // forbidden light
 		"C701", // cannotwear
 		"C801", // cannotwear
-		"7000", // sailsz
-		"9A01", // maxsail
+		"7000", // sailingshipsize
+		"9A01", // sailingmaxunitsize
 		"7100", // flytr
 		"7F01", // protf
 		"B800", // heretic

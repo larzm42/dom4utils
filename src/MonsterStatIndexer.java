@@ -2138,6 +2138,12 @@ public class MonsterStatIndexer {
 			// sailsize
 			doit2(sheet, "1702", 300);
 			
+			// uwdamage
+			doit2(sheet, "0201", 301);
+			
+			// landdamage
+			doit2(sheet, "0E02", 302);
+			
 			// fixedname
 			File heroesFile = new File("heroes.txt");
 			Set<Integer> heroes = new HashSet<Integer>();

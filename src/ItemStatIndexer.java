@@ -907,9 +907,12 @@ public class ItemStatIndexer {
 			// aging
 			doit(sheet, "2F01", 145);
 
+			// crossbreeder
+			doit(sheet, "AF01", 125);
+
 			// ivylord
 			doit(sheet, "6500", 126);
-
+			
 			// forest
 			doit(sheet, "A601", 39);
 
@@ -1070,6 +1073,12 @@ public class ItemStatIndexer {
 			
 			// reanimation bonus death
 			doit(sheet, "6D01", 155);
+			
+			// dragon mastery
+			doit(sheet, "0E01", 156);
+			
+			// patience
+			doit(sheet, "CD01", 158);
 			
 			// restricted
 			stream = new FileInputStream("Dominions4.exe");			

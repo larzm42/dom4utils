@@ -131,6 +131,9 @@ public class AttributeDumperItem {
 		"2500", // gb
 		"6C01", // reanimation bonus priest
 		"6D01", // reanimation bonus death
+		"0E01", // dragon mastery
+		"AF01", // crossbreeder
+		"CD01", // patience
 };
 
 	private static List<String> attrList = new ArrayList<String>();

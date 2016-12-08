@@ -216,6 +216,11 @@ public class AttributeDumperMonster {
 		"6800", // petrify
 		"F400", // eyeloss
 		"0401", // ethtrue
+		"1602", // heroarrivallimit
+		"1702", // sailsize
+		"0201", // uwdamage
+		"0E02", // landdamage
+
 };
 
 	private static List<String> attrList = new ArrayList<String>();

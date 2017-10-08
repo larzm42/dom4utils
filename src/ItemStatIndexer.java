@@ -159,7 +159,7 @@ public class ItemStatIndexer {
 				//System.out.println("");
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (found) {
 					if (callback == null) {
 						cell.setCellValue(value);
@@ -282,10 +282,10 @@ public class ItemStatIndexer {
 				//System.out.println(name);
 				
 				XSSFRow row = sheet.getRow(rowNumber);
-				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell1 = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 			}
 			in.close();
@@ -301,7 +301,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(3, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -328,7 +328,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -354,7 +354,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -380,7 +380,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(6, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -406,7 +406,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(7, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1 || c[0] == 0) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -432,7 +432,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 2)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(8, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				String high = String.format("%02X", c[1]);
 				String low = String.format("%02X", c[0]);
 				int weapon = Integer.decode("0X" + high + low);
@@ -461,7 +461,7 @@ public class ItemStatIndexer {
 			while ((stream.read(c, 0, 2)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(9, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				String high = String.format("%02X", c[1]);
 				String low = String.format("%02X", c[0]);
 				int weapon = Integer.decode("0X" + high + low);
@@ -507,7 +507,7 @@ public class ItemStatIndexer {
 				//System.out.println(name);
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(130, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(130, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 				i++;
 				if (i >= Starts.ITEM_COUNT) {
@@ -550,9 +550,9 @@ public class ItemStatIndexer {
 				//System.out.println(name);
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
-				XSSFCell blankcell = row.getCell(blankCol, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell blankcell = row.getCell(blankCol, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				blankcell.setCellValue("");
 				i++;
 				if (i >= Starts.ITEM_COUNT) {
@@ -1110,7 +1110,7 @@ public class ItemStatIndexer {
 							//System.out.print(i+1 + "\t" + fire);
 							//System.out.println("");
 							XSSFRow row = sheet.getRow(i+1);
-							XSSFCell cell = row.getCell(142+numRealms, Row.CREATE_NULL_AS_BLANK);							
+							XSSFCell cell = row.getCell(142+numRealms, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);							
 							cell.setCellValue(fire-100);
 							numRealms++;
 						}
@@ -1145,7 +1145,7 @@ public class ItemStatIndexer {
 				for (boolean found : boolArray) {
 					XSSFRow row = sheet.getRow(rowNumber);
 					rowNumber++;
-					XSSFCell cell = row.getCell(Integer.parseInt(pair[1]), Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell = row.getCell(Integer.parseInt(pair[1]), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					if (found) {
 						if (pair[0].equals("airshield")) {
 							cell.setCellValue(80);

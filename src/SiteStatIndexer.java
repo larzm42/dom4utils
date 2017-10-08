@@ -84,10 +84,10 @@ public class SiteStatIndexer {
 				int ind = 0;
 				for (Integer mon : values) {
 					if (ind == 0) {
-						XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 					} else {
-						XSSFCell cell = row.getCell(column2, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(column2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 					}
 					ind++;
@@ -154,7 +154,7 @@ public class SiteStatIndexer {
 				//System.out.println("");
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (found) {
 					if (callback == null) {
 						cell.setCellValue(value);
@@ -231,10 +231,10 @@ public class SiteStatIndexer {
 
 				//System.out.println(name);
 				XSSFRow row = sheet.getRow(rowNumber);
-				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell1 = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 			}
 			in.close();
@@ -250,7 +250,7 @@ public class SiteStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(2, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1 || c[0] == 0) {
 					//System.out.println("0");
 					cell.setCellValue("0");
@@ -279,7 +279,7 @@ public class SiteStatIndexer {
 				//System.out.println(Integer.decode("0X" + high + low));
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(3, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(Integer.decode("0X" + high + low));
 				stream.skip(142l);
 				i++;
@@ -301,7 +301,7 @@ public class SiteStatIndexer {
 				//System.out.println(Integer.decode("0X" + high));
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(Integer.decode("0X" + high));
 				stream.skip(143l);
 				i++;
@@ -322,7 +322,7 @@ public class SiteStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (c[0] == -1) {
 					//System.out.println("");
 					cell.setCellValue("");
@@ -450,11 +450,11 @@ public class SiteStatIndexer {
 					XSSFRow row = sheet.getRow(rowNumber);
 					rowNumber++;
 					if (value[0].length() > 0) {
-						XSSFCell cell = row.getCell(21, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(21, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(value[0]);
 					}
 					if (value[1].length() > 0) {
-						XSSFCell cell = row.getCell(22, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(value[1]);
 					}
 					stream.skip(142l - 32l - numFound*4l);
@@ -518,8 +518,8 @@ public class SiteStatIndexer {
 					//System.out.println("");
 					XSSFRow row = sheet.getRow(rowNumber);
 					rowNumber++;
-					XSSFCell cell1 = row.getCell(41, Row.CREATE_NULL_AS_BLANK);
-					XSSFCell cell2 = row.getCell(42, Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell1 = row.getCell(41, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+					XSSFCell cell2 = row.getCell(42, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					if (found) {
 						cell1.setCellValue(rit);
 						cell2.setCellValue(value);
@@ -622,7 +622,7 @@ public class SiteStatIndexer {
 					rowNumber++;
 					int ind = 0;
 					for (Integer mon : values) {
-						XSSFCell cell = row.getCell(43+ind, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(43+ind, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 						ind++;
 					}
@@ -686,7 +686,7 @@ public class SiteStatIndexer {
 					rowNumber++;
 					int ind = 0;
 					for (Integer mon : values) {
-						XSSFCell cell = row.getCell(73+ind, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(73+ind, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 						ind++;
 					}
@@ -750,7 +750,7 @@ public class SiteStatIndexer {
 					rowNumber++;
 					int ind = 0;
 					for (Integer mon : values) {
-						XSSFCell cell = row.getCell(78+ind, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(78+ind, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 						ind++;
 					}
@@ -814,7 +814,7 @@ public class SiteStatIndexer {
 					rowNumber++;
 					int ind = 0;
 					for (Integer mon : values) {
-						XSSFCell cell = row.getCell(83+ind, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(83+ind, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 						ind++;
 					}
@@ -878,7 +878,7 @@ public class SiteStatIndexer {
 					rowNumber++;
 					int ind = 0;
 					for (Integer mon : values) {
-						XSSFCell cell = row.getCell(89+ind, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell = row.getCell(89+ind, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell.setCellValue(mon);
 						ind++;
 					}
@@ -1072,31 +1072,31 @@ public class SiteStatIndexer {
 					//String sum = "";
 					if (sum1 > 0) {
 						//sum += sum1 + "\t" + sum1count;
-						XSSFCell cell1 = row.getCell(49, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell1 = row.getCell(49, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell1.setCellValue(sum1);
-						XSSFCell cell2 = row.getCell(50, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell2 = row.getCell(50, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell2.setCellValue(sum1count);
 
 					}
 					if (sum2 > 0) {
 						//sum += "\t" + sum2 + "\t" + sum2count;
-						XSSFCell cell1 = row.getCell(51, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell1 = row.getCell(51, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell1.setCellValue(sum2);
-						XSSFCell cell2 = row.getCell(52, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell2 = row.getCell(52, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell2.setCellValue(sum2count);
 					}
 					if (sum3 > 0) {
 						//sum += "\t" + sum3 + "\t" + sum3count;
-						XSSFCell cell1 = row.getCell(53, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell1 = row.getCell(53, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell1.setCellValue(sum3);
-						XSSFCell cell2 = row.getCell(54, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell2 = row.getCell(54, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell2.setCellValue(sum3count);
 					}
 					if (sum4 > 0) {
 						//sum += "\t" + sum3 + "\t" + sum3count;
-						XSSFCell cell1 = row.getCell(71, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell1 = row.getCell(71, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell1.setCellValue(sum4);
-						XSSFCell cell2 = row.getCell(72, Row.CREATE_NULL_AS_BLANK);
+						XSSFCell cell2 = row.getCell(72, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 						cell2.setCellValue(sum4count);
 					}
 					//System.out.println(sum);

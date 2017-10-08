@@ -221,7 +221,7 @@ public class MonsterStatIndexer {
 			String low = String.format("%02X", c[0]);
 			XSSFRow row = sheet.getRow(rowNumber);
 			rowNumber++;
-			XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+			XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			int value = Integer.decode("0X" + high + low);
 			if (callback != null) {
 				cell.setCellValue(callback.found(Integer.toString(value)));
@@ -465,7 +465,7 @@ public class MonsterStatIndexer {
 				//System.out.println("");
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if (found) {
 					if (callback == null) {
 						if (append) {
@@ -574,10 +574,10 @@ public class MonsterStatIndexer {
 				//System.out.println(name);
 
 				XSSFRow row = sheet.getRow(rowNumber);
-				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell1 = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 			}
 			in.close();
@@ -754,7 +754,7 @@ public class MonsterStatIndexer {
 				//System.out.println(Integer.decode("0X" + high + low));
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(18, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(18, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				int tmp = new BigInteger(high + low, 16).intValue();
 				if (tmp < 1000) {
 					cell.setCellValue(Integer.decode("0X" + high + low));
@@ -828,7 +828,7 @@ public class MonsterStatIndexer {
 				for (boolean found : boolArray) {
 					XSSFRow row = sheet.getRow(rowNumber);
 					rowNumber++;
-					XSSFCell cell = row.getCell(Integer.parseInt(pair[1]), Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell = row.getCell(Integer.parseInt(pair[1]), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					if (found) {
 						if (pair[0].equals("slow_to_recruit")) {
 							cell.setCellValue(2);
@@ -869,7 +869,7 @@ public class MonsterStatIndexer {
 							cell.setCellValue(15 + Integer.parseInt(additional.equals("")?"0":additional));
 						} else if (pair[0].equals("noleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
-							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							baseLeaderCell.setCellValue("0");
 							if (!"".equals(additional)) {
 								cell.setCellValue(additional);
@@ -878,7 +878,7 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("poorleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
-							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							baseLeaderCell.setCellValue("10");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(10+Integer.parseInt(additional)));
@@ -887,7 +887,7 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("goodleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
-							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							baseLeaderCell.setCellValue("80");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(80+Integer.parseInt(additional)));
@@ -896,7 +896,7 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("expertleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
-							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							baseLeaderCell.setCellValue("120");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(120+Integer.parseInt(additional)));
@@ -905,7 +905,7 @@ public class MonsterStatIndexer {
 							}
 						} else if (pair[0].equals("superiorleader")) {
 							String additional = getAttr("9D00", rowNumber-1);
-							XSSFCell baseLeaderCell = row.getCell(248, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell baseLeaderCell = row.getCell(248, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							baseLeaderCell.setCellValue("160");
 							if (!"".equals(additional)) {
 								cell.setCellValue(Integer.toString(160+Integer.parseInt(additional)));
@@ -933,18 +933,18 @@ public class MonsterStatIndexer {
 						} else if (pair[0].equals("superiorundeadleader")) {
 							cell.setCellValue("160");
 						} else if (pair[0].equals("misc2")) {
-							XSSFCell handCell = row.getCell(40, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell handCell = row.getCell(40, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							handCell.setCellValue(0);
-							XSSFCell headCell = row.getCell(41, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell headCell = row.getCell(41, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							headCell.setCellValue(0);
-							XSSFCell bodyCell = row.getCell(42, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell bodyCell = row.getCell(42, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							bodyCell.setCellValue(0);
-							XSSFCell footCell = row.getCell(43, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell footCell = row.getCell(43, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							footCell.setCellValue(0);
-							XSSFCell miscCell = row.getCell(44, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell miscCell = row.getCell(44, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							miscCell.setCellValue(2);
 						} else if (pair[0].equals("mounted")) {
-							XSSFCell footCell = row.getCell(43, Row.CREATE_NULL_AS_BLANK);
+							XSSFCell footCell = row.getCell(43, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							footCell.setCellValue(0);
 							cell.setCellValue(1);
 						} else {
@@ -1192,7 +1192,7 @@ public class MonsterStatIndexer {
 							//System.out.print(i+1 + "\t" + fire);
 							//System.out.println("");
 							XSSFRow row = sheet.getRow(i+1);
-							XSSFCell cell = row.getCell(233+numRealms, Row.CREATE_NULL_AS_BLANK);							
+							XSSFCell cell = row.getCell(233+numRealms, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);							
 							cell.setCellValue(fire);
 							numRealms++;
 						}
@@ -2310,36 +2310,36 @@ public class MonsterStatIndexer {
 				Magic monMagic = monsterMagic.get(j);
 				if (monMagic != null) {
 					XSSFRow row = sheet.getRow(j);
-					XSSFCell cell = row.getCell(48, Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell = row.getCell(48, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.F));
-					cell = row.getCell(49, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(49, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.A));
-					cell = row.getCell(50, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(50, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.W));
-					cell = row.getCell(51, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(51, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.E));
-					cell = row.getCell(52, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(52, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.S));
-					cell = row.getCell(53, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(53, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.D));
-					cell = row.getCell(54, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(54, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.N));
-					cell = row.getCell(55, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(55, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.B));
-					cell = row.getCell(56, Row.CREATE_NULL_AS_BLANK);
+					cell = row.getCell(56, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(magicStrip(monMagic.H));
 					//System.out.print(magout(monMagic.F) + magout(monMagic.A ) + magout(monMagic.W) + magout(monMagic.E) + magout(monMagic.S) + magout(monMagic.D) + magout(monMagic.N) + magout(monMagic.B) + magout(monMagic.H));
 					
 					if (monMagic.rand != null) {
 						int count = 0;
 						for (RandomMagic ranMag : monMagic.rand) {
-							cell = row.getCell(57 + count*4, Row.CREATE_NULL_AS_BLANK);
+							cell = row.getCell(57 + count*4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							cell.setCellValue(magicStrip(ranMag.rand));
-							cell = row.getCell(58 + count*4, Row.CREATE_NULL_AS_BLANK);
+							cell = row.getCell(58 + count*4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							cell.setCellValue(magicStrip(ranMag.nbr));
-							cell = row.getCell(59 + count*4, Row.CREATE_NULL_AS_BLANK);
+							cell = row.getCell(59 + count*4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							cell.setCellValue(magicStrip(ranMag.link));
-							cell = row.getCell(60 + count*4, Row.CREATE_NULL_AS_BLANK);
+							cell = row.getCell(60 + count*4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 							cell.setCellValue(magicStrip(ranMag.mask));
 							count++;
 							//System.out.print(ranMag.rand + "\t" + ranMag.nbr + "\t" + ranMag.link + "\t" + ranMag.mask + "\t");

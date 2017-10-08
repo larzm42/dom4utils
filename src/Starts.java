@@ -15,30 +15,30 @@
  */
 
 public class Starts {
-	public static final long ITEM = 0x00c6cab8l;
+	public static final long ITEM = 0x00c6db50l;
 	public static final int ITEM_COUNT = 391;
 	
-	public static final long MONSTER = 0x0cd1740l;
-	public static final long MONSTER_MAGIC = 0x0fe3478l;
-	public static final long ITEM_AND_MONSTER_DESC = 0x01a6478l;
-	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x02b9fc8l;
+	public static final long MONSTER = 0x00cd2850l;
+	public static final long MONSTER_MAGIC = 0x00fe45e8l;
+	public static final long ITEM_AND_MONSTER_DESC = 0x001a71c8l;
+	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x002bad28l;
 	public static final int MONSTER_COUNT = 2936;
 	
 	public static final long MONSTER_TRS_INDEX = 0x001707cl;
 	
-	public static final long SITE = 0x0f0a118l;
+	public static final long SITE = 0x00f0b288l;
 	public static final int SITE_COUNT = 1052;
 	
-	public static final long NAMES = 0x0b03c4cl;
-	public static final long FIXED_NAMES = 0x0c48de4l;
+	public static final long NAMES = 0x00b049acl;
+	public static final long FIXED_NAMES = 0x00c49b94l;
 	
 	public static final int NAMES_COUNT = 161;
 	
-	public static final long SPELL_DESC = 0x02c5b48l;
-	public static final long SPELL_DESC_INDEX = 0x0304278l;
+	public static final long SPELL_DESC = 0x002c68a8l;
+	public static final long SPELL_DESC_INDEX = 0x00304fd8l;
 
-	public static final long EVENT = 0x030a068l;
+	public static final long EVENT = 0x0030adc8l;
 	
-	public static final long MERCENARY = 0x0cb5d32l;
+	public static final long MERCENARY = 0x00cb6dcal;
 	public static final int MERCENARY_COUNT = 68;
 }

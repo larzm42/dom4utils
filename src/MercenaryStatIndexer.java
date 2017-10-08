@@ -43,7 +43,7 @@ public class MercenaryStatIndexer {
 		while ((stream.read(c, 0, 2)) != -1) {
 			XSSFRow row = sheet.getRow(rowNumber);
 			rowNumber++;
-			XSSFCell cell = row.getCell(column, Row.CREATE_NULL_AS_BLANK);
+			XSSFCell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			String high = String.format("%02X", c[1]);
 			String low = String.format("%02X", c[0]);
 			int value = Integer.decode("0X" + high + low);
@@ -120,10 +120,10 @@ public class MercenaryStatIndexer {
 				//System.out.println(name);
 				
 				XSSFRow row = sheet.getRow(rowNumber);
-				XSSFCell cell1 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell1 = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell1.setCellValue(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 			}
 			in.close();
@@ -164,7 +164,7 @@ public class MercenaryStatIndexer {
 				
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(2, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cell.setCellValue(name.toString());
 				
 				if (rowNumber > Starts.MERCENARY_COUNT) {
@@ -228,7 +228,7 @@ public class MercenaryStatIndexer {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
 				if (name.length() != 0) {
-					XSSFCell cell = row.getCell(12, Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell = row.getCell(12, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(name.toString());
 				}
 				
@@ -269,7 +269,7 @@ public class MercenaryStatIndexer {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
 				if (name.length() != 0) {
-					XSSFCell cell = row.getCell(13, Row.CREATE_NULL_AS_BLANK);
+					XSSFCell cell = row.getCell(13, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 					cell.setCellValue(name.toString());
 				}
 				
@@ -289,7 +289,7 @@ public class MercenaryStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(14, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				String low = String.format("%02X", c[0]);
 				int weapon = Integer.decode("0X00" + low);
 				if (weapon == 0) {
@@ -316,7 +316,7 @@ public class MercenaryStatIndexer {
 			while ((stream.read(c, 0, 1)) != -1) {
 				XSSFRow row = sheet.getRow(rowNumber);
 				rowNumber++;
-				XSSFCell cell = row.getCell(6, Row.CREATE_NULL_AS_BLANK);
+				XSSFCell cell = row.getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				String low = String.format("%02X", c[0]);
 				int weapon = Integer.decode("0X00" + low);
 				if (weapon == 0) {
